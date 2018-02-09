@@ -21,7 +21,7 @@ serv.listen(process.env.PORT || 2000);
 console.log("Server started.");
 
  // binds the serv object we created to socket.io
-var io = require('socket.io')(serv,{});
+var io = require('socket.io').listen(serv,{});
 
 // listen for a connection request from any client
 io.sockets.on('connection', function(socket){
