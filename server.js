@@ -15,6 +15,7 @@ app.get('/',function(req, res) {
 //Under ‘/client’. See for more details below
 
 app.use('/client',express.static(__dirname + '/client'));
+app.use('/assets',express.static(__dirname + '/client/assets'));
 
 //listen on port 2000
 serv.listen(process.env.PORT || 2000);
