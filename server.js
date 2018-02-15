@@ -16,6 +16,7 @@ var serv = require('http').Server(app); //Server-11
 
 app.use('/client',express.static(__dirname + '/client'));
 app.use('/assets',express.static(__dirname + '/client/assets'));
+app.use('/socket.io',express.static(__dirname + '/node_modules/socket.io'));
 
 app.get('/',function(req,res){
     res.sendFile(__dirname+'/index.html');
