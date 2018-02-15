@@ -1,4 +1,4 @@
-/*Amber Darby 2018, came up with sun->moon idea*/
+/*My Girlfriend (2018), came up with sun->moon idea*/
 
 function moonCreate(x, y, alpha)
 {
