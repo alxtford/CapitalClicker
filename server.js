@@ -7,9 +7,9 @@ var serv = require('http').Server(app); //Server-11
 
 //send a index.html file when a get request is fired to the given
 //route, which is ‘/’ in this case
-app.get('/',function(req, res) {
-	res.sendFile(__dirname + '/client/index.html');
-});
+// app.get('/',function(req, res) {
+// 	res.sendFile(__dirname + '/client/index.html');
+// });
 //this means when a get request is made to ‘/client’, put all the
 //static files inside the client folder
 //Under ‘/client’. See for more details below
