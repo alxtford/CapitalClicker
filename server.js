@@ -19,6 +19,7 @@ app.use('/assets',express.static(__dirname + '/client/assets'));
 
 app.get('/',function(req,res){
     res.sendFile(__dirname+'/index.html');
+	});
 
 //listen on port 2000
 serv.listen(process.env.PORT || 2000);
