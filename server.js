@@ -16,7 +16,7 @@ var serv = require('http').Server(app); //Server-11
 
 app.use('/client',express.static(__dirname + '/client'));
 app.use('/assets',express.static(__dirname + '/client/assets'));
-app.use('/socket.io',express.static(__dirname + '/node_modules/socket.io'));
+//app.use('/socket.io',express.static(__dirname + '/node_modules/socket.io'));
 
 app.get('/',function(req,res){
     res.sendFile(__dirname+'/index.html');
@@ -27,7 +27,7 @@ serv.listen(process.env.PORT || 2000);
 console.log("Server started.");
 
  // binds the serv object we created to socket.io
-var io = require('socket.io').listen(serv,{});
+var io = require('socket.io')(serv);
 
 // listen for a connection request from any client
 io.sockets.on('connection', function(socket){
