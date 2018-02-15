@@ -2,9 +2,10 @@
   "name": "capitalclicker",
   "version": "1.0.0",
   "description": "Disseration 17/18",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -12,7 +13,10 @@
   },
   "keywords": [
     "node",
-    "phaser"
+    "phaser",
+    "game",
+    "Node.js",
+    "socket.io"
   ],
   "author": "alxtford",
   "license": "ISC",
