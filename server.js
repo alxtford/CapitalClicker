@@ -3,7 +3,7 @@ var express = require('express');
 //assign it to variable app
 var app = express();
 //create a server and pass in app as a request handler
-var serv = require('http').Server(app); //Server-11
+var serv = require('http').createServer(app); //Server-11
 
 //send a index.html file when a get request is fired to the given
 //route, which is ‘/’ in this case
