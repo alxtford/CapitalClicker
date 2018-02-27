@@ -2,6 +2,16 @@
 var socket; // define a global variable called socket
 socket = io.connect(); // send a connection request to the server
 
+WebFontConfig = {
+
+  google: {
+    families:["VT323"]
+  }
+};
+
+var style = {font: "28px VT323", fill: "#fff", tabs: 150};
+
+
 var canvas_width = 800;
 var canvas_height = 600;
 var scale = 1;
@@ -22,6 +32,9 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.CANVAS,
   var moonSprite;
   var daySpeed = 2000;
 
+  var currencyText;
+  var currency = 0;
+
   function init(){
     this.game.stage.smoothed = false;
     this.game.stage.minWidth = clientGame.canvas_width;
@@ -37,6 +50,7 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.CANVAS,
   function preload() {
     this.load.image("background", "assets/background.png");
     this.load.spritesheet("sunMoon", "assets/sunmoon.png", 32, 32);
+    this.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
 
     localTime = new Date();
   }
@@ -58,18 +72,36 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.CANVAS,
     bgSprite = backgroundLayer.create(0,0, "background");
     bgSprite.height = clientGame.height;
     bgSprite.width = clientGame.width;
-
+    bgSprite.inputEnabled = true;
+    bgSprite.events.onInputDown.add(bgListener, this);
 
     var localHours = localTime.getHours();
 
     skySet(localHours);
+    createText();
 
   }
 
 
 function update() {
+  updateText();
 }
 
+function createText(){
+  console.log("Text Created");
+  currencyText = clientGame.add.text(32,64, "Score: 0", style);
+  currencyText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+  return currencyText;
+}
+
+function updateText(){
+  //console.log("Text Updated")
+  currencyText.setText("Score: "+ currency);
+}
+
+function bgListener(){
+  currency++;
+}
 
 function dayNight (){
   console.log("DayNight");
