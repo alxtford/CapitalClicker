@@ -5,6 +5,10 @@ var app = express();
 //create a server and pass in app as a request handler
 var serv = require('http').createServer(app); //Server-11
 
+//var Cloudant = require('@cloudant/cloudant');
+
+
+
 //send a index.html file when a get request is fired to the given
 //route, which is ‘/’ in this case
 // app.get('/',function(req, res) {

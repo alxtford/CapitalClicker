@@ -28,12 +28,15 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.CANVAS,
   };
 
   var localTime;
+  var lastActive;
   var sunSprite;
   var moonSprite;
   var daySpeed = 2000;
 
   var currencyText;
   var currency = 0;
+
+  var activeTimeText;
 
   function init(){
     this.game.stage.smoothed = false;
@@ -77,8 +80,11 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.CANVAS,
 
     var localHours = localTime.getHours();
 
+    lastActive= localTime.getTime();
     skySet(localHours);
     createText();
+
+
 
   }
 
@@ -91,7 +97,9 @@ function createText(){
   console.log("Text Created");
   currencyText = clientGame.add.text(32,64, "Score: 0", style);
   currencyText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
-  return currencyText;
+  activeTimeText = clientGame.add.text(32,96, "Current Time =" + lastActive, style);
+
+  // return currencyText;
 }
 
 function updateText(){
