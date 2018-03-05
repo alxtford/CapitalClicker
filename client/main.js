@@ -70,6 +70,8 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.CANVAS,
 
     groundLayer = clientGame.add.group();
 
+    uiLayer= clientGame.add.group();
+
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
     bgSprite = backgroundLayer.create(0,0, "background");
