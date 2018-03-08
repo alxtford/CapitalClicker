@@ -1,0 +1,3 @@
+[submodule "EZGUI"]
+	path = EZGUI
+	url = https://github.com/Ezelia/EZGUI
