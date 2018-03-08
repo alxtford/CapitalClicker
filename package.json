@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall":"git submodule update --remote --recursive",
     "start": "node server.js"
   },
   "repository": {
@@ -27,6 +28,6 @@
   "dependencies": {
     "@cloudant/cloudant": "^2.0.2",
     "express": "^4.16.2",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
   }
 }
