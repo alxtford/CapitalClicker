@@ -17,7 +17,7 @@ var canvas_height = 600;
 var scale = 1;
 
 //make a phaser game
-clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.CANVAS,
+clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
   'gameDiv', {init: init, preload: preload, create:create, update: update});
 
   var gameProperties = {
@@ -37,6 +37,9 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.CANVAS,
   var currency = 0;
 
   var activeTimeText;
+
+  var crtFilter;
+  var crtScreen;
 
   function init(){
     this.game.stage.smoothed = false;
@@ -67,10 +70,9 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.CANVAS,
 
     spacelayer = clientGame.add.group();
     backgroundLayer = clientGame.add.group();
-
     groundLayer = clientGame.add.group();
-
     uiLayer= clientGame.add.group();
+    shaderLayer = clientGame.add.group();
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -87,12 +89,21 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.CANVAS,
     createText();
 
 
+    crtFilter = new Phaser.Filter(clientGame, null, CRTFragmentSrc);
+    crtFilter.setResolution(canvas_width, canvas_height);
 
+    crtScreen = this.add.sprite();
+    crtScreen.width = canvas_width;
+    crtScreen.height = canvas_height;
+    crtScreen.filters = [ crtFilter ];
+    //console.log(crtScreen.filters);
   }
 
 
 function update() {
   updateText();
+  crtFilter.update();
+  crtScreen.moveUp();
 }
 
 function createText(){
