@@ -117,7 +117,7 @@ function createText(){
   console.log("Text Created");
   currencyText = clientGame.add.text(32,64, "Score: 0", style);
   currencyText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
-  activeTimeText = clientGame.add.text(32,96, "Current Time: " + localTime.toDateString(), style);
+  activeTimeText = clientGame.add.text(32,96, ("Current Time: " + localTime.toDateString()), style);
   activeTimeText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
 
   // return currencyText;
