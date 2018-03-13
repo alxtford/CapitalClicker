@@ -136,7 +136,7 @@ function clickListener(){
   click = clickmarker.animations.add("click");
   clickmarker.x = clientGame.input.activePointer.x - 32;
   clickmarker.y = clientGame.input.activePointer.y - 32;
-  clickmarker.animations.play("click", 30, false, true);
+  clickmarker.animations.play("click", 20, false, true);
   //clickmarker.destroy();
 }
 

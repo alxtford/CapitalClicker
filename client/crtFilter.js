@@ -25,7 +25,7 @@ var CRTFragmentSrc = [
 "{",
 "float scanline 	= clamp( 0.95 + 0.05 * cos( 3.14 * ( uv.y + 0.008 * time ) * 240.0 * 1.0 ), 0.0, 1.0 );",
 "float grille 	= 0.85 + 0.15 * clamp( 1.5 * cos( 3.14 * uv.x * 640.0 * 1.0 ), 0.0, 1.0 );",
-"color.xyz *= scanline * grille * 1.2;",
+"color.xyz *= scanline * grille * 1.0;",
 "}",
 
 "void mainImage( out vec4 fragColor, in vec2 fragCoord )",
