@@ -38,6 +38,9 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
 
   var activeTimeText;
 
+  var clickmarker;
+  var click;
+
   var crtFilter;
   var crtScreen;
 
@@ -56,6 +59,7 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
   function preload() {
     this.load.image("background", "assets/background.png");
     this.load.spritesheet("sunMoon", "assets/sunmoon.png", 32, 32);
+    this.load.spritesheet("clickmarker", "assets/clickmarker.png", 16, 16);
     this.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
 
     localTime = new Date();
@@ -80,7 +84,10 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
     bgSprite.height = clientGame.height;
     bgSprite.width = clientGame.width;
     bgSprite.inputEnabled = true;
-    bgSprite.events.onInputDown.add(bgListener, this);
+    //bgSprite.events.onInputDown.add(bgListener, this);
+
+    clientGame.input.onDown.add(clickListener, this);
+
 
     var localHours = localTime.getHours();
 
@@ -121,8 +128,16 @@ function updateText(){
   currencyText.setText("Score: "+ currency);
 }
 
-function bgListener(){
+function clickListener(){
   currency++;
+
+  clickmarker = uiLayer.create(0,0,"clickmarker");
+  clickmarker.scale.setTo(4);
+  click = clickmarker.animations.add("click");
+  clickmarker.x = clientGame.input.activePointer.x - 32;
+  clickmarker.y = clientGame.input.activePointer.y - 32;
+  clickmarker.animations.play("click", 30, false, true);
+  //clickmarker.destroy();
 }
 
 function dayNight (){
