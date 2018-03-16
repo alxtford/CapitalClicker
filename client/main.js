@@ -31,6 +31,10 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
   var lastActive;
   var sunSprite;
   var moonSprite;
+
+  var ground;
+  var groundSway;
+
   var daySpeed = 2000;
 
   var currencyText;
@@ -58,6 +62,7 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
 
   function preload() {
     this.load.image("background", "assets/background.png");
+    this.load.spritesheet("ground", "assets/ground.png", 80, 10);
     this.load.spritesheet("sunMoon", "assets/sunmoon.png", 32, 32);
     this.load.spritesheet("clickmarker", "assets/clickmarker.png", 16, 16);
     this.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
@@ -75,7 +80,7 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
     spacelayer = clientGame.add.group();
     backgroundLayer = clientGame.add.group();
     groundLayer = clientGame.add.group();
-    uiLayer= clientGame.add.group();
+    uiLayer = clientGame.add.group();
     shaderLayer = clientGame.add.group();
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -85,6 +90,11 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
     bgSprite.width = clientGame.width;
     bgSprite.inputEnabled = true;
     //bgSprite.events.onInputDown.add(bgListener, this);
+
+    ground = groundLayer.create(0, 500, "ground");
+    ground.scale.setTo(10);
+    wind = ground.animations.add("wind");
+    ground.animations.play("wind", 1, true);
 
     clientGame.input.onDown.add(clickListener, this);
 
