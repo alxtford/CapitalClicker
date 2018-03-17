@@ -218,6 +218,9 @@ function menubuttonClickUp(){
   menuTween.start();
   menubutton.visible = false;
   menubuttonText.visible = false;
+
+  var currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:320}, 1000,Phaser.Easing.Bounce.Out, false);
+  currencyTotalTextTween.start();
 }
 
 function menuexitbuttonCreate(){
@@ -237,6 +240,8 @@ function OnmenuexitbuttonClickDown(){
 function OnmenuexitbuttonClickUp(){
   console.log("MOUSE UP non-menu Item");
   var menuTween = clientGame.add.tween(menuback).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
+  var currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
+  currencyTotalTextTween.start();
   menubutton.visible = true;
   menubuttonText.visible = true;
   menuexitbutton.visible = false
