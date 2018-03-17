@@ -62,11 +62,9 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
 
   function init(){
     this.game.stage.smoothed = false;
-    this.game.stage.minWidth = clientGame.canvas_width;
-    this.game.stage.minHeight = clientGame.canvas_height;
-    this.game.stage.maxWidth = clientGame.canvas_width * clientGame.scale;
-    this.game.stage.maxHeight = clientGame.canvas_height * clientGame.scale;
+    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
     this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.game.scale.setMinMax(400, 300, 1200, 900);
     this.scale.pageAlignHorizontally = true;
     this.scale.pageAlignVertically = true;
     this.game.canvas.oncontextmenu = function(e){e.preventDefault();};
