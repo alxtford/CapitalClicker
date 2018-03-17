@@ -172,6 +172,9 @@ function clickListener(){
   if (currencyLocal = 2)
   {
     fadeScreen.alpha = 0;
+    clickText.autoCull = true;
+    clickText.outOfCameraBoundsKill  = true;
+    clickText.y = 1000;
     clickText.destroy();
   }
 
