@@ -112,9 +112,12 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
 
     //fadeScreen = new Phaser.Rectangle(0,0, 800, 600);
     fadeScreen = clientGame.add.graphics(0,0);
+    fadeScreen.inputEnabled = true;
+
     fadeScreen.beginFill(0x000000);
     fadeScreen.drawRect(0,0, 800, 600 );
     fadeScreen.endFill();
+
 
     createStartText();
 
@@ -148,10 +151,6 @@ function createText(){
   activeTimeText = clientGame.add.text(32,96, ("Current Time: " + localTime.toDateString()), style);
   activeTimeText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
 
-  clickText = clientGame.add.text(250, 200, "Click", notificationStyle);
-  clickText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
-
-
   // return currencyTotalText;
 }
 
@@ -167,15 +166,14 @@ function updateText(){
 }
 
 function clickListener(){
-  currencyTotal++;
+  currencyLocal++;
+  currencyTotal ++;
 
-  if (currencyLocal = 2)
+  if (currencyLocal == 1) // Danny Downes solved 30 minutes of heartbreak in 30 seconds, 2018
   {
-    fadeScreen.alpha = 0;
-    clickText.autoCull = true;
-    clickText.outOfCameraBoundsKill  = true;
-    clickText.y = 1000;
+    fadeScreen.destroy();
     clickText.destroy();
+    console.log(clickText);
   }
 
 
@@ -185,6 +183,9 @@ function clickListener(){
   clickmarker.x = clientGame.input.activePointer.x - 32;
   clickmarker.y = clientGame.input.activePointer.y - 32;
   clickmarker.animations.play("click", 20, false, true);
+
+  console.log("CLICK");
+
   //clickmarker.destroy();
 }
 
