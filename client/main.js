@@ -139,12 +139,6 @@ function update() {
   crtFilter.update();
   crtScreen.moveUp();
 
-  if (currencyLocal < 2)
-  {
-    fadeScreen.alpha = 0;
-    clickText.destroy();
-  }
-
 }
 
 function createText(){
@@ -175,6 +169,11 @@ function updateText(){
 function clickListener(){
   currencyTotal++;
 
+  if (currencyLocal = 2)
+  {
+    fadeScreen.alpha = 0;
+    clickText.destroy();
+  }
 
 
   clickmarker = uiLayer.create(0,0,"clickmarker");
