@@ -10,7 +10,7 @@ WebFontConfig = {
 };
 
 var style = {font: "28px VT323", fill: "#fff", tabs: 150};
-
+var notificationStyle = {font: "128px VT323", fill: "#fff", tabs: 150};
 
 var canvas_width = 800;
 var canvas_height = 600;
@@ -37,13 +37,17 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
 
   var daySpeed = 2000;
 
-  var currencyText;
-  var currency = 0;
+  var currencyTotalText;
+  var currencyTotal = 0;
+  var currencyLocal = 0;
 
   var activeTimeText;
 
   var clickmarker;
   var click;
+  var clickText;
+
+  var fadeScreen;
 
   var crtFilter;
   var crtScreen;
@@ -81,6 +85,7 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
     backgroundLayer = clientGame.add.group();
     groundLayer = clientGame.add.group();
     uiLayer = clientGame.add.group();
+    fadeLayer = clientGame.add.group();
     shaderLayer = clientGame.add.group();
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -105,6 +110,13 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
     skySet(localHours);
     createText();
 
+    //fadeScreen = new Phaser.Rectangle(0,0, 800, 600);
+    fadeScreen = clientGame.add.graphics(0,0);
+    fadeScreen.beginFill(0x000000);
+    fadeScreen.drawRect(0,0, 800, 600 );
+    fadeScreen.endFill();
+
+    createStartText();
 
     crtFilter = new Phaser.Filter(clientGame, null, CRTFragmentSrc);
     crtFilter.setResolution(canvas_width, canvas_height);
@@ -116,30 +128,54 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
     //console.log(crtScreen.filters);
   }
 
+function fade(){
+
+
+}
+
 
 function update() {
   updateText();
   crtFilter.update();
   crtScreen.moveUp();
+
+  if (currencyLocal < 2)
+  {
+    fadeScreen.alpha = 0;
+    clickText.destroy();
+  }
+
 }
 
 function createText(){
   console.log("Text Created");
-  currencyText = clientGame.add.text(32,64, "Score: 0", style);
-  currencyText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+  currencyTotalText = clientGame.add.text(32,64, "Score: 0", style);
+  currencyTotalText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
   activeTimeText = clientGame.add.text(32,96, ("Current Time: " + localTime.toDateString()), style);
   activeTimeText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
 
-  // return currencyText;
+  clickText = clientGame.add.text(250, 200, "Click", notificationStyle);
+  clickText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+
+
+  // return currencyTotalText;
+}
+
+function createStartText(){
+  console.log("Start Text Created");
+  clickText = clientGame.add.text(250, 200, "Click", notificationStyle);
+  clickText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
 }
 
 function updateText(){
   //console.log("Text Updated")
-  currencyText.setText("Score: "+ currency);
+  currencyTotalText.setText("Score: "+ currencyTotal);
 }
 
 function clickListener(){
-  currency++;
+  currencyTotal++;
+
+
 
   clickmarker = uiLayer.create(0,0,"clickmarker");
   clickmarker.scale.setTo(4);
