@@ -1,3 +1,10 @@
+var menubutton;
+var menuexitbutton;
+var menubuttonText;
+var menubuttonClickAnim;
+var menuback;
+var menuTween;
+
 function menuAssetsCreate(){
 
   menubutton = uiLayer.create(10, 80, "menubutton");
@@ -5,8 +12,6 @@ function menuAssetsCreate(){
   menubuttonClickAnim = menubutton.animations.add("click");
 
   menubutton.inputEnabled = true;
-  menubutton.events.onInputDown.add(menubuttonClickDown, this);
-  menubutton.events.onInputUp.add(menubuttonClickUp, this);
   menubutton.input.priorityID = 1;
   menubutton.input.useHandCursor = true;
 
@@ -43,8 +48,7 @@ function menuexitbuttonCreate(){
   menuexitbutton.animations.add("Click");
   menuexitbutton.inputEnabled = true;
   menuexitbutton.input.useHandCursor = true;
-  menuexitbutton.events.onInputDown.add(OnmenuexitbuttonClickDown,this);
-  menuexitbutton.events.onInputUp.add(OnmenuexitbuttonClickUp,this);
+  exitButtonListener();
 }
 
 function OnmenuexitbuttonClickDown(){
