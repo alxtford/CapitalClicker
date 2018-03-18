@@ -9,7 +9,7 @@ var notificationStyle = {font: "128px VT323", fill: "#fff", tabs: 150};
 
 var activeTimeText;
 var clickmarker;
-var clickText;
+var startText;
 
 var crtFilter;
 var crtScreen;
@@ -52,8 +52,8 @@ function createText(){
 
 function createStartText(){
   console.log("Start Text Created");
-  clickText = clientGame.add.text(250, 200, "Click", notificationStyle);
-  clickText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+  startText = clientGame.add.text(250, 200, "Click", notificationStyle);
+  startText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
 }
 
 function updateText(){

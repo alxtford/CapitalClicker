@@ -1,7 +1,6 @@
 function firstClick() {
   fadeScreen.destroy();
-  clickText.destroy();
-  console.log(clickText);
+  startText.destroy();
 }
 
 function clickListener(sprite){
@@ -16,7 +15,6 @@ function clickListener(sprite){
   clickmarker.x = clientGame.input.activePointer.x - 32;
   clickmarker.y = clientGame.input.activePointer.y - 32;
   clickmarker.animations.play("click", 20, false, true);
-
   console.log("CLICK");
 }
 

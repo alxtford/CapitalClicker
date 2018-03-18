@@ -27,7 +27,7 @@ app.use('/EZGUI',express.static(__dirname + '/EZGUI'));
 //app.use('/socket.io',express.static(__dirname + '/node_modules/socket.io'));
 
 app.get('/',function(req,res){
-    res.sendFile(__dirname+'/index.html');
+    res.sendFile(__dirname+'/client/index.html');
 	});
 
 //listen on port 2000
