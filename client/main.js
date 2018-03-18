@@ -118,22 +118,7 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
     wind = ground.animations.add("wind");
     ground.animations.play("wind", 1, true);
 
-    menubutton = uiLayer.create(10, 80, "menubutton");
-    menubutton.scale.setTo(8);
-    menubuttonClickAnim = menubutton.animations.add("click");
-
-    menubutton.inputEnabled = true;
-    menubutton.events.onInputDown.add(menubuttonClickDown, this);
-    menubutton.events.onInputUp.add(menubuttonClickUp, this);
-    menubutton.input.priorityID = 1;
-    menubutton.input.useHandCursor = true;
-
-    menubuttonText = clientGame.add.text(60,85, "Menu", style);
-    menubuttonText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
-    uiLayer.add(menubuttonText);
-
-    menuback = uiLayer.create(-400, 20, "menuback");
-    menuback.scale.setTo(8);
+    menuAssetsCreate();
 
     clientGame.input.onDown.add(clickListener, this);
 
@@ -142,15 +127,7 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
     skySet(localHours);
     createText();
 
-    fadeScreen = clientGame.add.graphics(0,0);
-    fadeScreen.inputEnabled = true;
-
-    fadeScreen.beginFill(0x000000);
-    fadeScreen.drawRect(0,0, 800, 600 );
-    fadeScreen.endFill();
-
-    fadeScreen.inputEnabled = true;
-    fadeScreen.events.onInputDown.add(firstClick, this);
+    fade();
 
     createStartText();
 
@@ -167,13 +144,7 @@ clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO,
 
     console.log(shaderLayer);
 
-  }
-
-function fade(){
-
-
 }
-
 
 function update() {
   updateText();
@@ -182,6 +153,19 @@ function update() {
 
 }
 
+function fade(){
+  fadeScreen = clientGame.add.graphics(0,0);
+  fadeScreen.inputEnabled = true;
+
+  fadeScreen.beginFill(0x000000);
+  fadeScreen.drawRect(0,0, 800, 600 );
+  fadeScreen.endFill();
+
+  fadeScreen.inputEnabled = true;
+  fadeScreen.events.onInputDown.add(firstClick, this);
+}
+
+
 function createText(){
   console.log("Text Created");
   currencyTotalText = clientGame.add.text(20,30, "Clicks: 0", style);
@@ -189,7 +173,6 @@ function createText(){
   // activeTimeText = clientGame.add.text(20,60, ("Current Time: " + localTime.toDateString()), style);
   // activeTimeText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
 
-  // return currencyTotalText;
 }
 
 function createStartText(){
@@ -203,53 +186,10 @@ function updateText(){
   currencyTotalText.setText("Clicks: "+ currencyTotal);
 }
 
-function menubuttonClickDown(){
-  console.log("MOUSE DOWN ON MENU BUTTON");
-  menubutton.animations.play("click", 30, false);
-}
-
-function menubuttonClickUp(){
-  console.log("MOUSE UP ON MENU BUTTON");
-  menuTween = clientGame.add.tween(menuback);
-  menuTween.to({x:-10}, 1000,Phaser.Easing.Bounce.Out, false);
-  menuTween.onComplete.add(menuexitbuttonCreate, this);
-  menuTween.start();
-  menubutton.visible = false;
-  menubuttonText.visible = false;
-
-  var currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:320}, 1000,Phaser.Easing.Bounce.Out, false);
-  currencyTotalTextTween.start();
-}
-
-function menuexitbuttonCreate(){
-  menuexitbutton = uiLayer.create(270, 36, "menuexitbutton");
-  menuexitbutton.scale.setTo(8);
-  menuexitbutton.animations.add("Click");
-  menuexitbutton.inputEnabled = true;
-  menuexitbutton.input.useHandCursor = true;
-  menuexitbutton.events.onInputDown.add(OnmenuexitbuttonClickDown,this);
-  menuexitbutton.events.onInputUp.add(OnmenuexitbuttonClickUp,this);
-}
-
-function OnmenuexitbuttonClickDown(){
-  menuexitbutton.animations.play("click", 30, false);
-}
-
-function OnmenuexitbuttonClickUp(){
-  console.log("MOUSE UP non-menu Item");
-  var menuTween = clientGame.add.tween(menuback).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
-  var currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
-  currencyTotalTextTween.start();
-  menubutton.visible = true;
-  menubuttonText.visible = true;
-  menuexitbutton.visible = false
-}
-
 function firstClick() {
   fadeScreen.destroy();
   clickText.destroy();
   console.log(clickText);
-
 }
 
 function clickListener(sprite){
@@ -257,13 +197,6 @@ function clickListener(sprite){
   currencyTotal ++;
 
   lastclick = sprite.name;
-
-
-  if(menuback.x < -350)
-  {
-
-  }
-
 
   clickmarker = uiLayer.create(0,0,"clickmarker");
   clickmarker.scale.setTo(4);
@@ -275,11 +208,6 @@ function clickListener(sprite){
   console.log("CLICK");
 
   //clickmarker.destroy();
-}
-
-function dayNight (){
-  console.log("DayNight");
-
 }
 
 // this function is fired when we connect
