@@ -28,6 +28,7 @@ var click;
 var lastclick;
 
 function init(){
+  this.game.stage.disableVisibilityChange = true
   this.game.stage.smoothed = false;
   this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
   this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
