@@ -15,7 +15,7 @@ var Cloudant = require('cloudant');
 
 // Initialize the library with my account.
 //var cloudant = Cloudant({account:me, password:password});
-var cloudant = Cloudant({ vcapInstanceName: 'CapitalClicker', "User Data": JSON.parse(process.env.VCAP_SERVICES) });
+var cloudant = Cloudant({ vcapInstanceName: 'cloudantNoSQLDB', vcapServices: JSON.parse(process.env.VCAP_SERVICES) });
 
 cloudant.db.list(function(err, allDbs) { console.log('All my databases: %s', allDbs.join(', '))});
 
