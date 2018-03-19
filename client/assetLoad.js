@@ -19,4 +19,7 @@ function assetLoad(){
 
   // TYPEFACE
   clientGame.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
+
+  // UPGRADE DATA
+  clientGame.load.json("userdata", "lib/upgradeData.json");
 }

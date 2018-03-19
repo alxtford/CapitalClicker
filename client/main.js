@@ -27,6 +27,8 @@ var currencyLocal = 0;
 var click;
 var lastclick;
 
+var upgradeData;
+
 function init(){
   this.game.stage.disableVisibilityChange = true
   this.game.stage.smoothed = false;
@@ -62,6 +64,8 @@ function create () {
   uiLayer.inputEnabled = true;
 
   this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
+  upgradeData = clientGame.cache.getJSON("userData");
 
   bgDraw();
   groundDraw();
