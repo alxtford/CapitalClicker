@@ -4,6 +4,7 @@ var menubuttonText;
 var menubuttonClickAnim;
 var menuback;
 var menuTween;
+var textOptions;
 
 function menuAssetsCreate(){
 
@@ -63,4 +64,8 @@ function OnmenuexitbuttonClickUp(){
   menubutton.visible = true;
   menubuttonText.visible = true;
   menuexitbutton.visible = false
+}
+
+function drawList(){
+
 }

@@ -23,7 +23,7 @@ var serv = require('http').createServer(app); //Server-11
 
 app.use('/client',express.static(__dirname + '/client'));
 app.use('/assets',express.static(__dirname + '/client/assets'));
-app.use('/EZGUI',express.static(__dirname + '/EZGUI'));
+app.use('/lib',express.static(__dirname + '/lib'));
 //app.use('/socket.io',express.static(__dirname + '/node_modules/socket.io'));
 
 app.get('/',function(req,res){

@@ -65,7 +65,7 @@ function create () {
 
   this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-  upgradeData = clientGame.cache.getJSON("userData");
+  //upgradeData = clientGame.cache.getJSON("userData");
 
   bgDraw();
   groundDraw();
