@@ -28,5 +28,8 @@
     "cloudant": "^1.10.0-NOTICE",
     "express": "^4.16.2",
     "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "@orange-games/phaser-input": "^2.0.5"
   }
 }

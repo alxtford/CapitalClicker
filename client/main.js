@@ -30,7 +30,9 @@ var lastclick;
 var upgradeData;
 
 function init(){
-  this.game.stage.disableVisibilityChange = true
+  clientGame.plugins.add(PhaserInput.Plugin);
+
+  this.game.stage.disableVisibilityChange = true;
   this.game.stage.smoothed = false;
   this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
   this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -65,7 +67,6 @@ function create () {
 
   this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-  //upgradeData = clientGame.cache.getJSON("userData");
 
   bgDraw();
   groundDraw();
