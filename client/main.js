@@ -1,17 +1,6 @@
 var socket; // define a global variable called socket
 socket = io.connect(); // send a connection request to the server
 
-var Cloudant = require('cloudant')(serv);
-
-var me = '511ca238-fccd-486b-b4a8-3441a50531bc-bluemix'; // Set this to your own account
-var password = "84da1dc77eccb3f811f8218aad8178d1ba45fa462ab8751a49ba85b35efe1927";
-
-// Initialize the library with my account.
-var cloudant = Cloudant({account:me, password:password});
-
-cloudant.db.list(function(err, allDbs) { console.log('All my databases: %s', allDbs.join(', '))});
-
-
 var canvas_width = 800;
 var canvas_height = 600;
 var scale = 1;
@@ -88,6 +77,7 @@ function create () {
   crtDraw();
 
   inputListenerStart();
+  testEmit();
 }
 
 function update() {
@@ -97,7 +87,12 @@ function update() {
 
 }
 
+function testEmit(){
+  socket.emit("testEmit");
+}
+
 // this function is fired when we connect
 function onsocketConnected () {
   console.log("connected to server");
+
 }
