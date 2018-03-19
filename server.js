@@ -10,11 +10,12 @@ var serv = require('http').createServer(app); //Server-11
 
 var Cloudant = require('cloudant');
 
-var me = '511ca238-fccd-486b-b4a8-3441a50531bc-bluemix'; // Set this to your own account
-var password = "84da1dc77eccb3f811f8218aad8178d1ba45fa462ab8751a49ba85b35efe1927";
+// var me = '511ca238-fccd-486b-b4a8-3441a50531bc-bluemix'; // Set this to your own account
+// var password = "84da1dc77eccb3f811f8218aad8178d1ba45fa462ab8751a49ba85b35efe1927";
 
 // Initialize the library with my account.
-var cloudant = Cloudant({account:me, password:password});
+//var cloudant = Cloudant({account:me, password:password});
+var cloudant = Cloudant({ vcapInstanceName: 'CapitalClicker', vcapServices: JSON.parse(process.env.VCAP_SERVICES) });
 
 cloudant.db.list(function(err, allDbs) { console.log('All my databases: %s', allDbs.join(', '))});
 
