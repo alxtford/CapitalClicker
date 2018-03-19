@@ -27,7 +27,8 @@ var currencyLocal = 0;
 var click;
 var lastclick;
 
-var upgradeData;
+var userName;
+var userNameText;
 
 function init(){
   clientGame.plugins.add(PhaserInput.Plugin);

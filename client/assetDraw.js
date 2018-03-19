@@ -5,7 +5,7 @@ var ground;
 var groundSway;
 
 var style = {font: "28px VT323", fill: "#fff", tabs: 150};
-var notificationStyle = {font: "128px VT323", fill: "#fff", tabs: 150};
+var notificationStyle = {font: "64px VT323", fill: "#fff", tabs: 150};
 
 var activeTimeText;
 var clickmarker;
@@ -52,8 +52,28 @@ function createText(){
 
 function createStartText(){
   console.log("Start Text Created");
-  startText = clientGame.add.text(250, 200, "Click", notificationStyle);
+  startText = clientGame.add.text(225, 200, "ENTER USERNAME", notificationStyle);
   startText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+
+  userNameText = clientGame.add.inputField(clientGame.width / 2 - 100, 300, {
+                font: '28px VT323',
+                fill: '#212121',
+                fillAlpha: 1,
+                fontWeight: 'bold',
+                forceCase: PhaserInput.ForceCase.upper,
+                width: 200,
+                max: 20,
+                padding: 8,
+                borderWidth: 1,
+                borderColor: '#000',
+                borderRadius: 6,
+                placeHolder: '',
+                textAlign: 'center',
+                zoom: true
+            });
+            userNameText.setText('');
+            userNameText.blockInput = false;
+
 }
 
 function updateText(){
