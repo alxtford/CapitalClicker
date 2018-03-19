@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/alxtford/CapitalClicker#readme",
   "dependencies": {
-    "@cloudant/cloudant": "^2.0.2",
+    "@cloudant/cloudant": "^2.1.0",
     "express": "^4.16.2",
     "socket.io": "^2.0.4"
   }
