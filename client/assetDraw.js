@@ -43,7 +43,7 @@ function fade(){
 
 function createText(){
   console.log("Text Created");
-  currencyTotalText = clientGame.add.text(20,30, "Clicks: 0", style);
+  currencyTotalText = clientGame.add.text(20,30, userName + "'s Clicks: 0", style);
   currencyTotalText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
   // activeTimeText = clientGame.add.text(20,60, ("Current Time: " + localTime.toDateString()), style);
   // activeTimeText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
@@ -71,8 +71,24 @@ function createStartText(){
                 textAlign: 'center',
                 zoom: true
             });
-            userNameText.setText('');
+            userNameText.setText("");
             userNameText.blockInput = false;
+
+
+            var submit = clientGame.add.text(clientGame.width / 2 - 65, 380, 'Submit', {
+              font: '64px VT323',
+              fill: '#212121',
+              backgroundColor: "#FFFFFF",
+            });
+            submit.inputEnabled = true;
+            submit.input.useHandCursor = true;
+            submit.events.onInputDown.add(function() {
+                userName = userNameText.value;
+                submit.destroy();
+                userNameText.destroy();
+                startText.setText("CLICK");
+                startText.x = 250;
+                });
 
 }
 

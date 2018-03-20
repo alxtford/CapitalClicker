@@ -32,6 +32,7 @@ var userNameText;
 
 function init(){
   clientGame.plugins.add(PhaserInput.Plugin);
+  clientGame.plugins.add(PhaserNineSlice.Plugin);
 
   this.game.stage.disableVisibilityChange = true;
   this.game.stage.smoothed = false;
