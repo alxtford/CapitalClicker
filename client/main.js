@@ -93,6 +93,9 @@ function update() {
 function testEmit(){
   socket.emit("testEmit");
 }
+function saveName(name){
+  socket.emit("saveName", name);
+}
 
 // this function is fired when we connect
 function onsocketConnected () {

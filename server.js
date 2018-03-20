@@ -18,6 +18,7 @@ var cloudant = Cloudant({account:me, password:password});
 
 cloudant.db.list(function(err, allDbs) { console.log('All my databases: %s', allDbs.join(', '))});
 
+var db = cloudant.db.use("user_data");
 
 //send a index.html file when a get request is fired to the given
 //route, which is ‘/’ in this case
@@ -50,6 +51,8 @@ function testEmit(){
 }
 
 
+
+
  // binds the serv object we created to socket.io
 var io = require('socket.io')(serv);
 
@@ -57,8 +60,22 @@ var io = require('socket.io')(serv);
 io.sockets.on('connection', function(socket){
 	console.log("socket connected");
 
+  //output a unique socket.id
+	console.log(socket.id);
+
+  // Test Socket Emits
   socket.on("testEmit", testEmit);
 
-	//output a unique socket.id
-	console.log(socket.id);
+  // Listen for userName
+  socket.on("saveName", function saveName(name){
+    db.get(name, function(err, data){
+      if(err)
+      {
+        db.copy("74bbb247c6327c3677d5470415ba72de", name);
+        console.log(data);
+      }
+    console.log(data);
+    });
+  });
+
 });

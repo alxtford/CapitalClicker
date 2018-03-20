@@ -88,6 +88,7 @@ function createStartText(){
                 userNameText.destroy();
                 startText.setText("CLICK");
                 startText.x = 250;
+                saveName(userName);
                 });
 
 }
