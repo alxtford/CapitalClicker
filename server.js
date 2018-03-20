@@ -14,7 +14,10 @@ var me = '511ca238-fccd-486b-b4a8-3441a50531bc-bluemix'; // Set this to your own
 var password = "84da1dc77eccb3f811f8218aad8178d1ba45fa462ab8751a49ba85b35efe1927";
 
 // Initialize the library with my account.
-var cloudant = Cloudant({account:me, password:password});
+var cloudant = Cloudant({account:me, password:password}, function(err, cloudant) {
+  if (err) {
+    return console.log('Failed to initialize Cloudant: ' + err.message);
+  }});
 
 cloudant.db.list(function(err, allDbs) { console.log('All my databases: %s', allDbs.join(', '))});
 
@@ -72,6 +75,7 @@ io.sockets.on('connection', function(socket){
       if(err)
       {
         db.copy("74bbb247c6327c3677d5470415ba72de", name);
+        console.log(err);
         console.log(data);
       }
     console.log(data);
