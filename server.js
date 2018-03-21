@@ -53,9 +53,6 @@ function testEmit(){
   console.log("EMIT RECEIVED");
 }
 
-
-
-
  // binds the serv object we created to socket.io
 var io = require('socket.io')(serv);
 
@@ -71,15 +68,63 @@ io.sockets.on('connection', function(socket){
 
   // Listen for userName
   socket.on("saveName", function saveName(name){
-    db.get(name, function(err, data){
-      if(err)
-      {
-        db.copy("74bbb247c6327c3677d5470415ba72de", name);
-        console.log(err);
-        console.log(data);
-      }
-    console.log(data);
-    });
-  });
 
+    var doc = db.get(name, function(err, body, data){
+        if (err == 404)
+        {
+          console.log("UNABLE TO FIND " + name +". CREATING...");
+          db.copy("Default", name, { overwrite: false }, function(err, headers) {
+              if (!err)
+              { console.log("HEADER: " + headers);}
+
+              doc = db.get(name, function(err, body, data){
+                if(err)
+                {
+                  console.log("ERROR ON DOC GET\n" + err);
+                }
+                else {
+
+                  var date = new Date();
+                  // var dateInt = parseInt(date.getDate() + "" + (date.getMonth()+1) + "" + date.getFullYear());
+                  var update = body;
+                  console.log(data);
+                  update.dateCreated= date;
+                  update.dateLastLogin= date;
+
+                  db.insert(update, function(err, body, doc) {
+                        if (err) {
+                            console.log('Error inserting data\n' + err);
+                            return 500;
+                        }
+                        console.log('UPDATED BOTH TIMES');
+                        console.log(body);
+                        return 200;
+                    });
+                }
+              });
+          });
+
+        }
+        else {
+          console.log(err);
+          var date = new Date();
+          var update = body;
+          update.dateLastLogin= date;
+          db.insert(update, function(err, body, doc) {
+                if (err) {
+                    console.log('Error inserting data\n' + err);
+                    return 500;
+                }
+                console.log('UPDATED LAST LOGIN TIME');
+                console.log(body);
+                return 200;
+            });
+          }
+
+
+        //console.log(err);
+    //console.log(data);
+    });
+    //doc.dateLastLogin
+});
 });
