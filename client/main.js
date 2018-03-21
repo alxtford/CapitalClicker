@@ -56,7 +56,13 @@ function create () {
   //the client connects, call onsocketConnected.
   socket.on("connect", onsocketConnected);
 
+  socket.on('connect_failed', function() {
+   document.write("Sorry, there seems to be an issue with the connection!");
+})
+
   var localHours = localTime.getHours();
+  var nameRegistered = false;
+
 
   spacelayer = clientGame.add.group();
   backgroundLayer = clientGame.add.group();
@@ -95,10 +101,14 @@ function testEmit(){
 }
 function saveName(name){
   socket.emit("saveName", name);
+  nameRegistered = true;
 }
 
 // this function is fired when we connect
 function onsocketConnected () {
   console.log("connected to server");
-
+  if (nameRegistered == false)
+  {
+    saveName(name);
+  }
 }

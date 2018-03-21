@@ -19,89 +19,89 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
     return console.log('Failed to initialize Cloudant: ' + err.message);
   }});
 
-cloudant.db.list(function(err, allDbs) { console.log('All my databases: %s', allDbs.join(', '))});
+  cloudant.db.list(function(err, allDbs) { console.log('All my databases: %s', allDbs.join(', '))});
 
-var db = cloudant.db.use("user_data");
+  var db = cloudant.db.use("user_data");
 
-//send a index.html file when a get request is fired to the given
-//route, which is ‘/’ in this case
-// app.get('/',function(req, res) {
-// 	res.sendFile(__dirname + '/client/index.html');
-// });
-//this means when a get request is made to ‘/client’, put all the
-//static files inside the client folder
-//Under ‘/client’. See for more details below
+  //send a index.html file when a get request is fired to the given
+  //route, which is ‘/’ in this case
+  // app.get('/',function(req, res) {
+  // 	res.sendFile(__dirname + '/client/index.html');
+  // });
+  //this means when a get request is made to ‘/client’, put all the
+  //static files inside the client folder
+  //Under ‘/client’. See for more details below
 
-app.use('/client',express.static(__dirname + '/client'));
-app.use('/assets',express.static(__dirname + '/client/assets'));
-app.use('/lib',express.static(__dirname + '/lib'));
-//app.use('/socket.io',express.static(__dirname + '/node_modules/socket.io'));
+  app.use('/client',express.static(__dirname + '/client'));
+  app.use('/assets',express.static(__dirname + '/client/assets'));
+  app.use('/lib',express.static(__dirname + '/lib'));
+  //app.use('/socket.io',express.static(__dirname + '/node_modules/socket.io'));
 
-app.get('/',function(req,res){
+  app.get('/',function(req,res){
     res.sendFile(__dirname+'/client/index.html');
-	});
+  });
 
-//listen on port 2000
-serv.listen(process.env.PORT || 2000);
-console.log("Server started.");
+  //listen on port 2000
+  serv.listen(process.env.PORT || 2000);
+  console.log("Server started.");
 
-process.on('exit', function() {
- console.log('Server is shutting down!');
-});
+  process.on('exit', function() {
+    console.log('Server is shutting down!');
+  });
 
-function testEmit(){
-  console.log("EMIT RECEIVED");
-}
+  function testEmit(){
+    console.log("EMIT RECEIVED");
+  }
 
- // binds the serv object we created to socket.io
-var io = require('socket.io')(serv);
+  // binds the serv object we created to socket.io
+  var io = require('socket.io')(serv);
 
-// listen for a connection request from any client
-io.sockets.on('connection', function(socket){
-	console.log("socket connected");
+  // listen for a connection request from any client
+  io.sockets.on('connection', function(socket){
+    console.log("socket connected");
 
-  //output a unique socket.id
-	console.log(socket.id);
+    //output a unique socket.id
+    console.log(socket.id);
 
-  // Test Socket Emits
-  socket.on("testEmit", testEmit);
+    // Test Socket Emits
+    socket.on("testEmit", testEmit);
 
-  // Listen for userName
-  socket.on("saveName", function saveName(name){
+    // Listen for userName
+    socket.on("saveName", function saveName(name){
 
-    var doc = db.get(name, function(err, body, data){
-        if (err == 404)
+      var doc = db.get(name, function(err, body, data){
+        if (err && err.statusCode == 404)
         {
           console.log("UNABLE TO FIND " + name +". CREATING...");
           db.copy("Default", name, { overwrite: false }, function(err, headers) {
-              if (!err)
-              { console.log("HEADER: " + headers);}
+            if (!err)
+            { console.log("HEADER: " + headers);}
 
-              doc = db.get(name, function(err, body, data){
-                if(err)
-                {
-                  console.log("ERROR ON DOC GET\n" + err);
-                }
-                else {
+            doc = db.get(name, function(err, body, data){
+              if(err)
+              {
+                console.log("ERROR ON DOC GET\n" + err);
+              }
+              else {
 
-                  var date = new Date();
-                  // var dateInt = parseInt(date.getDate() + "" + (date.getMonth()+1) + "" + date.getFullYear());
-                  var update = body;
-                  console.log(data);
-                  update.dateCreated= date;
-                  update.dateLastLogin= date;
+                var date = new Date();
+                // var dateInt = parseInt(date.getDate() + "" + (date.getMonth()+1) + "" + date.getFullYear());
+                var update = body;
+                console.log(data);
+                update.dateCreated= date;
+                update.dateLastLogin= date;
 
-                  db.insert(update, function(err, body, doc) {
-                        if (err) {
-                            console.log('Error inserting data\n' + err);
-                            return 500;
-                        }
-                        console.log('UPDATED BOTH TIMES');
-                        console.log(body);
-                        return 200;
-                    });
-                }
-              });
+                db.insert(update, function(err, body, doc) {
+                  if (err) {
+                    console.log('Error inserting data\n' + err);
+                    return 500;
+                  }
+                  console.log('UPDATED BOTH TIMES');
+                  console.log(body);
+                  return 200;
+                });
+              }
+            });
           });
 
         }
@@ -111,20 +111,20 @@ io.sockets.on('connection', function(socket){
           var update = body;
           update.dateLastLogin= date;
           db.insert(update, function(err, body, doc) {
-                if (err) {
-                    console.log('Error inserting data\n' + err);
-                    return 500;
-                }
-                console.log('UPDATED LAST LOGIN TIME');
-                console.log(body);
-                return 200;
-            });
-          }
+            if (err) {
+              console.log('Error inserting data\n' + err);
+              return 500;
+            }
+            console.log('UPDATED LAST LOGIN TIME');
+            console.log(body);
+            return 200;
+          });
+        }
 
 
         //console.log(err);
-    //console.log(data);
+        //console.log(data);
+      });
+      //doc.dateLastLogin
     });
-    //doc.dateLastLogin
-});
-});
+  });
