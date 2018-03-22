@@ -64,11 +64,17 @@ function create () {
    document.write("Sorry, there seems to be an issue with the connection!");
   });
 
-
+  socket.on("userData", function(userData){
+    userDataLocal = JSON.parse(userData);
+    currencyTotal = userDataLocal.totalClicks;
+    console.log("Starting currency total: " + currencyTotal);
+    startFlag = true;
+    //userDataLocal = userData;
+    console.log("Listening for User Data");
+  });
 
   socket.on("ready", function(){
     console.log("READY! STARTING REQUEST FOR DATA, AND FORCE REQUESTING FIRST BATCH");
-    startFlag = true;
     demandUpdate();
   })
 
@@ -135,8 +141,10 @@ function saveName(name){
 }
 
 function userUpdate(userData, name){
-  socket.emit("userUpdate", userData, name);
-  console.log("USER DATA UPDATE");
+  console.log(userData);
+  userData.totalClicks = currencyTotal;
+  socket.emit("userUpdate", JSON.stringify(userData));
+  console.log("USER DATA UPDATE:\n" + JSON.stringify(userData));
 }
 
 // this function is fired when we connect
@@ -146,11 +154,6 @@ function onsocketConnected () {
   {
     saveName(name);
 
-    socket.on("userData", function(userData){
-      userDataLocal = userData;
-      currencyTotal = userDataLocal.totalClicks;
-      //userDataLocal = userData;
-      console.log("Listening for User Data");
-    });
+
   }
 }

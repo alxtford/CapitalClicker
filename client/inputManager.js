@@ -6,10 +6,10 @@ function firstClick() {
 function clickListener(sprite){
   currencyLocal++;
   currencyTotal ++;
-  if(startFlag == true)
-  {
-    userDataLocal.totalClicks ++;
-  }
+  // if(startFlag == true)
+  // {
+  //   userDataLocal.totalClicks ++;
+  // }
   lastclick = sprite.name;
 
   clickmarker = uiLayer.create(0,0,"clickmarker");

@@ -133,13 +133,15 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
     });
 
     // Listen for user data update
-    socket.on("userUpdate", function userUpdate(userData, name){
-      var doc = db.get(name, function(err, body, data){
-        console.log(body);
+    socket.on("userUpdate", function userUpdate(userData){
+      var serverReceive = JSON.parse(userData);
+      var doc = db.get(serverReceive._id, function(err, body, data){
+        // console.log("PRINTING BODY FROM DOC:\n" + body);
         var dataUpdate = body;
-        if(dataUpdate != userData)
+        // console.log("SERVER HAS RECEIVED, PARSED:\n" + serverReceive);
+        if(dataUpdate != serverReceive)
         {
-          dataUpdate = userData;
+          dataUpdate = serverReceive;
 
           db.insert(dataUpdate, function(err, body, doc) {
             if (err) {
@@ -147,8 +149,8 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
               console.log(name + "\n" + body + "\n" + dataUpdate);
               return 500;
             }
-            console.log('UPDATED SAVED USER DATA');
-            console.log(body);
+            // console.log('UPDATED SAVED USER DATA');
+            // console.log("SAVED BODY:\n" + body);
             return 200;
 
           });
@@ -160,7 +162,7 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
     {
       var doc = db.get(name, function(err, body, data){
         console.log(body);
-        socket.emit("userData", body);
+        socket.emit("userData", JSON.stringify(body));
       });
 
     });
