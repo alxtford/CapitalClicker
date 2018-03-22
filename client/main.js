@@ -147,8 +147,9 @@ function onsocketConnected () {
     saveName(name);
 
     socket.on("userData", function(userData){
-      currencyTotal = userData.totalClicks;
       userDataLocal = userData;
+      currencyTotal = userDataLocal.totalClicks;
+      //userDataLocal = userData;
       console.log("Listening for User Data");
     });
   }
