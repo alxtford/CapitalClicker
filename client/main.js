@@ -29,6 +29,10 @@ var lastclick;
 
 var userName;
 var userNameText;
+var tick = Date.now();
+var userDataLocal;
+
+var startFlag = false;
 
 function init(){
   clientGame.plugins.add(PhaserInput.Plugin);
@@ -58,10 +62,16 @@ function create () {
 
   socket.on('connect_failed', function() {
    document.write("Sorry, there seems to be an issue with the connection!");
-})
+  });
+
+  socket.on("userData", function(userData){
+    currencyTotal = userData.totalClicks;
+    userDataLocal = userData;
+  });
 
   var localHours = localTime.getHours();
   var nameRegistered = false;
+
 
 
   spacelayer = clientGame.add.group();
@@ -94,6 +104,16 @@ function update() {
   crtFilter.update();
   crtScreen.moveUp();
 
+  if(startFlag == true)
+  {
+  var timeNow = Date.now();
+  if ( timeNow - tick > 1000) {
+
+    userUpdate(userDataLocal, name);
+    tick = Date.now();
+  }
+}
+
 }
 
 function testEmit(){
@@ -102,6 +122,11 @@ function testEmit(){
 function saveName(name){
   socket.emit("saveName", name);
   nameRegistered = true;
+  startFlag = true;
+}
+
+function userUpdate(userData, name){
+  socket.emit("userUpdate", userData, name);
 }
 
 // this function is fired when we connect

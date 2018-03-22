@@ -23,6 +23,8 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
 
   var db = cloudant.db.use("user_data");
 
+  var update;
+
   //send a index.html file when a get request is fired to the given
   //route, which is ‘/’ in this case
   // app.get('/',function(req, res) {
@@ -86,7 +88,7 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
 
                 var date = new Date();
                 // var dateInt = parseInt(date.getDate() + "" + (date.getMonth()+1) + "" + date.getFullYear());
-                var update = body;
+                update = body;
                 console.log(data);
                 update.dateCreated= date;
                 update.dateLastLogin= date;
@@ -98,6 +100,7 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
                   }
                   console.log('UPDATED BOTH TIMES');
                   console.log(body);
+                  socket.emit("userData", body);
                   return 200;
                 });
               }
@@ -108,7 +111,7 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
         else {
           console.log(err);
           var date = new Date();
-          var update = body;
+          update = body;
           update.dateLastLogin= date;
           db.insert(update, function(err, body, doc) {
             if (err) {
@@ -117,14 +120,36 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
             }
             console.log('UPDATED LAST LOGIN TIME');
             console.log(body);
+            socket.emit("userData", body);
             return 200;
           });
+
+
         }
-
-
-        //console.log(err);
-        //console.log(data);
       });
       //doc.dateLastLogin
     });
+
+    // Listen for user data update
+    socket.on("userUpdate", function userUpdate(userData, name){
+      var doc = db.get(name, function(err, body, data){
+        update = body;
+        if(update != userData)
+        {
+          update = userData;
+
+          db.insert(update, function(err, body, doc) {
+            if (err) {
+              console.log('Error inserting data\n' + err);
+              return 500;
+            }
+            console.log('UPDATED SAVED USER DATA');
+            console.log(body);
+            return 200;
+
+          });
+        }
+      });
+    });
+
   });
