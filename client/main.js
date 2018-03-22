@@ -107,8 +107,8 @@ function update() {
   if(startFlag == true)
   {
   var timeNow = Date.now();
-  if ( timeNow - tick > 1000) {
-
+  if ( timeNow - tick > 3000) {
+    //userDataLocal.totalClicks = currencyTotal;
     userUpdate(userDataLocal, name);
     tick = Date.now();
   }

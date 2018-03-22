@@ -6,6 +6,7 @@ function firstClick() {
 function clickListener(sprite){
   currencyLocal++;
   currencyTotal ++;
+  userDataLocal.totalClicks ++;
 
   lastclick = sprite.name;
 
