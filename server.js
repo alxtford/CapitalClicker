@@ -142,11 +142,11 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
         if(dataUpdate != serverReceive)
         {
           dataUpdate = serverReceive;
-
+          console.log("SERVER HAS RECEIVED:\n" + serverReceive);
           db.insert(dataUpdate, function(err, body, doc) {
             if (err) {
               console.log('Error inserting data on update\n' + err);
-              console.log(name + "\n" + body + "\n" + dataUpdate);
+              console.log(body + "\n" + dataUpdate);
               return 500;
             }
             // console.log('UPDATED SAVED USER DATA');

@@ -1,0 +1,59 @@
+{
+  "_id": "Default",
+  "_rev": "7-de1c82cb4f734a37dcce33452a16ed5e",
+  "dateCreated": 0,
+  "dateLastLogin": 0,
+  "totalLoginIn": 0,
+  "totalClicks": 0,
+  "totalBought": 0,
+  "upgradeList": [
+    {
+      "name": "Hireling",
+      "type": "Auto-Clicker",
+      "number": 1,
+      "multiplier": 2,
+      "timesClicked": 0,
+      "price": 10
+    },
+    {
+      "name": "Employee",
+      "type": "Auto-Clicker",
+      "number": 2,
+      "multiplier": 3,
+      "timesClicked": 0,
+      "price": 10
+    },
+    {
+      "name": "Trader",
+      "type": "Auto-Clicker",
+      "number": 3,
+      "multiplier": 5,
+      "timesClicked": 0,
+      "price": 10
+    },
+    {
+      "name": "Common Wares",
+      "type": "Multiplier",
+      "number": 4,
+      "multiplier": 2,
+      "timesClicked": 0,
+      "price": 10
+    },
+    {
+      "name": "Rare Commodities",
+      "type": "Multiplier",
+      "number": 5,
+      "multiplier": 5,
+      "timesClicked": 0,
+      "price": 10
+    },
+    {
+      "name": "Magical Items",
+      "type": "Multiplier",
+      "number": 6,
+      "multiplier": 10,
+      "timesClicked": 0,
+      "price": 10
+    }
+  ]
+}

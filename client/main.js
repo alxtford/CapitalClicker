@@ -33,6 +33,7 @@ var tick = Date.now();
 var userDataLocal;
 
 var startFlag = false;
+var nameRegistered;
 
 function init(){
   clientGame.plugins.add(PhaserInput.Plugin);
@@ -50,7 +51,19 @@ function init(){
 
 function preload() {
   assetLoad();
+  testData();
   localTime = new Date();
+}
+
+function testData(){
+  clientGame.load.json("userData", "client/defaultData.JSON");
+}
+
+function testDataRetrieve(){
+  userDataLocal = clientGame.cache.getJSON("userData");
+  currencyTotal = userDataLocal.totalClicks;
+  console.log("Starting currency total: " + currencyTotal);
+  startFlag = true;
 }
 
 function create () {
@@ -65,7 +78,9 @@ function create () {
   });
 
   socket.on("userData", function(userData){
-    userDataLocal = JSON.parse(userData);
+    //clientGame.load.json("userData", userData);
+
+    userDataLocal = clientGame.cache.getJSON("userData");
     currencyTotal = userDataLocal.totalClicks;
     console.log("Starting currency total: " + currencyTotal);
     startFlag = true;
@@ -79,7 +94,7 @@ function create () {
   })
 
   var localHours = localTime.getHours();
-  var nameRegistered = false;
+  nameRegistered = false;
 
 
 
@@ -106,6 +121,7 @@ function create () {
 
   inputListenerStart();
   testEmit();
+  //testDataRetrieve();
 }
 
 function update() {
