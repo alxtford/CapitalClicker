@@ -100,7 +100,8 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
                   }
                   console.log('UPDATED BOTH TIMES');
                   console.log(body);
-                  socket.emit("userData", body);
+                  socket.emit("ready");
+                  //socket.emit("userData", body);
                   return 200;
                 });
               }
@@ -115,12 +116,13 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
           update.dateLastLogin= date;
           db.insert(update, function(err, body, doc) {
             if (err) {
-              console.log('Error inserting data\n' + err);
+              console.log('Error inserting data on Login\n' + err);
               return 500;
             }
             console.log('UPDATED LAST LOGIN TIME');
             console.log(body);
-            socket.emit("userData", body);
+            //socket.emit("userData", body);
+            socket.emit("ready");
             return 200;
           });
 
@@ -133,14 +135,16 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
     // Listen for user data update
     socket.on("userUpdate", function userUpdate(userData, name){
       var doc = db.get(name, function(err, body, data){
-        update = body;
-        if(update != userData)
+        console.log(body);
+        var dataUpdate = body;
+        if(dataUpdate != userData)
         {
-          update = userData;
+          dataUpdate = userData;
 
-          db.insert(update, function(err, body, doc) {
+          db.insert(dataUpdate, function(err, body, doc) {
             if (err) {
-              console.log('Error inserting data\n' + err);
+              console.log('Error inserting data on update\n' + err);
+              console.log(name + "\n" + body + "\n" + dataUpdate);
               return 500;
             }
             console.log('UPDATED SAVED USER DATA');
@@ -150,6 +154,15 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
           });
         }
       });
+    });
+
+    socket.on("demandUpdate", function demandUpdate(name)
+    {
+      var doc = db.get(name, function(err, body, data){
+        console.log(body);
+        socket.emit("userData", body);
+      });
+
     });
 
   });

@@ -64,10 +64,13 @@ function create () {
    document.write("Sorry, there seems to be an issue with the connection!");
   });
 
-  socket.on("userData", function(userData){
-    currencyTotal = userData.totalClicks;
-    userDataLocal = userData;
-  });
+
+
+  socket.on("ready", function(){
+    console.log("READY! STARTING REQUEST FOR DATA, AND FORCE REQUESTING FIRST BATCH");
+    startFlag = true;
+    demandUpdate();
+  })
 
   var localHours = localTime.getHours();
   var nameRegistered = false;
@@ -119,14 +122,21 @@ function update() {
 function testEmit(){
   socket.emit("testEmit");
 }
+
+function demandUpdate(){
+  socket.emit("demandUpdate", name);
+  console.log("UPDATE DEMANDED");
+}
+
 function saveName(name){
   socket.emit("saveName", name);
+  console.log("NAME SENT");
   nameRegistered = true;
-  startFlag = true;
 }
 
 function userUpdate(userData, name){
   socket.emit("userUpdate", userData, name);
+  console.log("USER DATA UPDATE");
 }
 
 // this function is fired when we connect
@@ -135,5 +145,11 @@ function onsocketConnected () {
   if (nameRegistered == false)
   {
     saveName(name);
+
+    socket.on("userData", function(userData){
+      currencyTotal = userData.totalClicks;
+      userDataLocal = userData;
+      console.log("Listening for User Data");
+    });
   }
 }
