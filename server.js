@@ -71,7 +71,7 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
     // Listen for userName
     socket.on("saveName", function saveName(name){
 
-      var doc = db.get(name, function(err, body, data){
+      var doc = db.get(name, { include_docs: true }, function(err, body, data){
         if (err && err.statusCode == 404)
         {
           console.log("UNABLE TO FIND " + name +". CREATING...");
@@ -89,7 +89,7 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
                 var date = new Date();
                 // var dateInt = parseInt(date.getDate() + "" + (date.getMonth()+1) + "" + date.getFullYear());
                 update = body;
-                console.log(data);
+                console.log(body);
                 update.dateCreated= date;
                 update.dateLastLogin= date;
 
@@ -135,18 +135,18 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
     // Listen for user data update
     socket.on("userUpdate", function userUpdate(userData){
       var serverReceive = JSON.parse(userData);
-      var doc = db.get(serverReceive._id, function(err, body, data){
+      var doc = db.get(serverReceive._id, { include_docs: true }, function(err, body, data, doc){
         // console.log("PRINTING BODY FROM DOC:\n" + body);
-        var dataUpdate = body;
+        var dataUpdate = doc;
         // console.log("SERVER HAS RECEIVED, PARSED:\n" + serverReceive);
         if(dataUpdate != serverReceive)
         {
           dataUpdate = serverReceive;
-          console.log("SERVER HAS RECEIVED:\n" + serverReceive);
+          console.log("SERVER HAS RECEIVED:\n" + JSON.stringify(dataUpdate));
           db.insert(dataUpdate, function(err, body, doc) {
             if (err) {
               console.log('Error inserting data on update\n' + err);
-              console.log(body + "\n" + dataUpdate);
+              console.log(doc + "\n" + JSON.stringify(dataUpdate));
               return 500;
             }
             // console.log('UPDATED SAVED USER DATA');
@@ -160,9 +160,9 @@ var cloudant = Cloudant({account:me, password:password}, function(err, cloudant)
 
     socket.on("demandUpdate", function demandUpdate(name)
     {
-      var doc = db.get(name, function(err, body, data){
-        console.log(body);
-        socket.emit("userData", JSON.stringify(body));
+      var demandedDoc = db.get(name, { include_docs: true }, function(err, body, data, doc){
+        console.log("DEMANDED DOC:\n" + doc);
+        socket.emit("userData", JSON.stringify(doc));
       });
 
     });

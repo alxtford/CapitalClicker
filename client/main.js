@@ -61,7 +61,7 @@ function testData(){
 
 function testDataRetrieve(){
   userDataLocal = clientGame.cache.getJSON("userData");
-  currencyTotal = userDataLocal.totalClicks;
+  currencyTotal = parseInt(userDataLocal.totalClicks);
   console.log("Starting currency total: " + currencyTotal);
   startFlag = true;
 }
@@ -84,7 +84,7 @@ function create () {
     userDataLocal = JSON.parse(userData);
     console.log("AFTER SERVER WRITE:\n" + userDataLocal);
 
-    currencyTotal = userDataLocal.totalClicks;
+    currencyTotal = parseInt(userDataLocal.totalClicks);
     console.log("Starting currency total: " + currencyTotal);
     startFlag = true;
     //userDataLocal = userData;
@@ -94,7 +94,7 @@ function create () {
   socket.on("ready", function(){
     console.log("READY! STARTING REQUEST FOR DATA, AND FORCE REQUESTING FIRST BATCH");
     demandUpdate();
-  })
+  });
 
   var localHours = localTime.getHours();
   nameRegistered = false;
@@ -160,7 +160,7 @@ function saveName(name){
 }
 
 function userUpdate(userData, name){
-  console.log(userData);
+  console.log(JSON.stringify(userData));
   userData.totalClicks = currencyTotal;
   socket.emit("userUpdate", JSON.stringify(userData));
   console.log("USER DATA UPDATE:\n" + JSON.stringify(userData));

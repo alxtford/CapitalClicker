@@ -4,6 +4,9 @@ function firstClick() {
 }
 
 function clickListener(sprite){
+
+  if(startFlag)
+  {
   currencyLocal++;
   currencyTotal ++;
   // if(startFlag == true)
@@ -19,6 +22,8 @@ function clickListener(sprite){
   clickmarker.y = clientGame.input.activePointer.y - 32;
   clickmarker.animations.play("click", 20, false, true);
   console.log("CLICK");
+}
+
 }
 
 function inputListenerStart(){
