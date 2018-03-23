@@ -79,8 +79,11 @@ function create () {
 
   socket.on("userData", function(userData){
     //clientGame.load.json("userData", userData);
-
     userDataLocal = clientGame.cache.getJSON("userData");
+    console.log("BEFORE SERVER WRITE:\n" + userDataLocal);
+    userDataLocal = JSON.parse(userData);
+    console.log("AFTER SERVER WRITE:\n" + userDataLocal);
+
     currencyTotal = userDataLocal.totalClicks;
     console.log("Starting currency total: " + currencyTotal);
     startFlag = true;
