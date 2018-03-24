@@ -74,7 +74,7 @@ function create () {
   socket.on("connect", onsocketConnected);
 
   socket.on('connect_failed', function() {
-   document.write("Sorry, there seems to be an issue with the connection!");
+    document.write("Sorry, there seems to be an issue with the connection!");
   });
 
   socket.on("userData", function(userData){
@@ -134,13 +134,13 @@ function update() {
 
   if(startFlag == true)
   {
-  var timeNow = Date.now();
-  if ( timeNow - tick > 3000) {
-    //userDataLocal.totalClicks = currencyTotal;
-    userUpdate(userDataLocal, name);
-    tick = Date.now();
+    var timeNow = Date.now();
+    if ( timeNow - tick > 3000) {
+      //userDataLocal.totalClicks = currencyTotal;
+      userUpdate(userDataLocal, name);
+      tick = Date.now();
+    }
   }
-}
 
 }
 
@@ -149,7 +149,7 @@ function testEmit(){
 }
 
 function demandUpdate(){
-  socket.emit("demandUpdate", name);
+  socket.emit("demandUpdate", userName);
   console.log("UPDATE DEMANDED");
 }
 
