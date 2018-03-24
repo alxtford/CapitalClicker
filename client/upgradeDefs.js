@@ -32,3 +32,58 @@ var itemsBought = 0;
 // COMMON DEFS PRICE INCREASE
 
 var priceIncrease = 1.5;
+
+var menuData = {
+  "data": [
+    {
+      "price": 10,
+      "multiplier": 1.1,
+      "bought": 0
+    },
+    {
+      "price": 100,
+      "multiplier": 1.5,
+      "bought": 0
+    },
+    {
+      "price": 1000,
+      "multiplier": 2,
+      "bought": 0
+    },
+    {
+      "price": 10,
+      "multiplier": 1.1,
+      "bought": 0
+    },
+    {
+      "price": 100,
+      "multiplier": 1.5,
+      "bought": 0
+    },
+    {
+      "price": 1000,
+      "multiplier": 2,
+      "bought": 0
+    },
+    {
+      "price": 10,
+      "multiplier": 1.1,
+      "bought": 0
+    },
+    {
+      "price": 100,
+      "multiplier": 1.5,
+      "bought": 0
+    },
+    {
+      "price": 1000,
+      "multiplier": 2,
+      "bought": 0
+    },
+    {
+      "price": 1000,
+      "multiplier": 2,
+      "bought": 0
+    }
+  ]
+};
