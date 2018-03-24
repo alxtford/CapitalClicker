@@ -3,7 +3,8 @@ var menuexitbutton;
 var menubuttonText;
 var menubuttonClickAnim;
 var menuback;
-var menuTween;
+var menuTween = [];
+var menuButtonTween;
 var textOptions;
 var itemTween = [];
 var menuItems = [];
@@ -35,7 +36,7 @@ function menuOptionsCreate()
   for(var i = 1; i < userDataLocal.upgradeList.length + 1; i++)
   {
     console.log("CREATING MENU OPTIONS");
-    menuItemsButtons[i-1] = uiLayer.create(10, 36.5 + (48* i), "menuItemButton");
+    menuItemsButtons[i-1] = uiLayer.create(-400, 36.5 + (48* i), "menuItemButton");
     menuItemsButtons[i-1].scale.setTo(2);
 
     menuItemsButtons[i-1].inputEnabled = true;
@@ -94,6 +95,8 @@ function OnmenuexitbuttonClickUp(){
   {
     itemTween[i-1] =  clientGame.add.tween(menuItems[i - 1]).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, false);
     itemTween[i-1].start();
+    menuButtonTween=  clientGame.add.tween(menuItemsButtons[i - 1]).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, false);
+    menuButtonTween.start();
   }
 }
 
@@ -103,6 +106,8 @@ function menuOptionsDraw(){
   {
     itemTween[i] =  clientGame.add.tween(menuItems[i]).to({x:60}, 1000,Phaser.Easing.Bounce.Out, false);
     itemTween[i].start();
+    menuButtonTween =  clientGame.add.tween(menuItemsButtons[i]).to({x:10}, 1000,Phaser.Easing.Bounce.Out, false);
+    menuButtonTween.start();
   }
 
   //userDataLocal.upgradeList.length()
