@@ -171,21 +171,17 @@ function userUpdate(userData, name){
 }
 
 function localUpgradeUpdate(){
-  hirelingBought = userDataLocal.upgradeList[0].timesClicked;
-  employeeBought = userDataLocal.upgradeList[1].timesClicked;
-  traderBought = userDataLocal.upgradeList[2].timesClicked;
-  waresBought = userDataLocal.upgradeList[3].timesClicked;
-  commoditiesBought = userDataLocal.upgradeList[4].timesClicked;
-  itemsBought = userDataLocal.upgradeList[5].timesClicked;
+  for(var i = 0; i < userDataLocal.upgradeList.length; i++)
+  {
+    menuData.data[i].bought = userDataLocal.upgradeList[i].timesClicked;
+  }
 }
 
 function serverUpgradeUpdate(userData){
-   userData.upgradeList[0].timesClicked = hirelingBought;
-   userData.upgradeList[1].timesClicked = employeeBought;
-   userData.upgradeList[2].timesClicked = traderBought;
-   userData.upgradeList[3].timesClicked = waresBought;
-   userData.upgradeList[4].timesClicked = commoditiesBought;
-   userData.upgradeList[5].timesClicked = itemsBought;
+  for(var i = 0; i < userDataLocal.upgradeList.length; i++)
+  {
+   userData.upgradeList[0].timesClicked =  menuData.data[i].bought;
+  }
 }
 
 // this function is fired when we connect

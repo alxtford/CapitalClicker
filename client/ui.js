@@ -8,6 +8,7 @@ var textOptions;
 var itemTween = [];
 var menuItems = [];
 var menuItemsPrice = [];
+var menuItemsButtons = [];
 
 
 function menuAssetsCreate(){
@@ -34,6 +35,13 @@ function menuOptionsCreate()
   for(var i = 1; i < userDataLocal.upgradeList.length + 1; i++)
   {
     console.log("CREATING MENU OPTIONS");
+    menuItemsButtons[i-1] = uiLayer.create(10, 36.5 + (48* i), "menuItemButton");
+    menuItemsButtons[i-1].scale.setTo(2);
+
+    menuItemsButtons[i-1].inputEnabled = true;
+    menuItemsButtons[i-1].input.priorityID = 1;
+    menuItemsButtons[i-1].input.useHandCursor = true;
+
     menuItems[i - 1] = clientGame.add.text(-400, 38 + (48 * i), userDataLocal.upgradeList[i-1].name + "     " + menuData.data[i-1].price, menuStyle);
     menuItems[i - 1].setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
     uiLayer.add(menuItems[i - 1]);
