@@ -162,7 +162,7 @@ function saveName(name){
 function userUpdate(userData, name){
   console.log(JSON.stringify(userData));
   userData.totalClicks = currencyTotal;
-  socket.emit("userUpdate", JSON.stringify(userData));
+  socket.emit("userUpdate", JSON.stringify(userData), userName);
   console.log("USER DATA UPDATE:\n" + JSON.stringify(userData));
 }
 

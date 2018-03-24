@@ -133,16 +133,19 @@ var cloudant = Cloudant({account:me, password:password, maxAttempt: 5, plugins: 
     });
 
     // Listen for user data update
-    socket.on("userUpdate", function userUpdate(userData){
+    socket.on("userUpdate", function userUpdate(userData, name){
       var serverReceive = JSON.parse(userData);
-        db.find({selector:{_id:  userData._id}}, function(err, result){
+      db.find({selector:{_id:  name}}, function(err, result){
         // console.log("PRINTING BODY FROM DOC:\n" + body);
         var dataUpdate = result.docs[0];
-        // console.log("SERVER HAS RECEIVED, PARSED:\n" + serverReceive);
+        //console.log("DATA UPDATE:\n" + JSON.stringify(dataUpdate));
+        console.log("SERVER HAS RECEIVED, PARSED:\n" + JSON.stringify(serverReceive));
         if(dataUpdate != serverReceive)
         {
           dataUpdate = serverReceive;
+          dataUpdate._rev = result.docs[0]._rev;
           console.log("SERVER HAS RECEIVED:\n" + JSON.stringify(dataUpdate));
+
           db.insert(dataUpdate, function(err, body, doc) {
             if (err) {
               console.log('Error inserting data on update\n' + err);
