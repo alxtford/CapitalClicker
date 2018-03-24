@@ -84,8 +84,12 @@ function create () {
     userDataLocal = JSON.parse(userData);
     console.log("AFTER SERVER WRITE:\n" + userDataLocal);
 
+    localUpgradeUpdate();
+
     currencyTotal = parseInt(userDataLocal.totalClicks);
+
     console.log("Starting currency total: " + currencyTotal);
+    menuOptionsCreate();
     startFlag = true;
     //userDataLocal = userData;
     console.log("Listening for User Data");
@@ -160,10 +164,28 @@ function saveName(name){
 }
 
 function userUpdate(userData, name){
-  console.log(JSON.stringify(userData));
   userData.totalClicks = currencyTotal;
+  serverUpgradeUpdate(userData);
   socket.emit("userUpdate", JSON.stringify(userData), userName);
   console.log("USER DATA UPDATE:\n" + JSON.stringify(userData));
+}
+
+function localUpgradeUpdate(){
+  hirelingBought = userDataLocal.upgradeList[0].timesClicked;
+  employeeBought = userDataLocal.upgradeList[1].timesClicked;
+  traderBought = userDataLocal.upgradeList[2].timesClicked;
+  waresBought = userDataLocal.upgradeList[3].timesClicked;
+  commoditiesBought = userDataLocal.upgradeList[4].timesClicked;
+  itemsBought = userDataLocal.upgradeList[5].timesClicked;
+}
+
+function serverUpgradeUpdate(userData){
+   userData.upgradeList[0].timesClicked = hirelingBought;
+   userData.upgradeList[1].timesClicked = employeeBought;
+   userData.upgradeList[2].timesClicked = traderBought;
+   userData.upgradeList[3].timesClicked = waresBought;
+   userData.upgradeList[4].timesClicked = commoditiesBought;
+   userData.upgradeList[5].timesClicked = itemsBought;
 }
 
 // this function is fired when we connect
