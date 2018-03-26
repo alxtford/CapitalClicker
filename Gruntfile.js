@@ -15,9 +15,18 @@ obfuscator: {
             // options for each sub task
         },
         files: {
-            'dest/output.js': [
-                'src/js/file1.js',
-                'src/js/file2.js'
+            '/': [
+                'client/assetDraw.js',
+                'client/assetLoad.js',
+                "client/crtFilter.js",
+                "client/DayNight.js",
+                "client/defaultData.JSON",
+                "client/inputManager.js",
+                "client/loader.js",
+                "client/main.js",
+                "client/survey.js",
+                "client/ui.js",
+                "client/upgradeDefs.js"
             ]
         }
     }
