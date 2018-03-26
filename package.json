@@ -29,8 +29,8 @@
     "express": "^4.16.2",
     "socket.io": "^2.0.4",
     "@orange-games/phaser-input": "^2.0.5"
-
   },
   "devDependencies": {
+    "@orange-games/phaser-nineslice": "^2.0.1"
   }
 }
