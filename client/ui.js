@@ -9,10 +9,15 @@ var textOptions;
 var itemTween = [];
 var menuItems = [];
 var menuItemsPrice = [];
-var menuItemsButtons = [];
+var menuItemsPriceTween = [];
 
+var menuItemsButtons = [];
+var menuItemsGroup;
+
+var menuItemOffset = 48;
 
 function menuAssetsCreate(){
+  menuItemsGroup = clientGame.add.group();
 
   menubutton = uiLayer.create(10, 80, "menubutton");
   menubutton.scale.setTo(8);
@@ -33,20 +38,28 @@ function menuAssetsCreate(){
 
 function menuOptionsCreate()
 {
+  uiLayer.add(menuItemsGroup);
   for(var i = 1; i < userDataLocal.upgradeList.length + 1; i++)
   {
     console.log("CREATING MENU OPTIONS");
-    menuItemsButtons[i-1] = uiLayer.create(-400, 36.5 + (48* i), "menuItemButton");
+    menuItemsButtons[i-1] = menuItemsGroup.create(-400, 36.5 + (menuItemOffset * i), "menuItemButton");
     menuItemsButtons[i-1].scale.setTo(2);
 
     menuItemsButtons[i-1].inputEnabled = true;
     menuItemsButtons[i-1].input.priorityID = 1;
     menuItemsButtons[i-1].input.useHandCursor = true;
 
-    menuItems[i - 1] = clientGame.add.text(-400, 38 + (48 * i), userDataLocal.upgradeList[i-1].name + "     " + menuData.data[i-1].price, menuStyle);
+
+
+    menuItems[i - 1] = clientGame.add.text(-400, 38 + (menuItemOffset * i), userDataLocal.upgradeList[i-1].name, menuStyle);
     menuItems[i - 1].setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
     uiLayer.add(menuItems[i - 1]);
+
+    menuItemsPrice[i - 1] = clientGame.add.text(-200, 38 + (menuItemOffset * i), menuData.data[i-1].price, menuStyle);
+    menuItemsPrice[i - 1].setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+    uiLayer.add(menuItemsPrice[i - 1]);
   }
+  listButtonListener();
 }
 
 function menubuttonClickDown(){
@@ -95,6 +108,8 @@ function OnmenuexitbuttonClickUp(){
   {
     itemTween[i-1] =  clientGame.add.tween(menuItems[i - 1]).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, false);
     itemTween[i-1].start();
+    menuItemsPriceTween[i-1] =  clientGame.add.tween(menuItemsPrice[i - 1]).to({x:-200}, 1000,Phaser.Easing.Bounce.Out, false);
+    menuItemsPriceTween[i-1].start();
     menuButtonTween=  clientGame.add.tween(menuItemsButtons[i - 1]).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, false);
     menuButtonTween.start();
   }
@@ -104,11 +119,28 @@ function menuOptionsDraw(){
 
   for(var i = 0; i < userDataLocal.upgradeList.length; i++)
   {
-    itemTween[i] =  clientGame.add.tween(menuItems[i]).to({x:60}, 1000,Phaser.Easing.Bounce.Out, false);
+    itemTween[i] =  clientGame.add.tween(menuItems[i]).to({x:50}, 1000,Phaser.Easing.Bounce.Out, false);
     itemTween[i].start();
+    menuItemsPriceTween[i] =  clientGame.add.tween(menuItemsPrice[i]).to({x:200}, 1000,Phaser.Easing.Bounce.Out, false);
+    menuItemsPriceTween[i].start();
     menuButtonTween =  clientGame.add.tween(menuItemsButtons[i]).to({x:10}, 1000,Phaser.Easing.Bounce.Out, false);
     menuButtonTween.start();
   }
 
   //userDataLocal.upgradeList.length()
+}
+
+function onMenuOptionsDown(sprite){
+  console.log(clientGame.input.activePointer.positionDown.y);
+  console.log(sprite.name + " Down!")
+}
+
+function onMenuOptionsUp(){
+  var normalisedY = (clientGame.input.activePointer.positionDown.y - 84.5)/(554.5 - 84.5);
+  console.log("Normalised: " + normalisedY);
+  var buttonNum = Math.floor(normalisedY * 10);
+  console.log("button: " + buttonNum);
+
+  userDataLocal.upgradeList[buttonNum].timesClicked ++;
+  console.log(userDataLocal.upgradeList[buttonNum].name + " clicked "  + parseInt(userDataLocal.upgradeList[buttonNum].timesClicked) + "!")
 }

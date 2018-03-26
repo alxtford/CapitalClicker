@@ -42,7 +42,7 @@ function init(){
   this.game.stage.smoothed = false;
   this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
   this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-  this.game.scale.setMinMax(100, 75, 1600, 1200);
+  this.game.scale.setMinMax(100, 75, 1000, 750);
   this.scale.pageAlignHorizontally = true;
   this.scale.pageAlignVertically = true;
   this.game.canvas.oncontextmenu = function(e){e.preventDefault();};
@@ -82,8 +82,6 @@ function create () {
     console.log("BEFORE SERVER WRITE:\n" + userDataLocal);
     userDataLocal = JSON.parse(userData);
     console.log("AFTER SERVER WRITE:\n" + userDataLocal);
-
-    localUpgradeUpdate();
 
     currencyTotal = parseInt(userDataLocal.totalClicks);
 
@@ -164,23 +162,8 @@ function saveName(name){
 
 function userUpdate(userData, name){
   userData.totalClicks = currencyTotal;
-  serverUpgradeUpdate(userData);
   socket.emit("userUpdate", JSON.stringify(userData), userName);
   console.log("USER DATA UPDATE:\n" + JSON.stringify(userData));
-}
-
-function localUpgradeUpdate(){
-  for(var i = 0; i < userDataLocal.upgradeList.length; i++)
-  {
-    menuData.data[i].bought = userDataLocal.upgradeList[i].timesClicked;
-  }
-}
-
-function serverUpgradeUpdate(userData){
-  for(var i = 0; i < userDataLocal.upgradeList.length; i++)
-  {
-   userData.upgradeList[0].timesClicked =  menuData.data[i].bought;
-  }
 }
 
 // this function is fired when we connect
