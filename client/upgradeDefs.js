@@ -37,12 +37,12 @@ var menuData = {
   "data": [
     {
       "price": 10,
-      "multiplier": 1.1,
+      "multiplier": 0.1,
       "bought": 0
     },
     {
       "price": 100,
-      "multiplier": 1.5,
+      "multiplier": 0.5,
       "bought": 0
     },
     {

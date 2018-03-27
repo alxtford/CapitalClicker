@@ -140,11 +140,13 @@ function onMenuOptionsUp(){
   var buttonNum = Math.floor(normalisedY * 10);
 
   currencyLocal = currencyTotal - menuData.data[buttonNum].price
-
-  if(currencyLocal > menuData.data[buttonNum].price)
+  console.log(currencyLocal);
+  if(currencyLocal > 0)
   {
     userDataLocal.upgradeList[buttonNum].timesClicked ++;
     currencyTotal -= menuData.data[buttonNum].price;
+
+    menuData.data[buttonNum].bought ++;
 
     userDataLocal.totalBought ++;
   }

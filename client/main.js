@@ -22,7 +22,7 @@ var daySpeed = 2000;
 
 var currencyTotalText;
 var currencyTotal = 0;
-var currencyLocal = 0;
+var currencyLocal;
 
 var click;
 var lastclick;
@@ -84,6 +84,20 @@ function create () {
     console.log("AFTER SERVER WRITE:\n" + userDataLocal);
 
     currencyTotal = parseInt(userDataLocal.totalClicks);
+
+    for(var i = 0; i < userDataLocal.upgradeList.length; i++)
+    {
+      menuData.data[i].bought = userDataLocal.upgradeList[i].timesClicked;
+
+
+    }
+    for(var i = 3; i < 6; i++)
+    {
+      modifierTotal += (menuData.data[i].bought * menuData.data[i].multiplier);
+    }
+    
+    modifierTotal = Math.round(modifierTotal);
+    console.log("Starting Modifier: " + modifierTotal);
 
     console.log("Starting currency total: " + currencyTotal);
     menuOptionsCreate();
