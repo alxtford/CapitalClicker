@@ -13,6 +13,8 @@ var menuItemModifier;
 var menuItemsPrice = [];
 var menuItemsPriceTween = [];
 
+var modifierEffect;
+
 var menuItemsButtons = [];
 var menuItemsGroup;
 
@@ -54,13 +56,18 @@ function menuOptionsCreate()
     menuItemName = userDataLocal.upgradeList[i-1].name;
     menuItemModifier = menuData.data[i-1].multiplier;
 
-    menuItems[i - 1] = clientGame.add.text(-400, 37 + (menuItemOffset * i), userDataLocal.upgradeList[i-1].name + "\n" + userDataLocal.upgradeList[i - 1].type + menuData.data[i-1].multiplier, menuStyle);
+    menuItems[i - 1] = clientGame.add.text(-400, 37 + (menuItemOffset * i), userDataLocal.upgradeList[i-1].name + "\n" + menuData.data[i-1].multiplier + "\t" + userDataLocal.upgradeList[i - 1].type, menuStyle);
     menuItems[i - 1].setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
     menuItems[i - 1].lineSpacing = -8;
     uiLayer.add(menuItems[i - 1]);
 
-    menuItemsPrice[i - 1] = clientGame.add.text(-100, 37 + (menuItemOffset * i), menuData.data[i-1].currentPrice, menuStyle);
+    modifierEffect = menuData.data[i-1].multiplier * userDataLocal.upgradeList[i - 1].timesClicked;
+
+    console.log(modifierEffect)
+
+    menuItemsPrice[i - 1] = clientGame.add.text(-100, 37 + (menuItemOffset * i), menuData.data[i-1].currentPrice + "\n" + modifierEffect, menuStyle);
     menuItemsPrice[i - 1].setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+    menuItemsPrice[i - 1].lineSpacing = -8;
     uiLayer.add(menuItemsPrice[i - 1]);
   }
   listButtonListener();
@@ -163,6 +170,9 @@ function onMenuOptionsUp(){
 }
 
 function updatePrice(i){
-  menuData.data[i].currentPrice = (menuData.data[i].basePrice * menuData.data[i].bought) * 2.5;
-  menuItemsPrice[i].setText(menuData.data[i].currentPrice)
+  menuData.data[i].currentPrice = (menuData.data[i].basePrice * menuData.data[i].bought) * 1.5 + menuData.data[i].currentPrice;
+
+  modifierEffect = menuData.data[i].multiplier * userDataLocal.upgradeList[i].timesClicked;
+
+  menuItemsPrice[i].setText(menuData.data[i].currentPrice + "\n" + (Math.round(modifierEffect * 10)/10));
 }

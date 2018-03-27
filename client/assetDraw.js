@@ -5,7 +5,7 @@ var ground;
 var groundSway;
 
 var style = {font: "28px VT323", fill: "#fff", tabs: 150};
-var menuStyle = {font: "20px VT323", fill: "#fff", tabs: 150, align: "left"};
+var menuStyle = {font: "20px VT323", fill: "#fff", tabs: 40, align: "left"};
 var notificationStyle = {font: "64px VT323", fill: "#fff", tabs: 150};
 
 var activeTimeText;
