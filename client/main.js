@@ -27,6 +27,7 @@ var currencyLocal;
 var click;
 var lastclick;
 var timeNow;
+var tickCounter;
 
 var userName;
 var userNameText;
@@ -85,11 +86,12 @@ function create () {
     console.log("AFTER SERVER WRITE:\n" + userDataLocal);
 
     currencyTotal = parseInt(userDataLocal.totalClicks);
+    menuOptionsCreate();
 
     for(var i = 0; i < userDataLocal.upgradeList.length; i++)
     {
       menuData.data[i].bought = userDataLocal.upgradeList[i].timesClicked;
-
+      updatePrice(i);
 
     }
     for(var i = 3; i < 6; i++)
@@ -105,7 +107,7 @@ function create () {
     console.log("Starting Modifier: " + modifierTotal);
 
     console.log("Starting currency total: " + currencyTotal);
-    menuOptionsCreate();
+
     startFlag = true;
     //userDataLocal = userData;
     console.log("Listening for User Data");
@@ -155,14 +157,15 @@ function update() {
   if(startFlag == true)
   {
     timeNow = Date.now();
-    if ( timeNow - tick > 3000) {
+    if ( timeNow - tick > 1000) {
       //userDataLocal.totalClicks = currencyTotal;
       currencyTotal += Math.round((autoClick*modifierTotal));
-      userUpdate(userDataLocal, name);
       tick = Date.now();
+      tickCounter++;
     }
-    else if( timeNow - tick < 10){
-
+    if( tickCounter <= 3){
+      userUpdate(userDataLocal, name);
+      tickcounter = 0;
     }
   }
 
