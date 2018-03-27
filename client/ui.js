@@ -147,6 +147,7 @@ function onMenuOptionsUp(){
     currencyTotal -= menuData.data[buttonNum].price;
 
     menuData.data[buttonNum].bought ++;
+    modifierTotal+= menuData.data[buttonNum].multiplier;
 
     userDataLocal.totalBought ++;
   }
