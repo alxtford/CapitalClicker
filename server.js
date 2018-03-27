@@ -116,6 +116,7 @@ var cloudant = Cloudant({account:me, password:password, maxAttempt: 5, plugins: 
                 //console.log(body);
                 update.dateCreated= date;
                 update.dateLastLogin= date;
+                update.totalLoginIn ++;
 
                 db.insert(update, function(err, body, doc) {
                   if (err) {
@@ -138,6 +139,7 @@ var cloudant = Cloudant({account:me, password:password, maxAttempt: 5, plugins: 
           var date = new Date();
           update = body;
           update.dateLastLogin= date;
+          update.totalLoginIn ++;
           db.insert(update, function(err, body, doc) {
             if (err) {
               console.log('Error inserting data on Login\n' + err);
