@@ -36,52 +36,62 @@ var priceIncrease = 1.5;
 var menuData = {
   "data": [
     {
-      "price": 10,
+      "basePrice": 10,
+      "currentPrice": 10,
       "multiplier": 0.1,
       "bought": 0
     },
     {
-      "price": 100,
+      "basePrice": 100,
+      "currentPrice": 100,
       "multiplier": 0.5,
       "bought": 0
     },
     {
-      "price": 1000,
+      "basePrice": 1000,
+      "currentPrice": 1000,
       "multiplier": 2,
       "bought": 0
     },
     {
-      "price": 10,
+      "basePrice": 10,
+      "currentPrice": 10,
       "multiplier": 1.1,
       "bought": 0
     },
     {
-      "price": 100,
+      "basePrice": 100,
+      "currentPrice": 100,
       "multiplier": 1.5,
       "bought": 0
     },
     {
-      "price": 1000,
+      "basePrice": 1000,
+      "currentPrice": 1000,
       "multiplier": 2,
       "bought": 0
     },
     {
-      "price": 10,
+      "basePrice": 10,
+      "currentPrice": 10,
       "multiplier": 1.1,
       "bought": 0
     },
     {
-      "price": 100,
+      "basePrice": 100,
+      "currentPrice": 100,
       "multiplier": 1.5,
       "bought": 0
     },
     {
-      "price": 1000,
+      "basePrice": 1000,
+      "currentPrice": 10,
       "multiplier": 2,
       "bought": 0
     },
     {
-      "price": 1000,
+      "basePrice": 1000,
+      "currentPrice": 10,
       "multiplier": 2,
       "bought": 0
     }

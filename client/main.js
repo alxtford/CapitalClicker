@@ -139,7 +139,7 @@ function create () {
   skySet(localHours);
   createText();
   fade();
-  createStartText();
+  //createStartText();
   crtDraw();
 
   inputListenerStart();

@@ -1,5 +1,8 @@
 WebFontConfig = {
 
+  // When finished loading, create text
+  active: function() { clientGame.time.events.add(250, createStartText, this); },
+
   google: {
     families:["VT323"]
   }

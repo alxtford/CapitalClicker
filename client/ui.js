@@ -8,6 +8,8 @@ var menuButtonTween;
 var textOptions;
 var itemTween = [];
 var menuItems = [];
+var menuItemName;
+var menuItemModifier;
 var menuItemsPrice = [];
 var menuItemsPriceTween = [];
 
@@ -49,13 +51,15 @@ function menuOptionsCreate()
     menuItemsButtons[i-1].input.priorityID = 1;
     menuItemsButtons[i-1].input.useHandCursor = true;
 
+    menuItemName = userDataLocal.upgradeList[i-1].name;
+    menuItemModifier = menuData.data[i-1].multiplier;
 
-
-    menuItems[i - 1] = clientGame.add.text(-400, 38 + (menuItemOffset * i), userDataLocal.upgradeList[i-1].name, menuStyle);
+    menuItems[i - 1] = clientGame.add.text(-400, 37 + (menuItemOffset * i), userDataLocal.upgradeList[i-1].name + "\n" + userDataLocal.upgradeList[i - 1].type + menuData.data[i-1].multiplier, menuStyle);
     menuItems[i - 1].setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+    menuItems[i - 1].lineSpacing = -8;
     uiLayer.add(menuItems[i - 1]);
 
-    menuItemsPrice[i - 1] = clientGame.add.text(-200, 38 + (menuItemOffset * i), menuData.data[i-1].price, menuStyle);
+    menuItemsPrice[i - 1] = clientGame.add.text(-100, 37 + (menuItemOffset * i), menuData.data[i-1].currentPrice, menuStyle);
     menuItemsPrice[i - 1].setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
     uiLayer.add(menuItemsPrice[i - 1]);
   }
@@ -108,7 +112,7 @@ function OnmenuexitbuttonClickUp(){
   {
     itemTween[i-1] =  clientGame.add.tween(menuItems[i - 1]).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, false);
     itemTween[i-1].start();
-    menuItemsPriceTween[i-1] =  clientGame.add.tween(menuItemsPrice[i - 1]).to({x:-200}, 1000,Phaser.Easing.Bounce.Out, false);
+    menuItemsPriceTween[i-1] =  clientGame.add.tween(menuItemsPrice[i - 1]).to({x:-100}, 1000,Phaser.Easing.Bounce.Out, false);
     menuItemsPriceTween[i-1].start();
     menuButtonTween=  clientGame.add.tween(menuItemsButtons[i - 1]).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, false);
     menuButtonTween.start();
@@ -121,7 +125,7 @@ function menuOptionsDraw(){
   {
     itemTween[i] =  clientGame.add.tween(menuItems[i]).to({x:50}, 1000,Phaser.Easing.Bounce.Out, false);
     itemTween[i].start();
-    menuItemsPriceTween[i] =  clientGame.add.tween(menuItemsPrice[i]).to({x:200}, 1000,Phaser.Easing.Bounce.Out, false);
+    menuItemsPriceTween[i] =  clientGame.add.tween(menuItemsPrice[i]).to({x:250}, 1000,Phaser.Easing.Bounce.Out, false);
     menuItemsPriceTween[i].start();
     menuButtonTween =  clientGame.add.tween(menuItemsButtons[i]).to({x:10}, 1000,Phaser.Easing.Bounce.Out, false);
     menuButtonTween.start();
@@ -139,17 +143,26 @@ function onMenuOptionsUp(){
   var normalisedY = (clientGame.input.activePointer.positionDown.y - 84.5)/(554.5 - 84.5);
   var buttonNum = Math.floor(normalisedY * 10);
 
-  currencyLocal = currencyTotal - menuData.data[buttonNum].price
-  console.log(currencyLocal);
+  console.log(buttonNum);
+
+
+  currencyLocal = currencyTotal - menuData.data[buttonNum].currentPrice
   if(currencyLocal > 0)
   {
     userDataLocal.upgradeList[buttonNum].timesClicked ++;
-    currencyTotal -= menuData.data[buttonNum].price;
+    currencyTotal -= menuData.data[buttonNum].currentPrice;
 
     menuData.data[buttonNum].bought ++;
     modifierTotal+= menuData.data[buttonNum].multiplier;
 
+    updatePrice(buttonNum);
+
     userDataLocal.totalBought ++;
   }
 
+}
+
+function updatePrice(i){
+  menuData.data[i].currentPrice = (menuData.data[i].basePrice * menuData.data[i].bought) * 2.5;
+  menuItemsPrice[i].setText(menuData.data[i].currentPrice)
 }

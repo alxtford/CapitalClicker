@@ -5,12 +5,13 @@ var ground;
 var groundSway;
 
 var style = {font: "28px VT323", fill: "#fff", tabs: 150};
-var menuStyle = {font: "20px VT323", fill: "#fff", tabs: 150};
+var menuStyle = {font: "20px VT323", fill: "#fff", tabs: 150, align: "left"};
 var notificationStyle = {font: "64px VT323", fill: "#fff", tabs: 150};
 
 var activeTimeText;
 var clickmarker;
 var startText;
+var submit
 
 var crtFilter;
 var crtScreen;
@@ -76,23 +77,25 @@ function createStartText(){
             userNameText.blockInput = false;
 
 
-            var submit = clientGame.add.text(clientGame.width / 2 - 65, 380, 'Submit', {
+            submit = clientGame.add.text(clientGame.width / 2 - 65, 380, 'Submit', {
               font: '64px VT323',
               fill: '#212121',
               backgroundColor: "#FFFFFF",
             });
             submit.inputEnabled = true;
             submit.input.useHandCursor = true;
-            submit.events.onInputDown.add(function() {
-                userName = userNameText.value;
-                submit.destroy();
-                userNameText.destroy();
-                startText.setText("CLICK");
-                startText.x = 250;
-                saveName(userName);
-                });
+            submit.events.onInputDown.add(destroyStartText, this);
 
 }
+
+function destroyStartText() {
+    userName = userNameText.value;
+    submit.destroy();
+    userNameText.destroy();
+    startText.setText("CLICK");
+    startText.x = 250;
+    saveName(userName);
+    }
 
 function updateText(){
   //console.log("Text Updated")
