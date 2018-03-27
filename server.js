@@ -26,6 +26,8 @@ var hex_hash = crypto.enc.Hex.stringify(hash);
 var signature = payload + "." + hex_hash;
 var ticker_btcusd_url = 'https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD';
 
+// For Server events at set intervals
+var lastProcessedHour = -1;
 
 // Initialize the library with my account.
 var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAttempt: 5, plugins: { retry: { retryErrors: true, retryStatusCodes: [ 429, 404 ] } } }, function(err, cloudant) {
@@ -92,11 +94,30 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
 
   function btcCallback(error, response, body) {
     if (!error && response.statusCode == 200) {
-        console.log(body);
+        console.log("BITCOIN DATA SUCESSFULLY RECEIVED");
     }
 }
 
+// Request bitcoin data on server start
+console.log("REQUESTING BITCOIN DATA");
 request(btcOptions, btcCallback);
+
+// set interval to request bitcoin data every 6 hours, 4 times a day
+setInterval(function() {
+   var d = new Date();
+   var currentHour = d.getHours();
+   if(currentHour == 0 || currentHour == 6 || currentHour == 12 || currentHour == 18)
+   {
+   if (currentHour != lastProcessedHour) {
+      console.log("GETTING BITCOIN DATA. HOUR IS: " + currentHour);
+
+      request(btcOptions, btcCallback);
+
+      lastProcessedHour = currentHour;
+   }
+ }
+}, 10000);
+
 
   process.on('exit', function() {
     console.log('Server is shutting down!');
