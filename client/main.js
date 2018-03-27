@@ -26,6 +26,7 @@ var currencyLocal;
 
 var click;
 var lastclick;
+var timeNow;
 
 var userName;
 var userNameText;
@@ -95,7 +96,11 @@ function create () {
     {
       modifierTotal += (menuData.data[i].bought * menuData.data[i].multiplier);
     }
-    
+    for(var i = 0; i < 3; i++)
+    {
+      autoClick += (menuData.data[i].bought * menuData.data[i].multiplier);
+    }
+
     modifierTotal = Math.round(modifierTotal);
     console.log("Starting Modifier: " + modifierTotal);
 
@@ -149,11 +154,15 @@ function update() {
 
   if(startFlag == true)
   {
-    var timeNow = Date.now();
+    timeNow = Date.now();
     if ( timeNow - tick > 3000) {
       //userDataLocal.totalClicks = currencyTotal;
+      currencyTotal += Math.round((autoClick*modifierTotal));
       userUpdate(userDataLocal, name);
       tick = Date.now();
+    }
+    else if( timeNow - tick < 10){
+
     }
   }
 

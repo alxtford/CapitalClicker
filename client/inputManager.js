@@ -1,4 +1,5 @@
 var modifierTotal = 1;
+var autoClick = 0;
 
 function firstClick() {
   fadeScreen.destroy();
@@ -9,7 +10,7 @@ function clickListener(sprite){
 
   if(startFlag)
   {
-  currencyTotal += (1 * modifierTotal);
+  currencyTotal += Math.round(1 * modifierTotal);
   // if(startFlag == true)
   // {
   //   userDataLocal.totalClicks ++;
