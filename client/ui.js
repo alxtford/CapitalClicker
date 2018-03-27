@@ -131,16 +131,22 @@ function menuOptionsDraw(){
 }
 
 function onMenuOptionsDown(sprite){
-  console.log(clientGame.input.activePointer.positionDown.y);
-  console.log(sprite.name + " Down!")
+
+
 }
 
 function onMenuOptionsUp(){
   var normalisedY = (clientGame.input.activePointer.positionDown.y - 84.5)/(554.5 - 84.5);
-  console.log("Normalised: " + normalisedY);
   var buttonNum = Math.floor(normalisedY * 10);
-  console.log("button: " + buttonNum);
 
-  userDataLocal.upgradeList[buttonNum].timesClicked ++;
-  console.log(userDataLocal.upgradeList[buttonNum].name + " clicked "  + parseInt(userDataLocal.upgradeList[buttonNum].timesClicked) + "!")
+  currencyLocal = currencyTotal - menuData.data[buttonNum].price
+
+  if(currencyLocal > menuData.data[buttonNum].price)
+  {
+    userDataLocal.upgradeList[buttonNum].timesClicked ++;
+    currencyTotal -= menuData.data[buttonNum].price;
+
+    userDataLocal.totalBought ++;
+  }
+
 }
