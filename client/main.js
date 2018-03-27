@@ -37,6 +37,9 @@ var userDataLocal;
 var startFlag = false;
 var nameRegistered;
 
+var bitcoinData;
+var btcDayPercentChange;
+
 function init(){
   clientGame.plugins.add(PhaserInput.Plugin);
 
@@ -57,7 +60,8 @@ function preload() {
 }
 
 function testData(){
-  clientGame.load.json("userData", "client/defaultData.JSON");
+  clientGame.load.json("userData", "client/lib/defaultData.JSON");
+  clientGame.load.json("bitcoinData", "client/lib/defaultBTC.JSON");
 }
 
 function testDataRetrieve(){
@@ -76,6 +80,16 @@ function create () {
 
   socket.on('connect_failed', function() {
     document.write("Sorry, there seems to be an issue with the connection!");
+  });
+
+  socket.on("bitcoinData", function(data) {
+    bitcoinData = clientGame.cache.getJSON("bitcoinData");
+    bitcoinData = JSON.parse(data);
+
+    console.log(data);
+
+    btcDayPercentChange = bitcoinData.changes.percent.day;
+    console.log(btcDayPercentChange);
   });
 
   socket.on("userData", function(userData){

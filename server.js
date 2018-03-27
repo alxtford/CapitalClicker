@@ -1,7 +1,7 @@
 
 //https://github.com/cloudant/nodejs-cloudant
 //https://www.tonyerwin.com/2014/09/redirecting-http-to-https-with-nodejs.html
-
+//https://bitcoinaverage.com/
 
 //import express.js
 var express = require('express');
@@ -25,6 +25,8 @@ var hash = crypto.HmacSHA256(payload, secret_key);
 var hex_hash = crypto.enc.Hex.stringify(hash);
 var signature = payload + "." + hex_hash;
 var ticker_btcusd_url = 'https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD';
+var bitcoinDataBody;
+
 
 // For Server events at set intervals
 var lastProcessedHour = -1;
@@ -95,6 +97,7 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
   function btcCallback(error, response, body) {
     if (!error && response.statusCode == 200) {
         console.log("BITCOIN DATA SUCESSFULLY RECEIVED");
+        bitcoinDataBody = body;
     }
 }
 
@@ -250,6 +253,7 @@ setInterval(function() {
         // }
         //console.log("DEMANDED DOC:\n" + JSON.stringify(result.docs[0]));
         socket.emit("userData", JSON.stringify(result.docs[0]));
+        socket.emit("bitcoinData", JSON.stringify(bitcoinDataBody));
       });
 
     });

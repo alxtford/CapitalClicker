@@ -1,0 +1,45 @@
+{
+    "ask": 0,
+    "bid": 0,
+    "last": 0,
+    "high": 0,
+    "low": 0,
+    "open": {
+        "hour": 0,
+        "day": 0,
+        "week": 0,
+        "month": 0,
+        "month_3": 0,
+        "month_6": 0,
+        "year": 0
+    },
+    "averages": {
+        "day": 0,
+        "week": 0,
+        "month": 0
+    },
+    "volume": 0,
+    "changes": {
+        "price": {
+            "hour": 0,
+            "day": 0,
+            "week": 0,
+            "month": 0,
+            "month_3": 0,
+            "month_6": 0,
+            "year": 0
+        },
+        "percent": {
+            "hour": 0,
+            "day": 0,
+            "week": 0,
+            "month": 0,
+            "month_3": 0,
+            "month_6": 0,
+            "year": 0
+        }
+    },
+    "volume_percent": 82.44,
+    "timestamp": 1522192003,
+    "display_timestamp": "2018-03-27 23:06:43"
+}
