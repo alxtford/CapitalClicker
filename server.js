@@ -7,18 +7,28 @@
 var express = require('express');
 //assign it to variable app
 var app = express();
-
-
 //create a server and pass in app as a request handler
 var serv = require('http').createServer(app); //Server-11
-
 var Cloudant = require('cloudant');
+var crypto = require('crypto-js');
+var request = require('request');
 
-var me = '511ca238-fccd-486b-b4a8-3441a50531bc-bluemix'; // Set this to your own account
-var password = "84da1dc77eccb3f811f8218aad8178d1ba45fa462ab8751a49ba85b35efe1927";
+var cloudantUser = '511ca238-fccd-486b-b4a8-3441a50531bc-bluemix'; // CLOUDANT
+var cloudantPassword = "84da1dc77eccb3f811f8218aad8178d1ba45fa462ab8751a49ba85b35efe1927";
+
+// CRYPTO / BITCOINAVERAGE API
+var public_key = 'YzNiYzA2MTgzYTc4NDNkZGExNTAyZWFhZGJlZGE4YWQ';
+var secret_key = 'ZGRiNWMxZDRmMDhmNDY4NTk3OWMwOWM5ZTJiZDY0ZTNlYTQzNDg3MTBmMGE0NGMxOWNjNTJiMGM3M2MwOGViOQ';
+var timestamp = Math.floor(Date.now() / 1000);
+var payload = timestamp + '.' + public_key;
+var hash = crypto.HmacSHA256(payload, secret_key);
+var hex_hash = crypto.enc.Hex.stringify(hash);
+var signature = payload + "." + hex_hash;
+var ticker_btcusd_url = 'https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD';
+
 
 // Initialize the library with my account.
-var cloudant = Cloudant({account:me, password:password, maxAttempt: 5, plugins: { retry: { retryErrors: true, retryStatusCodes: [ 429, 404 ] } } }, function(err, cloudant) {
+var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAttempt: 5, plugins: { retry: { retryErrors: true, retryStatusCodes: [ 429, 404 ] } } }, function(err, cloudant) {
   if (err) {
     return console.log('Failed to initialize Cloudant: ' + err.message);
   }});
@@ -70,6 +80,23 @@ var cloudant = Cloudant({account:me, password:password, maxAttempt: 5, plugins: 
   });
 
   console.log("Server started.");
+
+
+  var btcOptions = {
+    url: ticker_btcusd_url,
+    headers: {
+        'X-Signature': signature
+    }
+};
+
+
+  function btcCallback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(btcOptions, btcCallback);
 
   process.on('exit', function() {
     console.log('Server is shutting down!');
