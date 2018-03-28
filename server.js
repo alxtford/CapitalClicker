@@ -216,12 +216,12 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
         // console.log("PRINTING BODY FROM DOC:\n" + body);
         var dataUpdate = result.docs[0];
         //console.log("DATA UPDATE:\n" + JSON.stringify(dataUpdate));
-        console.log("SERVER HAS RECEIVED, PARSED:\n" + JSON.stringify(serverReceive));
+        //console.log("SERVER HAS RECEIVED, PARSED:\n" + JSON.stringify(serverReceive));
         if(dataUpdate != serverReceive)
         {
           dataUpdate = serverReceive;
           dataUpdate._rev = result.docs[0]._rev;
-          console.log("SERVER HAS RECEIVED:\n" + JSON.stringify(dataUpdate));
+          //console.log("SERVER HAS RECEIVED:\n" + JSON.stringify(dataUpdate));
 
           db.insert(dataUpdate, function(err, body, doc) {
             if (err) {

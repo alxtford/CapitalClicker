@@ -177,12 +177,7 @@ function update() {
     timeNow = Date.now();
     if ( timeNow - tick > 3000) {
       //userDataLocal.totalClicks = currencyTotal;
-
       userUpdate(userDataLocal, name);
-      console.log("TICKING");
-
-      console.log("MODIFIER: " + modifierTotal);
-      console.log("MODIFIER WITH BTC: " + (modifierTotal * (1+btcDayPercentChange)));
 
       tick = Date.now();
     }
@@ -209,7 +204,6 @@ function saveName(name){
 function userUpdate(userData, name){
   userData.totalClicks = currencyTotal;
   socket.emit("userUpdate", JSON.stringify(userData), userName);
-  console.log("USER DATA UPDATE:\n" + JSON.stringify(userData));
 }
 
 // this function is fired when we connect
