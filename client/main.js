@@ -172,7 +172,7 @@ function update() {
     timeNow = Date.now();
     if ( timeNow - tick > 1000) {
       //userDataLocal.totalClicks = currencyTotal;
-      currencyTotal += Math.round((autoClick*modifierTotal));
+      currencyTotal += Math.round((autoClick*(modifierTotal * (1-btcDayPercentChange)));
       tick = Date.now();
       tickCounter++;
     }
