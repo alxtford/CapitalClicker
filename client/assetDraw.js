@@ -35,13 +35,11 @@ ground.animations.play("wind", 1, true);
 
 function fade(){
   fadeScreen = clientGame.add.graphics(0,0);
-  fadeScreen.inputEnabled = true;
 
   fadeScreen.beginFill(0x000000);
   fadeScreen.drawRect(0,0, 800, 600 );
   fadeScreen.endFill();
 
-  fadeScreen.inputEnabled = true;
 }
 
 
@@ -76,10 +74,11 @@ function createStartText(){
                 borderRadius: 6,
                 placeHolder: '',
                 textAlign: 'center',
-                zoom: true
+                zoom: false
             });
             userNameText.setText("");
             userNameText.blockInput = false;
+            userNameText.startFocus();
 
 
             submit = clientGame.add.text(clientGame.width / 2 - 65, 380, 'Submit', {
@@ -100,6 +99,7 @@ function destroyStartText() {
     startText.setText("CLICK");
     startText.x = 250;
     saveName(userName);
+    fadeScreen.inputEnabled = true;
     }
 
 function updateText(){
