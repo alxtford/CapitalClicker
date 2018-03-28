@@ -184,7 +184,6 @@ function update() {
       console.log("MODIFIER: " + modifierTotal);
       console.log("MODIFIER WITH BTC: " + (modifierTotal * (1+btcDayPercentChange)));
 
-
       tick = Date.now();
     }
 
