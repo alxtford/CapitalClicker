@@ -20,7 +20,10 @@ function assetLoad(){
   clientGame.load.spritesheet("menuback", "assets/menuback.png", 40, 70);
   clientGame.load.spritesheet("menuexitbutton", "assets/menuexitbutton.png", 3, 3);
   clientGame.load.image("menuItemButton","assets/button.png", 35, 5);
+  clientGame.load.spritesheet("likertBackground", "assets/likertBackground.png", 100, 15);
+  clientGame.load.spritesheet("likertToggle", "assets/toggle.png", 8, 8);
 
   // TYPEFACE
   clientGame.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
+
 }

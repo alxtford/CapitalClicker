@@ -65,7 +65,7 @@ function menuOptionsCreate()
 
     console.log(modifierEffect)
 
-    menuItemsPrice[i - 1] = clientGame.add.text(-100, 37 + (menuItemOffset * i), menuData.data[i-1].currentPrice + "\n" + modifierEffect, menuStyle);
+    menuItemsPrice[i - 1] = clientGame.add.text(-100, 37 + (menuItemOffset * i), menuData.data[i-1].currentPrice + "\n" + modifierEffect + "/s", menuStyle);
     menuItemsPrice[i - 1].setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
     menuItemsPrice[i - 1].lineSpacing = -8;
     uiLayer.add(menuItemsPrice[i - 1]);
@@ -138,7 +138,7 @@ function menuOptionsDraw(){
   {
     itemTween[i] =  clientGame.add.tween(menuItems[i]).to({x:50}, 1000,Phaser.Easing.Bounce.Out, false);
     itemTween[i].start();
-    menuItemsPriceTween[i] =  clientGame.add.tween(menuItemsPrice[i]).to({x:250}, 1000,Phaser.Easing.Bounce.Out, false);
+    menuItemsPriceTween[i] =  clientGame.add.tween(menuItemsPrice[i]).to({x:220}, 1000,Phaser.Easing.Bounce.Out, false);
     menuItemsPriceTween[i].start();
     menuButtonTween =  clientGame.add.tween(menuItemsButtons[i]).to({x:10}, 1000,Phaser.Easing.Bounce.Out, false);
     menuButtonTween.start();
@@ -180,5 +180,5 @@ function updatePrice(i){
 
   modifierEffect = menuData.data[i].multiplier * userDataLocal.upgradeList[i].timesClicked;
 
-  menuItemsPrice[i].setText(menuData.data[i].currentPrice + "\n" + (Math.round(modifierEffect * 10)/10));
+  menuItemsPrice[i].setText("§" + menuData.data[i].currentPrice + "\n" + (Math.round(modifierEffect * 10)/10) + "/s");
 }

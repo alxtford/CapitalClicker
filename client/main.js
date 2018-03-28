@@ -40,6 +40,8 @@ var nameRegistered;
 var bitcoinData;
 var btcDayPercentChange;
 
+var likertFlag;
+
 function init(){
   clientGame.plugins.add(PhaserInput.Plugin);
 
@@ -160,6 +162,7 @@ function create () {
   inputListenerStart();
   testEmit();
   //testDataRetrieve();
+  createLikert();
 
   setInterval(function() {
     currencyTotal += Math.round(autoClick*(modifierTotal * (1+btcDayPercentChange)));
