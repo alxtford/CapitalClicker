@@ -74,13 +74,13 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
   // http://expressjs.com/api#req.secure). This allows us
   // to know whether the request was via http or https.
   app.use (function (req, res, next) {
-          if (req.secure) {
-                  // request was via https, so do no special handling
-                  next();
-          } else {
-                  // request was via http, so redirect to https
-                  res.redirect('https://' + req.headers.host + req.url);
-          }
+    if (req.secure) {
+      // request was via https, so do no special handling
+      next();
+    } else {
+      // request was via http, so redirect to https
+      res.redirect('https://' + req.headers.host + req.url);
+    }
   });
 
   console.log("Server started.");
@@ -89,37 +89,38 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
   var btcOptions = {
     url: ticker_btcusd_url,
     headers: {
-        'X-Signature': signature
+      'X-Signature': signature
     }
-};
+  };
 
 
   function btcCallback(error, response, body) {
     if (!error && response.statusCode == 200) {
-        console.log("BITCOIN DATA SUCESSFULLY RECEIVED");
-        bitcoinDataBody = body;
+      console.log("BITCOIN DATA SUCESSFULLY RECEIVED");
+      bitcoinDataBody = JSON.parse(body);
+      console.log(bitcoinDataBody);
     }
-}
+  }
 
-// Request bitcoin data on server start
-console.log("REQUESTING BITCOIN DATA");
-request(btcOptions, btcCallback);
+  // Request bitcoin data on server start
+  console.log("REQUESTING BITCOIN DATA");
+  request(btcOptions, btcCallback);
 
-// set interval to request bitcoin data every 6 hours, 4 times a day
-setInterval(function() {
-   var d = new Date();
-   var currentHour = d.getHours();
-   if(currentHour == 0 || currentHour == 6 || currentHour == 12 || currentHour == 18)
-   {
-   if (currentHour != lastProcessedHour) {
-      console.log("GETTING BITCOIN DATA. HOUR IS: " + currentHour);
+  // set interval to request bitcoin data every 6 hours, 4 times a day
+  setInterval(function() {
+    var d = new Date();
+    var currentHour = d.getHours();
+    if(currentHour == 0 || currentHour == 6 || currentHour == 12 || currentHour == 18)
+    {
+      if (currentHour != lastProcessedHour) {
+        console.log("GETTING BITCOIN DATA. HOUR IS: " + currentHour);
 
-      request(btcOptions, btcCallback);
+        request(btcOptions, btcCallback);
 
-      lastProcessedHour = currentHour;
-   }
- }
-}, 10000);
+        lastProcessedHour = currentHour;
+      }
+    }
+  }, 10000);
 
 
   process.on('exit', function() {

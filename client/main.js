@@ -84,9 +84,11 @@ function create () {
 
   socket.on("bitcoinData", function(data) {
     bitcoinData = clientGame.cache.getJSON("bitcoinData");
+    console.log(bitcoinData);
+
     bitcoinData = JSON.parse(data);
 
-    console.log(data);
+    console.log(bitcoinData);
 
     btcDayPercentChange = bitcoinData.changes.percent.day;
     console.log(btcDayPercentChange);
