@@ -88,10 +88,7 @@ function create () {
 
     bitcoinData = JSON.parse(data);
 
-    console.log(bitcoinData);
-
     btcDayPercentChange = bitcoinData.changes.percent.day;
-    console.log(btcDayPercentChange);
   });
 
   socket.on("userData", function(userData){

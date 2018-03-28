@@ -98,7 +98,6 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
     if (!error && response.statusCode == 200) {
       console.log("BITCOIN DATA SUCESSFULLY RECEIVED");
       bitcoinDataBody = JSON.parse(body);
-      console.log(bitcoinDataBody);
     }
   }
 

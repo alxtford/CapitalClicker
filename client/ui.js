@@ -88,8 +88,10 @@ function menubuttonClickUp(){
   menubuttonText.visible = false;
 
   var currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:320}, 1000,Phaser.Easing.Bounce.Out, false);
+  var btcTextTween = clientGame.add.tween(btcText).to({x:320}, 1000,Phaser.Easing.Bounce.Out, false);
   menuOptionsDraw();
   currencyTotalTextTween.start();
+  btcTextTween.start();
 
 }
 
@@ -110,7 +112,11 @@ function OnmenuexitbuttonClickUp(){
   console.log("MOUSE UP non-menu Item");
   var menuTween = clientGame.add.tween(menuback).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
   var currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
+  var btcTextTween = clientGame.add.tween(btcText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
+
   currencyTotalTextTween.start();
+  btcTextTween.start();
+
   menubutton.visible = true;
   menubuttonText.visible = true;
   menuexitbutton.visible = false
