@@ -160,6 +160,11 @@ function create () {
   inputListenerStart();
   testEmit();
   //testDataRetrieve();
+
+  setInterval(function() {
+    currencyTotal += Math.round(autoClick*(modifierTotal * (1+btcDayPercentChange)));
+  }, 1000);
+
 }
 
 function update() {
@@ -170,16 +175,19 @@ function update() {
   if(startFlag == true)
   {
     timeNow = Date.now();
-    if ( timeNow - tick > 1000) {
+    if ( timeNow - tick > 3000) {
       //userDataLocal.totalClicks = currencyTotal;
-      currencyTotal += Math.round((autoClick*(modifierTotal * (1-btcDayPercentChange)));
-      tick = Date.now();
-      tickCounter++;
-    }
-    if( tickCounter <= 3){
+
       userUpdate(userDataLocal, name);
-      tickcounter = 0;
+      console.log("TICKING");
+
+      console.log("MODIFIER: " + modifierTotal);
+      console.log("MODIFIER WITH BTC: " + (modifierTotal * (1+btcDayPercentChange)));
+
+
+      tick = Date.now();
     }
+
   }
 
 }
