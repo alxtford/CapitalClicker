@@ -9,6 +9,7 @@ var httpsOptions = {
 
 //import express.js
 var express = require('express');
+var favicon = require('serve-favicon');
 //assign it to variable app
 var app = express();
 //create a server and pass in app as a request handler
@@ -57,7 +58,7 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
   //this means when a get request is made to ‘/client’, put all the
   //static files inside the client folder
   //Under ‘/client’. See for more details below
-
+  app.use(favicon(__dirname + '/client/assets/favicon.ico'));
   app.use('/client',express.static(__dirname + '/client'));
   app.use('/assets',express.static(__dirname + '/client/assets'));
   app.use('/lib',express.static(__dirname + '/lib'));

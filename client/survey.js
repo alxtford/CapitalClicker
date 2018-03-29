@@ -25,11 +25,10 @@ function createLikert(){
     toggle[i].scale.setTo(2);
     toggle[i].inputEnabled = true;
     toggle[i].input.useHandCursor = true;
-    console.log(toggle[i]);
 
     toggleSelect[i] = toggle[i].animations.add("select");
-
   }
+
   toggleGroup.add(likertQuestion);
 
   likertToggleListener();

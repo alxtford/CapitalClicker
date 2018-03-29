@@ -119,6 +119,4 @@ function crtDraw(){
   crtScreen.height = canvas_height;
   crtScreen.filters = [ crtFilter ];
   //console.log(crtScreen.filters);
-
-  console.log(shaderLayer);
 }

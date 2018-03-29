@@ -45,9 +45,9 @@ function menuAssetsCreate(){
 function menuOptionsCreate()
 {
   uiLayer.add(menuItemsGroup);
+  console.log("CREATING MENU OPTIONS");
   for(var i = 1; i < userDataLocal.upgradeList.length + 1; i++)
   {
-    console.log("CREATING MENU OPTIONS");
     menuItemsButtons[i-1] = menuItemsGroup.create(-400, 36.5 + (menuItemOffset * i), "menuItemButton");
     menuItemsButtons[i-1].scale.setTo(2);
 
@@ -64,8 +64,6 @@ function menuOptionsCreate()
     uiLayer.add(menuItems[i - 1]);
 
     modifierEffect = menuData.data[i-1].multiplier * userDataLocal.upgradeList[i - 1].timesClicked;
-
-    console.log(modifierEffect)
 
     menuItemsPrice[i - 1] = clientGame.add.text(-100, 37 + (menuItemOffset * i), menuData.data[i-1].currentPrice + "\n" + modifierEffect + "/s", menuStyle);
     menuItemsPrice[i - 1].setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
@@ -159,8 +157,7 @@ function onMenuOptionsUp(){
   var normalisedY = (clientGame.input.activePointer.positionDown.y - 84.5)/(554.5 - 84.5);
   var buttonNum = Math.floor(normalisedY * 10);
 
-  console.log(buttonNum);
-
+  //console.log(buttonNum);
 
   currencyLocal = currencyTotal - menuData.data[buttonNum].currentPrice
   if(currencyLocal > 0)

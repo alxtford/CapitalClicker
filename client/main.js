@@ -86,7 +86,6 @@ function create () {
 
   socket.on("bitcoinData", function(data) {
     bitcoinData = clientGame.cache.getJSON("bitcoinData");
-    console.log(bitcoinData);
 
     bitcoinData = JSON.parse(data);
 
@@ -94,11 +93,10 @@ function create () {
   });
 
   socket.on("userData", function(userData){
-    //clientGame.load.json("userData", userData);
     userDataLocal = clientGame.cache.getJSON("userData");
-    console.log("BEFORE SERVER WRITE:\n" + userDataLocal);
+    //console.log("BEFORE SERVER WRITE:\n" + userDataLocal);
     userDataLocal = JSON.parse(userData);
-    console.log("AFTER SERVER WRITE:\n" + userDataLocal);
+    //console.log("AFTER SERVER WRITE:\n" + userDataLocal);
 
     currencyTotal = parseInt(userDataLocal.totalClicks);
     menuOptionsCreate();
