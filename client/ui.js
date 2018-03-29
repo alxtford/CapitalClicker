@@ -172,6 +172,14 @@ function onMenuOptionsUp(){
 
     userDataLocal.totalBought ++;
   }
+  else{
+    menuItems[buttonNum].addColor('#ff0000',0);
+    menuItemsPrice[buttonNum].addColor('#ff0000',0);
+    clientGame.time.events.add(Phaser.Timer.QUARTER / 4, function(){
+      menuItems[buttonNum].addColor('#ffffff',0);
+      menuItemsPrice[buttonNum].addColor('#ffffff',0);
+    }, this);
+  }
 
 }
 
