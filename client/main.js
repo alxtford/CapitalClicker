@@ -168,6 +168,8 @@ function create () {
     currencyTotal += Math.round(autoClick*(modifierTotal * (1+btcDayPercentChange)));
   }, 1000);
 
+  clientGame.time.events.add(Phaser.Timer.MINUTE * 3, likertShow, this);
+
 }
 
 function update() {

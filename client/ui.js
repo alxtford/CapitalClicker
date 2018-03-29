@@ -73,6 +73,7 @@ function menuOptionsCreate()
     uiLayer.add(menuItemsPrice[i - 1]);
   }
   listButtonListener();
+  uiLayer.bringToTop(toggleGroup);
 }
 
 function menubuttonClickDown(){
