@@ -45,6 +45,8 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
 
   var db = cloudant.db.use("user_data");
 
+  var sdb = cloudant.db.use("survey_data");
+
   var update;
 
   //send a index.html file when a get request is fired to the given
@@ -146,6 +148,16 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
 
     // Test Socket Emits
     socket.on("testEmit", testEmit);
+
+    socket.on("likertResult", function likertResult(data){
+      var time = new Date();
+      sdb.insert(data, data._id + time, function(err, body, header) {
+      if (err) {
+        return console.log('Survey Insert ', err.message);
+      }
+      console.log('Likert result inserted.');
+    });
+    });
 
     // Listen for userName
     socket.on("saveName", function saveName(name){

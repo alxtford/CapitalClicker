@@ -23,6 +23,8 @@ var menuItemOffset = 48;
 function menuAssetsCreate(){
   menuItemsGroup = clientGame.add.group();
 
+  toggleGroup = clientGame.add.group();
+
   menubutton = uiLayer.create(10, 80, "menubutton");
   menubutton.scale.setTo(8);
   menubuttonClickAnim = menubutton.animations.add("click");

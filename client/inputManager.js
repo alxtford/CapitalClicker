@@ -46,13 +46,11 @@ function exitButtonListener(){
 }
 
 function listButtonListener(){
-  // for(var i = 0; i < userDataLocal.upgradeList.length; i++)
-  // {
-  //   menuItemsButtons[i].events.onInputDown.add(onMenuOptionsDown,this, 0, i);
-  //   menuItemsButtons[i].events.onInputUp.add(onMenuOptionsUp,this, 0, i);
-  //   console.log("Listening!");
-  // }
 
   menuItemsGroup.onChildInputDown.add(onMenuOptionsDown, this);
   menuItemsGroup.onChildInputUp.add(onMenuOptionsUp, this);
+}
+
+function likertToggleListener(){
+  toggleGroup.onChildInputDown.add(onLikertToggleDown,this);
 }
