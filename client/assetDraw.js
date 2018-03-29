@@ -106,7 +106,7 @@ function destroyStartText() {
 
 function updateText(){
   //console.log("Text Updated")
-  currencyTotalText.setText(userName + "'s Clicks: "+ currencyTotal);
+  currencyTotalText.setText(userName + "'s Wealth: §"+ intStringFormatter(currencyTotal));
   btcText.setText("BTC day change: " + btcDayPercentChange + "%");
 }
 
