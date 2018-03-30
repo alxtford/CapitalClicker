@@ -163,7 +163,7 @@ function create () {
   createLikert();
 
   setInterval(function() {
-    currencyTotal += Math.round(autoClick*(modifierTotal * (1+ btcDayPercentChange)));
+    currencyTotal += Math.round(autoClick*(modifierTotal * btcPlusMinus((1+ btcDayPercentChange))));
   }, 1000);
 
   clientGame.time.events.add(Phaser.Timer.MINUTE * 3, likertShow, this);
