@@ -12,7 +12,7 @@ var favicon = require('serve-favicon');
 //assign it to variable app
 var app = express();
 //create a server and pass in app as a request handler
-var serv = require('http').createServer(/*httpsOptions, */app); //Server-11
+var serv = require('https').createServer(httpsOptions, app); //Server-11
 var Cloudant = require('cloudant');
 var crypto = require('crypto-js');
 var request = require('request');
