@@ -1,4 +1,3 @@
-
 //https://github.com/cloudant/nodejs-cloudant
 //https://www.tonyerwin.com/2014/09/redirecting-http-to-https-with-nodejs.html
 //https://bitcoinaverage.com/
@@ -35,6 +34,11 @@ var bitcoinDataBody;
 
 // For Server events at set intervals
 var lastProcessedHour = -1;
+
+// GOOGLE MAPS
+var googleMapsCLient = require("@google/maps").createClient({
+  key:"AIzaSyDY7XntI3yeexRyoS-_kUAfl3yIfGxIZFE"
+});
 
 // Initialize the library with my account.
 var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAttempt: 5, plugins: { retry: { retryErrors: true, retryStatusCodes: [ 429, 404 ] } } }, function(err, cloudant) {
