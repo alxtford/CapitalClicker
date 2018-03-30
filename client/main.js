@@ -98,7 +98,7 @@ function create () {
     userDataLocal = JSON.parse(userData);
     //console.log("AFTER SERVER WRITE:\n" + userDataLocal);
 
-    currencyTotal = parseInt(userDataLocal.totalClicks);
+    currencyTotal = btcPlusMinus(parseInt(userDataLocal.totalClicks));
     menuOptionsCreate();
 
     for(var i = 0; i < userDataLocal.upgradeList.length; i++)
@@ -163,7 +163,7 @@ function create () {
   createLikert();
 
   setInterval(function() {
-    currencyTotal += Math.round(autoClick*(modifierTotal * (1+btcDayPercentChange)));
+    currencyTotal += Math.round(autoClick*(modifierTotal * (1+ btcDayPercentChange)));
   }, 1000);
 
   clientGame.time.events.add(Phaser.Timer.MINUTE * 3, likertShow, this);
@@ -186,7 +186,15 @@ function update() {
     }
 
   }
+}
 
+function btcPlusMinus(btc){
+  if (btc < 0)
+  {
+    btc *= -1;
+    console.log("negative value found");
+  }
+  return btc;
 }
 
 function testEmit(){
