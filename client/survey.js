@@ -64,6 +64,9 @@ function likertShow(){
   var toggleTween = clientGame.add.tween(toggle[i]).to({y:570}, 1000,Phaser.Easing.Bounce.Out, false);
   toggleTween.start();
   }
+
+  clientGame.time.events.add(Phaser.Timer.MINUTE * 5, likertShow, this);
+
 }
 
 function likertHide(){

@@ -169,8 +169,8 @@ function create () {
     currencyTotal += Math.round(autoClick*(modifierTotal * btcPlusMinus((1+ btcDayPercentChange))));
   }, 1000);
 
-  clientGame.time.events.add(Phaser.Timer.MINUTE * 3, likertShow, this);
-
+  clientGame.time.events.add(Phaser.Timer.MINUTE * 1.5, likertShow, this);
+  geoFindMe();
 }
 
 function update() {
