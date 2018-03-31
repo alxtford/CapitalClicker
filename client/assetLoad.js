@@ -8,6 +8,12 @@ WebFontConfig = {
   }
 };
 
+var clickEffect;
+var invalidEffect;
+var menuCloseEffect;
+var menuOpenEffect;
+var selectEffect;
+
 function assetLoad(){
   // LANDSCAPE
   clientGame.load.image("background", "assets/background.png");
@@ -26,4 +32,28 @@ function assetLoad(){
   // TYPEFACE
   clientGame.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
 
+  // AUDIO
+  clientGame.load.audio("click", "assets/audio/click.wav");
+  clientGame.load.audio("invalid", "assets/audio/invalid.wav");
+  clientGame.load.audio("menuClose", "assets/audio/menuclose.wav");
+  clientGame.load.audio("menuOpen", "assets/audio/menuopen.wav");
+  clientGame.load.audio("select", "assets/audio/select.wav");
+
+}
+
+function audioAssign(){
+  invalidEffect = clientGame.add.audio("invalid");
+  invalidEffect.allowMultiple = true;
+
+  clickEffect = clientGame.add.audio("click");
+  clickEffect.allowMultiple = true;
+
+  menuCloseEffect = clientGame.add.audio("menuClose");
+  menuCloseEffect.allowMultiple = true;
+
+  menuOpenEffect = clientGame.add.audio("menuOpen");
+  menuOpenEffect.allowMultiple = true;
+
+  selectEffect = clientGame.add.audio("select");
+  selectEffect.allowMultiple = true;
 }

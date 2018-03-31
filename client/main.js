@@ -75,6 +75,9 @@ function testDataRetrieve(){
 
 function create () {
   console.log("client started");
+
+  audioAssign();
+
   //listen to the “connect” message from the server. The server
   //automatically emit a “connect” message when the client connects.When
   //the client connects, call onsocketConnected.

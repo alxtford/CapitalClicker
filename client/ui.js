@@ -63,6 +63,7 @@ function menuOptionsCreate()
     menuItems[i - 1].lineSpacing = -8;
     uiLayer.add(menuItems[i - 1]);
 
+    menuData.data[i -1].currentPrice = ((menuData.data[i-1].basePrice * menuData.data[i-1].bought) * 1.5) *2;
     modifierEffect = menuData.data[i-1].multiplier * userDataLocal.upgradeList[i - 1].timesClicked;
 
     menuItemsPrice[i - 1] = clientGame.add.text(-100, 37 + (menuItemOffset * i), menuData.data[i-1].currentPrice + "\n" + modifierEffect + "/s", menuStyle);
@@ -77,6 +78,7 @@ function menuOptionsCreate()
 function menubuttonClickDown(){
   console.log("MOUSE DOWN ON MENU BUTTON");
   menubutton.animations.play("click", 30, false);
+
 }
 
 function menubuttonClickUp(){
@@ -94,6 +96,7 @@ function menubuttonClickUp(){
   currencyTotalTextTween.start();
   btcTextTween.start();
 
+  menuOpenEffect.play();
 }
 
 function menuexitbuttonCreate(){
@@ -131,6 +134,7 @@ function OnmenuexitbuttonClickUp(){
     menuButtonTween=  clientGame.add.tween(menuItemsButtons[i - 1]).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, false);
     menuButtonTween.start();
   }
+  menuCloseEffect.play();
 }
 
 function menuOptionsDraw(){
@@ -171,6 +175,7 @@ function onMenuOptionsUp(){
     updatePrice(buttonNum);
 
     userDataLocal.totalBought ++;
+    selectEffect.play();
   }
   else{
     menuItems[buttonNum].addColor('#ff0000',0);
@@ -179,6 +184,7 @@ function onMenuOptionsUp(){
       menuItems[buttonNum].addColor('#ffffff',0);
       menuItemsPrice[buttonNum].addColor('#ffffff',0);
     }, this);
+    invalidEffect.play();
   }
 
 }
@@ -188,7 +194,7 @@ function updatePrice(i){
 
   modifierEffect = menuData.data[i].multiplier * userDataLocal.upgradeList[i].timesClicked;
 
-  menuItemsPrice[i].setText("§" + intStringFormatter(menuData.data[i].currentPrice) + "\n" + (Math.round(modifierEffect * 10)/10) + "/s");
+  menuItemsPrice[i].setText("§" + intStringFormatter(menuData.data[i].currentPrice) + "\n" + intStringFormatter(Math.round(modifierEffect * 10)/10) + "/s");
 }
 
 function intStringFormatter(num) {
