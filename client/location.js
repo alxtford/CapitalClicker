@@ -2,6 +2,8 @@ var output;
 var latitude;
 var longitude;
 
+var shopsNearbyNum;
+
 function geoFindMe() {
 
   if (!navigator.geolocation){
@@ -16,6 +18,8 @@ function geoFindMe() {
 
     console.log("Latitude is " + latitude + '° <br>Longitude is ' + longitude + '°');
 
+    socket.emit("shopsFind", position.coords);
+    console.log(position.coords);
   }
 
   function error() {

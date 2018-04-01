@@ -95,6 +95,10 @@ function create () {
     btcDayPercentChange = bitcoinData.changes.percent.day;
   });
 
+  socket.on("shopsNearbyReply", function(shopNum){
+    console.log("NUMBEROF NEARBY SHOPS: " + shopNum);
+  });
+
   socket.on("userData", function(userData){
     userDataLocal = clientGame.cache.getJSON("userData");
     //console.log("BEFORE SERVER WRITE:\n" + userDataLocal);

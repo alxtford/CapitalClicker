@@ -154,6 +154,16 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
     // Test Socket Emits
     socket.on("testEmit", testEmit);
 
+    socket.on("shopsFind", function shopsFind(data){
+      console.log("LOCATION DATA: " + JSON.stringify(data));
+      googleMapsCLient.placesNearby({location:[data.longitude, data.latitude], radius: 1000}, function(reponse,err){
+        socket.emit("shopsNearbyReply", response.json.result.length);
+        console.log(response.json.result.length);
+        console.log(err);
+      });
+
+    });
+
     socket.on("likertResult", function likertResult(data){
       var time = new Date();
       sdb.insert(data, data._id + time, function(err, body, header) {
