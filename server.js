@@ -36,7 +36,7 @@ var bitcoinDataBody;
 var lastProcessedHour = -1;
 
 // GOOGLE MAPS
-var googleMapsCLient = require("@google/maps").createClient({
+var googleMapsClient = require("@google/maps").createClient({
   key:"AIzaSyDY7XntI3yeexRyoS-_kUAfl3yIfGxIZFE"
 });
 
@@ -156,16 +156,16 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
 
     socket.on("shopsFind", function shopsFind(lat, long){
       console.log("LOCATION DATA: " + lat + "\n" + long);
-
+//
       // var googleOptions = {
       //   url: "https://maps.googleapis.com/maps/api/place/nearbysearch/" + "json?location=" + lat + "," + long + "&radius=1000&keyword=shop&key=AIzaSyDY7XntI3yeexRyoS-_kUAfl3yIfGxIZFE"
       // }
       //
       // request(googleOptions,googleCallback);
-
-      googleMapsCLient.placesNearby({location:[lat, long], radius: 1000}, function(reponse,err){
+//
+      googleMapsClient.placesNearby({location:[lat,long], radius: 1000}, function(reponse,err){
         socket.emit("shopsNearbyReply", response.json.result.length);
-        console.log(response.json.result.length);
+        console.log("SHOPS NEARBY: " + response.json.result.length);
         console.log(err);
       });
 
