@@ -154,15 +154,27 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
     // Test Socket Emits
     socket.on("testEmit", testEmit);
 
-    socket.on("shopsFind", function shopsFind(data){
-      console.log("LOCATION DATA: " + JSON.stringify(data));
-      googleMapsCLient.placesNearby({location:[data.longitude, data.latitude], radius: 1000}, function(reponse,err){
+    socket.on("shopsFind", function shopsFind(lat, long){
+      console.log("LOCATION DATA: " + lat + "\n" + long);
+
+      // var googleOptions = {
+      //   url: "https://maps.googleapis.com/maps/api/place/nearbysearch/" + "json?location=" + lat + "," + long + "&radius=1000&keyword=shop&key=AIzaSyDY7XntI3yeexRyoS-_kUAfl3yIfGxIZFE"
+      // }
+      //
+      // request(googleOptions,googleCallback);
+
+      googleMapsCLient.placesNearby({location:[lat, long], radius: 1000}, function(reponse,err){
         socket.emit("shopsNearbyReply", response.json.result.length);
         console.log(response.json.result.length);
         console.log(err);
       });
 
-    });
+     });
+
+    // function googleCallback(response, err){
+    //   console.log(err)
+    //   console.log("GOOGLE RESULTS: " + response.results);
+    // }
 
     socket.on("likertResult", function likertResult(data){
       var time = new Date();
