@@ -4,6 +4,8 @@ var moonSprite;
 var ground;
 var groundSway;
 
+var store;
+
 var style = {font: "28px VT323", fill: "#fff", tabs: 150};
 var menuStyle = {font: "20px VT323", fill: "#fff", tabs: 40, align: "left"};
 var notificationStyle = {font: "64px VT323", fill: "#fff", tabs: 150};
@@ -33,6 +35,16 @@ ground = groundLayer.create(0, 500, "ground");
 ground.scale.setTo(10);
 wind = ground.animations.add("wind");
 ground.animations.play("wind", 1, true);
+}
+
+function storeDraw(frameNum) {
+  store = storeLayer.create(50,60, "stores");
+  store.scale.setTo(10);
+  store.frame = frameNum;
+}
+
+function storeUpdate(frameNum) {
+  store.frame = frameNum;
 }
 
 function fade(){

@@ -57,6 +57,7 @@ function init(){
   spacelayer = clientGame.add.group();
   backgroundLayer = clientGame.add.group();
   groundLayer = clientGame.add.group();
+  storeLayer = clientGame.add.group();
   characterLayer = clientGame.add.group();
   uiLayer = clientGame.add.group();
   fadeLayer = clientGame.add.group();
@@ -136,6 +137,8 @@ function create () {
 
     console.log("Starting currency total: " + currencyTotal);
 
+    storeDraw(frameGet());
+
     startFlag = true;
     //userDataLocal = userData;
     console.log("Listening for User Data");
@@ -176,6 +179,8 @@ function create () {
   clientGame.time.events.add(Phaser.Timer.MINUTE * 1.5, likertShow, this);
   geoFindMe();
 
+  createTrader();
+  createEmployee();
   createHireling();
 }
 
@@ -194,6 +199,18 @@ function update() {
       tick = Date.now();
     }
 
+  }
+}
+
+function frameGet(){
+  if(userDataLocal.totalClicks < 100){
+    return 0;
+  }
+  else if(userDataLocal.totalClicks < 500){
+    return 1;
+  }
+  else {
+    return 2;
   }
 }
 

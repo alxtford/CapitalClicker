@@ -18,6 +18,7 @@ function clickListener(sprite){
   //   userDataLocal.totalClicks ++;
   // }
   lastclick = sprite.name;
+  storeUpdate(frameGet());
 
   clickmarker = uiLayer.create(0,0,"clickmarker");
   clickmarker.scale.setTo(4);

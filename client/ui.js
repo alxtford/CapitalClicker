@@ -176,6 +176,16 @@ function onMenuOptionsUp(){
 
     userDataLocal.totalBought ++;
     selectEffect.play();
+
+    if(buttonNum === 0){
+      createHireling();
+    }
+    else if(buttonNum === 1){
+      createEmployee();
+    }
+    else if(buttonNum === 2){
+      createTrader();
+    }
   }
   else{
     menuItems[buttonNum].addColor('#ff0000',0);
