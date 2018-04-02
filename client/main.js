@@ -145,6 +145,7 @@ function create () {
 
   spacelayer = clientGame.add.group();
   backgroundLayer = clientGame.add.group();
+  characterLayer = clientGame.add.group();
   groundLayer = clientGame.add.group();
   uiLayer = clientGame.add.group();
   fadeLayer = clientGame.add.group();

@@ -24,7 +24,7 @@ function assetLoad(){
   clientGame.load.spritesheet("sunMoon", "assets/sunmoon.png", 32, 32);
 
   // CHARACTERS
-  clientGame.load.spritesheet("characters", "assets/employees.png", 16, 32);
+  clientGame.load.spritesheet("characters", "assets/employees.png", 16, 32, 84);
 
   // UI ASSETS
   clientGame.load.spritesheet("clickmarker", "assets/clickmarker.png", 16, 16);
