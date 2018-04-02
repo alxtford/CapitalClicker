@@ -61,12 +61,6 @@ function createText(){
   console.log("Text Created");
   currencyTotalText = clientGame.add.text(20,25, userName + "'s Clicks: 0", style);
   currencyTotalText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
-
-  btcText = clientGame.add.text(20,50, "BTC day change: 0%", style);
-  btcText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
-  // activeTimeText = clientGame.add.text(20,60, ("Current Time: " + localTime.toDateString()), style);
-  // activeTimeText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
-
 }
 
 function createStartText(){
@@ -122,7 +116,9 @@ function destroyStartText() {
 function updateText(){
   //console.log("Text Updated")
   currencyTotalText.setText(userName + "'s Wealth: §"+ intStringFormatter(currencyTotal));
+  if(studyFlag){
   btcText.setText("BTC day change: " + btcDayPercentChange + "%");
+  }
 }
 
 function crtDraw(){

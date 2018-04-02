@@ -1,61 +1,64 @@
 {
   "_id": "Default",
-  "_rev": "7-de1c82cb4f734a37dcce33452a16ed5e",
+  "_rev": "14-f1e542452a2189b3aa9df3e75b6158de",
   "dateCreated": 0,
   "dateLastLogin": 0,
   "totalLoginIn": 0,
+  "currency": 0,
   "totalClicks": 0,
   "totalBought": 0,
+  "coinflip": 0,
+  "surveysCompleted": 0,
   "upgradeList": [
     {
-     "name": "Hireling",
-     "type": "Auto-Clicker",
-     "timesClicked": 0
-   },
-   {
-     "name": "Employee",
-     "type": "Auto-Clicker",
-     "timesClicked": 0
-   },
-   {
-     "name": "Trader",
-     "type": "Auto-Clicker",
-     "timesClicked": 0
-   },
-   {
-     "name": "Common Wares",
-     "type": "Multiplier",
-     "timesClicked": 0
-   },
-   {
-     "name": "Rare Commodities",
-     "type": "Multiplier",
-     "timesClicked": 0
-   },
-   {
-     "name": "Magical Items",
-     "type": "Multiplier",
-     "timesClicked": 0
-   },
-   {
-     "name": "Magical Items",
-     "type": "Multiplier",
-     "timesClicked": 0
-   },
-   {
-     "name": "Magical Items",
-     "type": "Multiplier",
-     "timesClicked": 0
-   },
-   {
-     "name": "Magical Items",
-     "type": "Multiplier",
-     "timesClicked": 0
-   },
-   {
-     "name": "Magical Items",
-     "type": "Multiplier",
-     "timesClicked": 0
-   }
+      "name": "Hireling",
+      "type": "Auto-Clicker",
+      "timesClicked": 0
+    },
+    {
+      "name": "Employee",
+      "type": "Auto-Clicker",
+      "timesClicked": 0
+    },
+    {
+      "name": "Trader",
+      "type": "Auto-Clicker",
+      "timesClicked": 0
+    },
+    {
+      "name": "Common Wares",
+      "type": "Multiplier",
+      "timesClicked": 0
+    },
+    {
+      "name": "Rare Commodities",
+      "type": "Multiplier",
+      "timesClicked": 0
+    },
+    {
+      "name": "Magical Items",
+      "type": "Multiplier",
+      "timesClicked": 0
+    },
+    {
+      "name": "Fowl Likelihood",
+      "type": "Multiplier",
+      "timesClicked": 0
+    },
+    {
+      "name": "Chest Contents",
+      "type": "Multiplier",
+      "timesClicked": 0
+    },
+    {
+      "name": "Hourly Bonus",
+      "type": "Bonus",
+      "timesClicked": 0
+    },
+    {
+      "name": "Daily Bonus",
+      "type": "Bonus",
+      "timesClicked": 0
+    }
   ]
 }

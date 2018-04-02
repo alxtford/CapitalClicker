@@ -112,6 +112,10 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
     }
   }
 
+  function coinFlip() {
+      return Math.floor(Math.random() * 2);
+  }
+
   // Request bitcoin data on server start
   console.log("REQUESTING BITCOIN DATA");
   request(btcOptions, btcCallback);
@@ -210,6 +214,8 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
                 //console.log(body);
                 update.dateCreated= date;
                 update.dateLastLogin= date;
+                update.coinflip = coinFlip();
+                console.log("NEW COINFLIP: " + update.coinflip);
                 update.totalLoginIn ++;
 
                 db.insert(update, function(err, body, doc) {

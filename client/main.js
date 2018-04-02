@@ -35,10 +35,11 @@ var tick = Date.now();
 var userDataLocal;
 
 var startFlag = false;
+var studyFlag = false;
 var nameRegistered;
 
 var bitcoinData;
-var btcDayPercentChange;
+var btcDayPercentChange = 0;
 
 var likertFlag;
 
@@ -97,11 +98,13 @@ function create () {
   });
 
   socket.on("bitcoinData", function(data) {
-    bitcoinData = clientGame.cache.getJSON("bitcoinData");
+    if(userDataLocal.coinflip === 1){
+      bitcoinData = clientGame.cache.getJSON("bitcoinData");
 
-    bitcoinData = JSON.parse(data);
+      bitcoinData = JSON.parse(data);
 
-    btcDayPercentChange = bitcoinData.changes.percent.day;
+      btcDayPercentChange = bitcoinData.changes.percent.day;
+    }
   });
 
   socket.on("shopsNearbyReply", function(shopNum){
@@ -140,6 +143,10 @@ function create () {
     storeDraw(frameGet());
     employeeNum();
 
+    if(userDataLocal.coinflip === 1){
+      studyCreate();
+    }
+
     startFlag = true;
     //userDataLocal = userData;
     console.log("Listening for User Data");
@@ -171,14 +178,25 @@ function create () {
   inputListenerStart();
   testEmit();
   //testDataRetrieve();
-  createLikert();
+
 
   setInterval(function() {
     currencyTotal += Math.round(autoClick*(modifierTotal * btcPlusMinus((1+ btcDayPercentChange))));
   }, 1000);
 
+
+}
+
+//Function only fired if coinflip of 1
+function studyCreate(){
+  btcText = clientGame.add.text(20,50, "BTC day change: 0%", style);
+  btcText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+
+  createLikert();
   clientGame.time.events.add(Phaser.Timer.MINUTE * 1.5, likertShow, this);
   geoFindMe();
+
+  studyFlag = true;
 }
 
 function update() {
