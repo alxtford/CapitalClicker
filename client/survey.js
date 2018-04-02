@@ -50,6 +50,8 @@ function onLikertToggleDown(){
   socket.emit("likertResult", likertData);
   likertHide();
 
+  userDataLocal.surveysCompleted++;
+
   resetToggle(buttonNum);
 }
 

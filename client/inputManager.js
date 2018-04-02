@@ -12,6 +12,7 @@ function clickListener(sprite){
   {
   currencyTotal += Math.round(1 * (modifierTotal * btcPlusMinus(1+btcDayPercentChange)));
 
+  userDataLocal.totalClicks ++;
   // if(startFlag == true)
   // {
   //   userDataLocal.totalClicks ++;

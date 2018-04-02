@@ -113,7 +113,7 @@ function create () {
     userDataLocal = JSON.parse(userData);
     //console.log("AFTER SERVER WRITE:\n" + userDataLocal);
 
-    currencyTotal = btcPlusMinus(parseInt(userDataLocal.totalClicks));
+    currencyTotal = btcPlusMinus(parseInt(userDataLocal.currency));
     menuOptionsCreate();
 
     for(var i = 0; i < userDataLocal.upgradeList.length; i++)
@@ -222,7 +222,7 @@ function saveName(name){
 }
 
 function userUpdate(userData, name){
-  userData.totalClicks = currencyTotal;
+  userData.currency = currencyTotal;
   socket.emit("userUpdate", JSON.stringify(userData), userName);
 }
 
