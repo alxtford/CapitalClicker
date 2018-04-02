@@ -15,8 +15,6 @@ var menuOpenEffect;
 var selectEffect;
 
 function assetLoad(){
-  // TYPEFACE
-  clientGame.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
 
   // LANDSCAPE
   clientGame.load.image("background", "assets/background.png");
@@ -41,6 +39,9 @@ function assetLoad(){
   clientGame.load.audio("menuClose", "assets/audio/menuclose.wav");
   clientGame.load.audio("menuOpen", "assets/audio/menuopen.wav");
   clientGame.load.audio("select", "assets/audio/select.wav");
+
+  // TYPEFACE
+  clientGame.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
 
 }
 
