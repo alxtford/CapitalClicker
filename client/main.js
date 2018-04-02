@@ -138,6 +138,7 @@ function create () {
     console.log("Starting currency total: " + currencyTotal);
 
     storeDraw(frameGet());
+    employeeNum();
 
     startFlag = true;
     //userDataLocal = userData;
@@ -199,14 +200,35 @@ function update() {
 }
 
 function frameGet(){
-  if(userDataLocal.totalClicks < 100){
+  if(userDataLocal.totalClicks < 500){
     return 0;
   }
-  else if(userDataLocal.totalClicks < 500){
+  else if(userDataLocal.totalClicks < 1500){
     return 1;
   }
   else {
     return 2;
+  }
+}
+
+function employeeNum(){
+  for(var i = 0; i < 3; i++){
+    for(var j = 0; j < Math.floor(userDataLocal.upgradeList[i].timesClicked /10); j++){
+      switch(i){
+        case 0:
+          createHireling();
+          break;
+        case 1:
+          createEmployee();
+          break;
+        case 2:
+          createTrader();
+          break;
+        default:
+          console.log("INVALID ITERATOR");
+          break;
+      }
+    }
   }
 }
 
