@@ -53,6 +53,14 @@ function init(){
   this.scale.pageAlignHorizontally = true;
   this.scale.pageAlignVertically = true;
   this.game.canvas.oncontextmenu = function(e){e.preventDefault();};
+
+  spacelayer = clientGame.add.group();
+  backgroundLayer = clientGame.add.group();
+  characterLayer = clientGame.add.group();
+  groundLayer = clientGame.add.group();
+  uiLayer = clientGame.add.group();
+  fadeLayer = clientGame.add.group();
+  shaderLayer = clientGame.add.group();
 }
 
 function preload() {
@@ -142,15 +150,6 @@ function create () {
   nameRegistered = false;
 
 
-
-  spacelayer = clientGame.add.group();
-  backgroundLayer = clientGame.add.group();
-  characterLayer = clientGame.add.group();
-  groundLayer = clientGame.add.group();
-  uiLayer = clientGame.add.group();
-  fadeLayer = clientGame.add.group();
-  shaderLayer = clientGame.add.group();
-
   uiLayer.inputEnabled = true;
 
   this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -176,6 +175,8 @@ function create () {
 
   clientGame.time.events.add(Phaser.Timer.MINUTE * 1.5, likertShow, this);
   geoFindMe();
+
+  createHireling();
 }
 
 function update() {
@@ -234,4 +235,7 @@ function onsocketConnected () {
 
 
   }
+}
+function coinFlip() {
+    return Math.floor(Math.random() * 2);
 }
