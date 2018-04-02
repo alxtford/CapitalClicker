@@ -1,0 +1,4 @@
+exclude_paths:
+  - client/lib/phaser.js
+  - '*.min.js'
+  - node_modules

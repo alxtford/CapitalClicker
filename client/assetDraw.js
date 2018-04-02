@@ -92,9 +92,9 @@ function createStartText(){
             submit.input.useHandCursor = true;
             submit.events.onInputDown.add(destroyStartText, this);
 
-            fadeLayer.add(submit);
-            fadeLayer.add(userNameText);
-            fadeLayer.add(startText);
+            // fadeLayer.add(submit);
+            // fadeLayer.add(userNameText);
+            // fadeLayer.add(startText);
 }
 
 function destroyStartText() {

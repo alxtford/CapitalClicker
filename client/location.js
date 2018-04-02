@@ -2,8 +2,6 @@ var output;
 var latitude;
 var longitude;
 
-var shopsNearbyNum;
-
 function geoFindMe() {
 
   if (!navigator.geolocation){
