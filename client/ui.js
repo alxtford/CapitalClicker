@@ -177,13 +177,13 @@ function onMenuOptionsUp(){
     userDataLocal.totalBought ++;
     selectEffect.play();
 
-    if(buttonNum === 0){
+    if(buttonNum === 0 && userDataLocal.upgradeList[buttonNum].timesClicked % 10 === 0){
       createHireling();
     }
-    else if(buttonNum === 1){
+    else if(buttonNum === 1 && userDataLocal.upgradeList[buttonNum].timesClicked % 10 === 0){
       createEmployee();
     }
-    else if(buttonNum === 2){
+    else if(buttonNum === 2 && userDataLocal.upgradeList[buttonNum].timesClicked % 10 === 0){
       createTrader();
     }
   }

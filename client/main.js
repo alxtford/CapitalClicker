@@ -178,10 +178,6 @@ function create () {
 
   clientGame.time.events.add(Phaser.Timer.MINUTE * 1.5, likertShow, this);
   geoFindMe();
-
-  createTrader();
-  createEmployee();
-  createHireling();
 }
 
 function update() {
