@@ -13,6 +13,8 @@ var currencyTotal = 0;
 var autoClick = 0;
 
 var timeNow;
+var visibility;
+var precipProbability;
 
 var userName;
 var tick = Date.now();
@@ -39,6 +41,7 @@ function init(){
 
   spacelayer = clientGame.add.group();
   backgroundLayer = clientGame.add.group();
+  fogLayer = clientGame.add.group();
   storeLayer = clientGame.add.group();
   characterLayer = clientGame.add.group();
   groundLayer = clientGame.add.group();
@@ -89,8 +92,13 @@ function create () {
     }
   });
 
-  socket.on("shopsNearbyReply", function(shopNum){
-    console.log("NUMBEROF NEARBY SHOPS: " + shopNum);
+  socket.on("weatherSet", function(data){
+    console.log("Weather data received");
+    visibility = data.currently.visibility;
+    precipProbability = data.currently.precipProbability;
+
+    addFog();
+    addRain();
   });
 
   socket.on("userData", function(userData){

@@ -2,17 +2,34 @@
 //https://www.tonyerwin.com/2014/09/redirecting-http-to-https-with-nodejs.html
 //https://bitcoinaverage.com/
 
+var cloudantUsernameDirty = "511ca238-fccd-486b-b4a8-3441a50531bc-bluemix";
+var cloudantPasswordDirty = "84da1dc77eccb3f811f8218aad8178d1ba45fa462ab8751a49ba85b35efe1927";
+
+var BTCPublicDirty = "YzNiYzA2MTgzYTc4NDNkZGExNTAyZWFhZGJlZGE4YWQ";
+var BTCSecretDirty = "ZGRiNWMxZDRmMDhmNDY4NTk3OWMwOWM5ZTJiZDY0ZTNlYTQzNDg3MTBmMGE0NGMxOWNjNTJiMGM3M2MwOGViOQ";
+
+var googleKeyDirty = "AIzaSyDY7XntI3yeexRyoS-_kUAfl3yIfGxIZFE";
+var darkSkyKeyDirty = "3260f4cbe8c6ad8402020d91728cda57";
+
+
 console.log('VCAP SERVICES: ' + JSON.stringify(process.env.VCAP_SERVICES));
 var cloudantUsername;
 var cloudantPassword;
 
-var BTCPublic = process.env.BTCPublic;
-var BTCSecret = process.env.BTCSecret;
+var BTCPublic;
+var BTCSecret;
 
-var googleKey = process.env.googleKey;
-var darkSkyKey = process.env.darkSkyKey;
+var googleKey;
+var darkSkyKey;
 
 if(process && process.env && process.env.VCAP_SERVICES) {
+
+  BTCPublic = process.env.BTCPublic;
+  BTCSecret = process.env.BTCSecret;
+
+  googleKey = process.env.googleKey;
+  darkSkyKey = process.env.darkSkyKeyy;
+
   var vcapServices = JSON.parse(process.env.VCAP_SERVICES);
   for (var svcName in vcapServices) {
     if (svcName.match(/^cloudantNoSQLDB.*/)) {
@@ -21,6 +38,17 @@ if(process && process.env && process.env.VCAP_SERVICES) {
       break;
     }
   }
+}
+else {
+  BTCPublic = BTCPublicDirty;
+  BTCSecret = BTCSecretDirty;
+
+  googleKey = googleKeyDirty;
+  darkSkyKey = darkSkyKeyDirty;
+
+  cloudantUsername = cloudantUsernameDirty;
+  cloudantPassword = cloudantPasswordDirty;
+
 }
 console.log("CLOUDANT UN: " + cloudantUsername);
 
@@ -134,7 +162,7 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
   }
 
   function coinFlip() {
-      return Math.floor(Math.random() * 2);
+    return Math.floor(Math.random() * 2);
   }
 
   // Request bitcoin data on server start
@@ -179,36 +207,28 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
     // Test Socket Emits
     socket.on("testEmit", testEmit);
 
-    socket.on("shopsFind", function shopsFind(lat, long){
+    socket.on("weatherGet", function weatherGet(lat, long){
       console.log("LOCATION DATA: " + lat + "\n" + long);
-//
-      // var googleOptions = {
-      //   url: "https://maps.googleapis.com/maps/api/place/nearbysearch/" + "json?location=" + lat + "," + long + "&radius=1000&keyword=shop&key=AIzaSyDY7XntI3yeexRyoS-_kUAfl3yIfGxIZFE"
-      // }
-      //
-      // request(googleOptions,googleCallback);
-//
-      googleMapsClient.placesNearby({location:[lat,long], radius: 1000}, function(reponse,err){
-        socket.emit("shopsNearbyReply", response.json.result.length);
-        console.log("SHOPS NEARBY: " + response.json.result.length);
-        console.log(err);
+
+      var dsParams = {exclude: "minutely,hourly,daily,flags,alerts"}
+
+      darksky.get(lat, long, dsParams, function (err, res, data) {
+        if (err){
+          console.log(err);
+        }
+        socket.emit("weatherSet", data);
       });
 
-     });
-
-    // function googleCallback(response, err){
-    //   console.log(err)
-    //   console.log("GOOGLE RESULTS: " + response.results);
-    // }
+    });
 
     socket.on("likertResult", function likertResult(data){
       var time = new Date();
       sdb.insert(data, data._id + time, function(err) {
-      if (err) {
-        return console.log("Survey Insert ", err.message);
-      }
-      console.log("Likert result inserted.");
-    });
+        if (err) {
+          return console.log("Survey Insert ", err.message);
+        }
+        console.log("Likert result inserted.");
+      });
     });
 
     // Listen for userName

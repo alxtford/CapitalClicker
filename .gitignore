@@ -23,6 +23,9 @@ coverage
 # node module files
 node_modules
 
+# dirty files
+keysDirty.js
+
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
