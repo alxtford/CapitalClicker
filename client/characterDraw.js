@@ -39,7 +39,22 @@ function createChicken(){
   }
 
   chicken.animations.add("walk", [72,73,74,75], 15, true);
-  chicken.animations.add("explode", [78,79,80,81,82,83], 10, true);
+  chicken.animations.add("explode", [78,79,80,81,82,83], 15, false);
+
+  chicken.inputEnabled = true;
+  chicken.input.priorityID = 2;
+  chicken.useHandCursor = true;
+
+  currencyTotal += (menuData.data[6].multiplier + userDataLocal.upgradeList[6].timesClicked) * menuData.data[6].currentPrice;
+
+  chicken.events.onInputDown.add(function(){
+    chicken.animations.stop();
+    chicken.animations.play("explode", 15, false, true);
+
+
+    chicken= null;
+    tween.stop();
+  }, this);
 
   tween.start();
   chicken.animations.play("walk");
