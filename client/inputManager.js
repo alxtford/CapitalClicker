@@ -10,6 +10,7 @@ function clickListener(sprite){
 
   if(startFlag)
   {
+    createChicken();
   currencyTotal += Math.round(1 * (modifierTotal * btcPlusMinus(1+btcDayPercentChange)));
 
   userDataLocal.totalClicks ++;

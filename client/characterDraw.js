@@ -23,6 +23,46 @@ var tween;
 //   chicken.animations.add("explode", [78,79,80,81,82,83], 10, true);
 // }
 
+function createChicken(){
+  if(!chicken){
+  if(coinFlip() < 1){
+    chicken = characterLayer.create(830,460, "characters");
+    chicken.anchor.setTo(0.5);
+    chicken.scale.setTo(-5,5);
+
+    tween = clientGame.add.tween(chicken).to({ x: -30 }, 2000, Phaser.Easing.Linear.None, false);
+    tween.onComplete.add(function (){
+      chicken.destroy();
+      chicken= null;
+
+    }, this);
+  }
+  else{
+  chicken = characterLayer.create(-30,460, "characters");
+  chicken.anchor.setTo(0.5);
+  chicken.scale.setTo(5,5);
+
+  tween = clientGame.add.tween(chicken).to({ x: 830 }, 2000, Phaser.Easing.Linear.None, false);
+  tween.onComplete.add(function (){
+    chicken.destroy();
+    chicken= null;
+  }, this);
+  }
+
+  chicken.animations.add("walk", [72,73,74,75], 15, true);
+  chicken.animations.add("explode", [78,79,80,81,82,83], 10, true);
+
+  tween.start();
+  chicken.animations.play("walk");
+}
+}
+
+function createChest(){
+  chest = characterLayer.create(randPos(),380, "characters");
+  chest.frame = 76;
+  chest.scale.setTo(10);
+}
+
 function randPos() {
     return Math.floor(Math.random() * (clientGame.width - 100));
 }
@@ -36,7 +76,7 @@ function createTrader(){
       trader1.scale.setTo(10,10);
     }
     else {
-      trader1 = characterLayer.create(630,380, "characters");
+      trader1 = characterLayer.create(830,380, "characters");
       trader1.anchor.setTo(0.5);
       trader1.scale.setTo(-10,10);
     }
@@ -57,7 +97,7 @@ function createTrader(){
       trader2.scale.setTo(10,10);
     }
     else {
-      trader2 = characterLayer.create(630,380, "characters");
+      trader2 = characterLayer.create(830,380, "characters");
       trader2.anchor.setTo(0.5);
       trader2.scale.setTo(-10,10);
     }
@@ -82,7 +122,7 @@ function createHireling(){
       hireling1.scale.setTo(10,10);
     }
     else {
-      hireling1 = characterLayer.create(630,380, "characters");
+      hireling1 = characterLayer.create(830,380, "characters");
       hireling1.anchor.setTo(0.5);
       hireling1.scale.setTo(-10,10);
 
@@ -104,7 +144,7 @@ function createHireling(){
       hireling2.scale.setTo(10,10);
     }
     else {
-      hireling2 = characterLayer.create(630,380, "characters");
+      hireling2 = characterLayer.create(830,380, "characters");
       hireling2.anchor.setTo(0.5);
       hireling2.scale.setTo(-10,10);
     }
@@ -129,7 +169,7 @@ function createEmployee(){
       employee1.scale.setTo(10,10);
     }
     else {
-      employee1 = characterLayer.create(630,380, "characters");
+      employee1 = characterLayer.create(830,380, "characters");
       employee1.anchor.setTo(0.5);
       employee1.scale.setTo(-10,10);
     }
@@ -150,7 +190,7 @@ function createEmployee(){
       employee2.scale.setTo(10,10);
     }
     else {
-      employee2 = characterLayer.create(630,380, "characters");
+      employee2 = characterLayer.create(830,380, "characters");
       employee2.anchor.setTo(0.5);
       employee2.scale.setTo(-10,10);
     }

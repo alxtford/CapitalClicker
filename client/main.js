@@ -57,9 +57,9 @@ function init(){
 
   spacelayer = clientGame.add.group();
   backgroundLayer = clientGame.add.group();
-  groundLayer = clientGame.add.group();
   storeLayer = clientGame.add.group();
   characterLayer = clientGame.add.group();
+  groundLayer = clientGame.add.group();
   uiLayer = clientGame.add.group();
   fadeLayer = clientGame.add.group();
   shaderLayer = clientGame.add.group();
@@ -182,6 +182,7 @@ function create () {
 
   setInterval(function() {
     currencyTotal += Math.round(autoClick*(modifierTotal * btcPlusMinus((1+ btcDayPercentChange))));
+    console.log("AUTOCLICK");
   }, 1000);
 
 

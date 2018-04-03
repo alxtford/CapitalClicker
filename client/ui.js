@@ -94,8 +94,9 @@ function menubuttonClickUp(){
   var btcTextTween = clientGame.add.tween(btcText).to({x:320}, 1000,Phaser.Easing.Bounce.Out, false);
   menuOptionsDraw();
   currencyTotalTextTween.start();
+  if(studyFlag){
   btcTextTween.start();
-
+  }
   menuOpenEffect.play();
 }
 
@@ -119,8 +120,10 @@ function OnmenuexitbuttonClickUp(){
   var btcTextTween = clientGame.add.tween(btcText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
 
   currencyTotalTextTween.start();
-  btcTextTween.start();
 
+  if(studyFlag){
+  btcTextTween.start();
+  }
   menubutton.visible = true;
   menubuttonText.visible = true;
   menuexitbutton.visible = false
@@ -200,7 +203,7 @@ function onMenuOptionsUp(){
 }
 
 function updatePrice(i){
-  menuData.data[i].currentPrice = (menuData.data[i].basePrice * menuData.data[i].bought) * 1.5 + menuData.data[i].currentPrice;
+  menuData.data[i].currentPrice = (menuData.data[i].basePrice * (menuData.data[i].bought +1)) * 1.5 + menuData.data[i].currentPrice;
 
   modifierEffect = menuData.data[i].multiplier * userDataLocal.upgradeList[i].timesClicked;
 
