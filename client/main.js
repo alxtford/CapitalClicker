@@ -10,7 +10,7 @@ clientGame = new Phaser.Game(canvasWidth,canvasHeight, Phaser.AUTO, "gameDiv", {
 var localTime;
 
 var currencyTotal = 0;
-//var currencyLocal;
+var autoClick = 0;
 
 var timeNow;
 
