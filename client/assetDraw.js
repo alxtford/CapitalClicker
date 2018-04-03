@@ -1,21 +1,14 @@
-var sunSprite;
-var moonSprite;
-
 var ground;
-var groundSway;
 
 var store;
 
 var style = {font: "28px VT323", fill: "#fff", tabs: 150};
-var menuStyle = {font: "20px VT323", fill: "#fff", tabs: 40, align: "left"};
 var notificationStyle = {font: "64px VT323", fill: "#fff", tabs: 150};
 var likertStyle = {font: "18px VT323", fill: "#fff", tabs: 20, align: "center"};
 
-
-var activeTimeText;
-var clickmarker;
 var startText;
 var submit
+var currencyTotalText;
 
 var crtFilter;
 var crtScreen;
@@ -60,28 +53,28 @@ function fade(){
 function createText(){
   console.log("Text Created");
   currencyTotalText = clientGame.add.text(20,25, userName + "'s Clicks: 0", style);
-  currencyTotalText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+  currencyTotalText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
 }
 
 function createStartText(){
   console.log("Start Text Created");
   startText = clientGame.add.text(225, 200, "ENTER USERNAME", notificationStyle);
-  startText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+  startText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
 
   userNameText = clientGame.add.inputField(clientGame.width / 2 - 100, 300, {
-                font: '28px VT323',
-                fill: '#212121',
+                font: "28px VT323",
+                fill: "#212121",
                 fillAlpha: 1,
-                fontWeight: 'bold',
+                fontWeight: "bold",
                 forceCase: PhaserInput.ForceCase.upper,
                 width: 200,
                 max: 20,
                 padding: 8,
                 borderWidth: 1,
-                borderColor: '#000',
+                borderColor: "#000",
                 borderRadius: 6,
-                placeHolder: '',
-                textAlign: 'center',
+                placeHolder: "",
+                textAlign: "center",
                 zoom: false
             });
             userNameText.setText("");
@@ -89,9 +82,9 @@ function createStartText(){
             userNameText.startFocus();
 
 
-            submit = clientGame.add.text(clientGame.width / 2 - 65, 380, 'Submit', {
-              font: '64px VT323',
-              fill: '#212121',
+            submit = clientGame.add.text(clientGame.width / 2 - 65, 380, "Submit", {
+              font: "64px VT323",
+              fill: "#212121",
               backgroundColor: "#FFFFFF",
             });
             submit.inputEnabled = true;

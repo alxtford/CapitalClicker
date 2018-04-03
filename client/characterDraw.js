@@ -12,17 +12,6 @@ var chest;
 
 var tween;
 
-// function characterSplit(){
-
-//   chicken = characterLayer.add.sprite(100,100, "characters");
-//   chest = characterLayer.add.sprite(100,100, "characters");
-//
-//   chest.frame = 76;
-//
-//   chicken.animations.add("walk", [72,73,74,75], 10, true);
-//   chicken.animations.add("explode", [78,79,80,81,82,83], 10, true);
-// }
-
 function createChicken(){
   if(!chicken){
   if(coinFlip() < 1){

@@ -5,7 +5,7 @@ var menubuttonClickAnim;
 var menuback;
 var menuTween = [];
 var menuButtonTween;
-var textOptions;
+
 var itemTween = [];
 var menuItems = [];
 var menuItemName;
@@ -13,12 +13,18 @@ var menuItemModifier;
 var menuItemsPrice = [];
 var menuItemsPriceTween = [];
 
+var menuStyle = {font: "20px VT323", fill: "#fff", tabs: 40, align: "left"};
+
 var modifierEffect;
 
 var menuItemsButtons = [];
 var menuItemsGroup;
 
 var menuItemOffset = 48;
+
+var menuTween;
+var currencyTotalTextTween;
+var btcTextTween;
 
 function menuAssetsCreate(){
   menuItemsGroup = clientGame.add.group();
@@ -34,7 +40,7 @@ function menuAssetsCreate(){
   menubutton.input.useHandCursor = true;
 
   menubuttonText = clientGame.add.text(60,85, "Menu", style);
-  menubuttonText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+  menubuttonText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
   uiLayer.add(menubuttonText);
 
   menuback = uiLayer.create(-400, 20, "menuback");
@@ -59,7 +65,7 @@ function menuOptionsCreate()
     menuItemModifier = menuData.data[i-1].multiplier;
 
     menuItems[i - 1] = clientGame.add.text(-400, 37 + (menuItemOffset * i), userDataLocal.upgradeList[i-1].name + "\n" + menuData.data[i-1].multiplier + "\t" + userDataLocal.upgradeList[i - 1].type, menuStyle);
-    menuItems[i - 1].setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+    menuItems[i - 1].setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
     menuItems[i - 1].lineSpacing = -8;
     uiLayer.add(menuItems[i - 1]);
 
@@ -67,7 +73,7 @@ function menuOptionsCreate()
     modifierEffect = menuData.data[i-1].multiplier * userDataLocal.upgradeList[i - 1].timesClicked;
 
     menuItemsPrice[i - 1] = clientGame.add.text(-100, 37 + (menuItemOffset * i), menuData.data[i-1].currentPrice + "\n" + modifierEffect + "/s", menuStyle);
-    menuItemsPrice[i - 1].setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+    menuItemsPrice[i - 1].setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
     menuItemsPrice[i - 1].lineSpacing = -8;
     uiLayer.add(menuItemsPrice[i - 1]);
   }
@@ -115,9 +121,9 @@ function OnmenuexitbuttonClickDown(){
 
 function OnmenuexitbuttonClickUp(){
   console.log("MOUSE UP non-menu Item");
-  var menuTween = clientGame.add.tween(menuback).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
-  var currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
-  var btcTextTween = clientGame.add.tween(btcText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
+  menuTween = clientGame.add.tween(menuback).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
+  currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
+  btcTextTween = clientGame.add.tween(btcText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
 
   currencyTotalTextTween.start();
 
@@ -191,11 +197,11 @@ function onMenuOptionsUp(){
     }
   }
   else{
-    menuItems[buttonNum].addColor('#ff0000',0);
-    menuItemsPrice[buttonNum].addColor('#ff0000',0);
+    menuItems[buttonNum].addColor("#ff0000",0);
+    menuItemsPrice[buttonNum].addColor("#ff0000",0);
     clientGame.time.events.add(Phaser.Timer.QUARTER / 4, function(){
-      menuItems[buttonNum].addColor('#ffffff',0);
-      menuItemsPrice[buttonNum].addColor('#ffffff',0);
+      menuItems[buttonNum].addColor("#ffffff",0);
+      menuItemsPrice[buttonNum].addColor("#ffffff",0);
     }, this);
     invalidEffect.play();
   }
@@ -212,13 +218,13 @@ function updatePrice(i){
 
 function intStringFormatter(num) {
   if (num >= 1000000000) {
-        return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B';
+        return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "B";
      }
      if (num >= 1000000) {
-        return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+        return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
      }
      if (num >= 1000) {
-        return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+        return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
      }
      return num;
 }

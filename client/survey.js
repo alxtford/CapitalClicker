@@ -6,7 +6,6 @@ var toggle = [];
 var toggleSelect = [];
 var toggleGroup;
 var toggleOffset = 40;
-var currentTime;
 
 function createLikert(){
   uiLayer.add(toggleGroup);

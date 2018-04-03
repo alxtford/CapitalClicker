@@ -1,5 +1,9 @@
 var modifierTotal = 1;
 var autoClick = 0;
+var click;
+var lastclick;
+var clickmarker;
+
 
 function firstClick() {
   fadeScreen.destroy();

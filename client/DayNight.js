@@ -1,4 +1,6 @@
 /*My Girlfriend (2018), came up with sun->moon idea*/
+var sunSprite;
+var moonSprite;
 
 function moonCreate(x, y, alpha)
 {
@@ -29,7 +31,7 @@ function skySet(localHours)
     case 3:
     case 4:
     moonCreate(340, 50, 0.7);
-    clientGame.stage.backgroundColor = '0x556270';
+    clientGame.stage.backgroundColor = "0x556270";
     break;
 
     case 5:
@@ -37,7 +39,7 @@ function skySet(localHours)
     case 7:
     moonCreate(150, 100, 0.5);
     sunCreate(550, 200, 0.7);
-    clientGame.stage.backgroundColor = '0x476B91';
+    clientGame.stage.backgroundColor = "0x476B91";
     break;
 
     case 8:
@@ -46,20 +48,20 @@ function skySet(localHours)
     case 11:
     moonCreate(100, 150, 0.2);
     sunCreate(450, 100, 0.7);
-    clientGame.stage.backgroundColor = '0x3D70A6';
+    clientGame.stage.backgroundColor = "0x3D70A6";
     break;
 
     case 12:
     case 13:
     sunCreate(340, 50, 0.7);
-    clientGame.stage.backgroundColor = '0x4186D1';
+    clientGame.stage.backgroundColor = "0x4186D1";
     break;
 
     case 14:
     case 15:
     case 16:
     sunCreate(200, 100, 0.7);
-    clientGame.stage.backgroundColor = '0x3D70A6';
+    clientGame.stage.backgroundColor = "0x3D70A6";
     break;
 
     case 17:
@@ -67,7 +69,7 @@ function skySet(localHours)
     case 19:
     moonCreate(550, 200, 0.5);
     sunCreate(150, 100, 0.7);
-    clientGame.stage.backgroundColor = '0x476B91';
+    clientGame.stage.backgroundColor = "0x476B91";
     break;
 
     case 20:
@@ -75,7 +77,7 @@ function skySet(localHours)
     case 22:
     case 23:
     moonCreate(340, 50, 0.7);
-    clientGame.stage.backgroundColor = '0x556270';
+    clientGame.stage.backgroundColor = "0x556270";
     break;
 
   }

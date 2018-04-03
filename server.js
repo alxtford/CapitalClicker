@@ -2,33 +2,30 @@
 //https://www.tonyerwin.com/2014/09/redirecting-http-to-https-with-nodejs.html
 //https://bitcoinaverage.com/
 
-var httpsOptions = {
-
-};
 
 //import express.js
-var express = require('express');
-var favicon = require('serve-favicon');
+var express = require("express");
+var favicon = require("serve-favicon");
 //assign it to variable app
 var app = express();
 //create a server and pass in app as a request handler
-var serv = require('http').createServer(/*httpsOptions, */app); //Server-11
-var Cloudant = require('cloudant');
-var crypto = require('crypto-js');
-var request = require('request');
+var serv = require("http").createServer(/*httpsOptions, */app); //Server-11
+var Cloudant = require("cloudant");
+var crypto = require("crypto-js");
+var request = require("request");
 
-var cloudantUser = '511ca238-fccd-486b-b4a8-3441a50531bc-bluemix'; // CLOUDANT
+var cloudantUser = "511ca238-fccd-486b-b4a8-3441a50531bc-bluemix"; // CLOUDANT
 var cloudantPassword = "84da1dc77eccb3f811f8218aad8178d1ba45fa462ab8751a49ba85b35efe1927";
 
 // CRYPTO / BITCOINAVERAGE API
-var public_key = 'YzNiYzA2MTgzYTc4NDNkZGExNTAyZWFhZGJlZGE4YWQ';
-var secret_key = 'ZGRiNWMxZDRmMDhmNDY4NTk3OWMwOWM5ZTJiZDY0ZTNlYTQzNDg3MTBmMGE0NGMxOWNjNTJiMGM3M2MwOGViOQ';
+var public_key = "YzNiYzA2MTgzYTc4NDNkZGExNTAyZWFhZGJlZGE4YWQ";
+var secret_key = "ZGRiNWMxZDRmMDhmNDY4NTk3OWMwOWM5ZTJiZDY0ZTNlYTQzNDg3MTBmMGE0NGMxOWNjNTJiMGM3M2MwOGViOQ";
 var timestamp = Math.floor(Date.now() / 1000);
-var payload = timestamp + '.' + public_key;
+var payload = timestamp + "." + public_key;
 var hash = crypto.HmacSHA256(payload, secret_key);
 var hex_hash = crypto.enc.Hex.stringify(hash);
 var signature = payload + "." + hex_hash;
-var ticker_btcusd_url = 'https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD';
+var tickerBTCUSDUrl = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD";
 var bitcoinDataBody;
 
 
@@ -43,10 +40,10 @@ var googleMapsClient = require("@google/maps").createClient({
 // Initialize the library with my account.
 var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAttempt: 5, plugins: { retry: { retryErrors: true, retryStatusCodes: [ 429, 404 ] } } }, function(err, cloudant) {
   if (err) {
-    return console.log('Failed to initialize Cloudant: ' + err.message);
+    return console.log("Failed to initialize Cloudant: " + err.message);
   }});
 
-  cloudant.db.list(function(err, allDbs) { console.log('All my databases: %s', allDbs.join(', '))});
+  cloudant.db.list(function(err, allDbs) { console.log("All my databases: %s", allDbs.join(", "))});
 
   var db = cloudant.db.use("user_data");
 
@@ -56,20 +53,20 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
 
   //send a index.html file when a get request is fired to the given
   //route, which is ‘/’ in this case
-  // app.get('/',function(req, res) {
-  // 	res.sendFile(__dirname + '/client/index.html');
+  // app.get("/",function(req, res) {
+  // 	res.sendFile(__dirname + "/client/index.html");
   // });
   //this means when a get request is made to ‘/client’, put all the
   //static files inside the client folder
   //Under ‘/client’. See for more details below
-  app.use(favicon(__dirname + '/client/assets/favicon.ico'));
-  app.use('/client',express.static(__dirname + '/client'));
-  app.use('/assets',express.static(__dirname + '/client/assets'));
-  app.use('/lib',express.static(__dirname + '/lib'));
-  //app.use('/socket.io',express.static(__dirname + '/node_modules/socket.io'));
+  app.use(favicon(__dirname + "/client/assets/favicon.ico"));
+  app.use("/client",express.static(__dirname + "/client"));
+  app.use("/assets",express.static(__dirname + "/client/assets"));
+  app.use("/lib",express.static(__dirname + "/lib"));
+  //app.use("/socket.io",express.static(__dirname + "/node_modules/socket.io"));
 
-  app.get('/',function(req,res){
-    res.sendFile(__dirname+'/client/index.html');
+  app.get("/",function(req,res){
+    res.sendFile(__dirname+"/client/index.html");
   });
 
   //listen on port 2000
@@ -79,7 +76,7 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
   // the "X-Forwarded-Proto" header field to be trusted so its
   // value can be used to determine the protocol. See
   // http://expressjs.com/api#app-settings for more details.
-  app.enable('trust proxy');
+  app.enable("trust proxy");
 
   // Add a handler to inspect the req.secure flag (see
   // http://expressjs.com/api#req.secure). This allows us
@@ -90,7 +87,7 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
       next();
     } else {
       // request was via http, so redirect to https
-      res.redirect('https://' + req.headers.host + req.url);
+      res.redirect("https://" + req.headers.host + req.url);
     }
   });
 
@@ -98,9 +95,9 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
 
 
   var btcOptions = {
-    url: ticker_btcusd_url,
+    url: tickerBTCUSDUrl,
     headers: {
-      'X-Signature': signature
+      "X-Signature": signature
     }
   };
 
@@ -137,8 +134,8 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
   }, 10000);
 
 
-  process.on('exit', function() {
-    console.log('Server is shutting down!');
+  process.on("exit", function() {
+    console.log("Server is shutting down!");
   });
 
   function testEmit(){
@@ -146,10 +143,10 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
   }
 
   // binds the serv object we created to socket.io
-  var io = require('socket.io')(serv);
+  var io = require("socket.io")(serv);
 
   // listen for a connection request from any client
-  io.sockets.on('connection', function(socket){
+  io.sockets.on("connection", function(socket){
     console.log("socket connected");
 
     //output a unique socket.id
@@ -182,18 +179,18 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
 
     socket.on("likertResult", function likertResult(data){
       var time = new Date();
-      sdb.insert(data, data._id + time, function(err, body, header) {
+      sdb.insert(data, data._id + time, function(err, body) {
       if (err) {
-        return console.log('Survey Insert ', err.message);
+        return console.log("Survey Insert ", err.message);
       }
-      console.log('Likert result inserted.');
+      console.log("Likert result inserted.");
     });
     });
 
     // Listen for userName
     socket.on("saveName", function saveName(name){
 
-      db.get(name, { include_docs: true }, function(err, body, data){
+      db.get(name, { include_docs: true }, function(err, body){
         if (err && err.statusCode == 404)
         {
           console.log("UNABLE TO FIND " + name +". CREATING...");
@@ -201,7 +198,7 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
             if (!err)
             { console.log("HEADER: " + headers);}
 
-            db.get(name, function(err, body, data){
+            db.get(name, function(err, body){
               if(err)
               {
                 console.log("ERROR ON DOC GET\n" + err);
@@ -218,12 +215,12 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
                 console.log("NEW COINFLIP: " + update.coinflip);
                 update.totalLoginIn ++;
 
-                db.insert(update, function(err, body, doc) {
+                db.insert(update, function(err, body) {
                   if (err) {
-                    console.log('Error inserting data\n' + err);
+                    console.log("Error inserting data\n" + err);
                     return 500;
                   }
-                  console.log('UPDATED BOTH TIMES');
+                  console.log("UPDATED BOTH TIMES");
                   //console.log(body);
                   socket.emit("ready");
                   //socket.emit("userData", body);
@@ -242,10 +239,10 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
           update.totalLoginIn ++;
           db.insert(update, function(err, body, doc) {
             if (err) {
-              console.log('Error inserting data on Login\n' + err);
+              console.log("Error inserting data on Login\n" + err);
               return 500;
             }
-            console.log('UPDATED LAST LOGIN TIME');
+            console.log("UPDATED LAST LOGIN TIME");
             console.log(body);
             //socket.emit("userData", body);
             socket.emit("ready");
@@ -274,11 +271,11 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
 
           db.insert(dataUpdate, function(err, body, doc) {
             if (err) {
-              console.log('Error inserting data on update\n' + err);
+              console.log("Error inserting data on update\n" + err);
               console.log(doc + "\n" + JSON.stringify(dataUpdate));
               return 500;
             }
-            // console.log('UPDATED SAVED USER DATA');
+            // console.log("UPDATED SAVED USER DATA");
             // console.log("SAVED BODY:\n" + body);
             return 200;
 
@@ -295,12 +292,7 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
         {
           console.log(err);
         }
-        // else {
-        //   body.rows.forEach(function(doc) {
-        //     console.log(doc);
-        //   });
-        // }
-        //console.log("DEMANDED DOC:\n" + JSON.stringify(result.docs[0]));
+
         socket.emit("userData", JSON.stringify(result.docs[0]));
         socket.emit("bitcoinData", JSON.stringify(bitcoinDataBody));
       });

@@ -3,31 +3,19 @@ socket = io.connect(); // send a connection request to the server
 
 var canvas_width = 800;
 var canvas_height = 600;
-var scale = 1;
 
 //make a phaser game
-clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO, 'gameDiv', {init: init, preload: preload, create:create, update: update});
-
-var gameProperties = {
-  //this is the actual game size to determine the boundary of
-  //the world
-  gameWidth: 4000,
-  gameHeight: 4000,
-};
+clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO, "gameDiv", {init: init, preload: preload, create:create, update: update});
 
 var localTime;
-var lastActive;
 
 var daySpeed = 2000;
 
-var currencyTotalText;
-var currencyTotal = 0;
-var currencyLocal;
 
-var click;
-var lastclick;
+var currencyTotal = 0;
+//var currencyLocal;
+
 var timeNow;
-var tickCounter;
 
 var userName;
 var userNameText;
@@ -40,8 +28,6 @@ var nameRegistered;
 
 var bitcoinData;
 var btcDayPercentChange = 0;
-
-var likertFlag;
 
 function init(){
   clientGame.plugins.add(PhaserInput.Plugin);
@@ -93,7 +79,7 @@ function create () {
   //the client connects, call onsocketConnected.
   socket.on("connect", onsocketConnected);
 
-  socket.on('connect_failed', function() {
+  socket.on("connect_failed", function() {
     document.write("Sorry, there seems to be an issue with the connection!");
   });
 
@@ -191,7 +177,7 @@ function create () {
 //Function only fired if coinflip of 1
 function studyCreate(){
   btcText = clientGame.add.text(20,50, "BTC day change: 0%", style);
-  btcText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+  btcText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
 
   createLikert();
   clientGame.time.events.add(Phaser.Timer.MINUTE * 1.5, likertShow, this);
