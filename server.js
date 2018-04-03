@@ -2,6 +2,27 @@
 //https://www.tonyerwin.com/2014/09/redirecting-http-to-https-with-nodejs.html
 //https://bitcoinaverage.com/
 
+console.log('VCAP SERVICES: ' + JSON.stringify(process.env.VCAP_SERVICES));
+var cloudantUsername;
+var cloudantPassword;
+
+var BTCPublic = process.env.BTCPublic;
+var BTCSecret = process.env.BTCSecret;
+
+var googleKey = process.env.googleKey;
+var darkSkyKey = process.env.darkSkyKey;
+
+if(process && process.env && process.env.VCAP_SERVICES) {
+  var vcapServices = JSON.parse(process.env.VCAP_SERVICES);
+  for (var svcName in vcapServices) {
+    if (svcName.match(/^cloudantNoSQLDB.*/)) {
+      cloudantUsername = vcapServices[svcName][0].credentials.username;
+      cloudantPassword = vcapServices[svcName][0].credentials.password;
+      break;
+    }
+  }
+}
+console.log("CLOUDANT UN: " + cloudantUsername);
 
 //import express.js
 var express = require("express");
@@ -14,31 +35,34 @@ var Cloudant = require("cloudant");
 var crypto = require("crypto-js");
 var request = require("request");
 
-var cloudantUser = "511ca238-fccd-486b-b4a8-3441a50531bc-bluemix"; // CLOUDANT
-var cloudantPassword = "84da1dc77eccb3f811f8218aad8178d1ba45fa462ab8751a49ba85b35efe1927";
+var darkSky = require("forecast.io");
 
 // CRYPTO / BITCOINAVERAGE API
-var publicKey = "YzNiYzA2MTgzYTc4NDNkZGExNTAyZWFhZGJlZGE4YWQ";
-var secretKey = "ZGRiNWMxZDRmMDhmNDY4NTk3OWMwOWM5ZTJiZDY0ZTNlYTQzNDg3MTBmMGE0NGMxOWNjNTJiMGM3M2MwOGViOQ";
 var timestamp = Math.floor(Date.now() / 1000);
-var payload = timestamp + "." + publicKey;
-var hash = crypto.HmacSHA256(payload, secretKey);
+var payload = timestamp + "." + BTCPublic;
+var hash = crypto.HmacSHA256(payload, BTCSecret);
 var hexHash = crypto.enc.Hex.stringify(hash);
 var signature = payload + "." + hexHash;
 var tickerBTCUSDUrl = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD";
 var bitcoinDataBody;
 
+// DARKSKY
+var options = {
+  APIKey: darkSkyKey,
+  timeout: 1000
+},
+darksky = new darkSky(options);
 
 // For Server events at set intervals
 var lastProcessedHour = -1;
 
 // GOOGLE MAPS
 var googleMapsClient = require("@google/maps").createClient({
-  key:"AIzaSyDY7XntI3yeexRyoS-_kUAfl3yIfGxIZFE"
+  key:googleKey
 });
 
 // Initialize the library with my account.
-var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAttempt: 5, plugins: { retry: { retryErrors: true, retryStatusCodes: [ 429, 404 ] } } }, function(err, cloudant) {
+var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, maxAttempt: 5, plugins: { retry: { retryErrors: true, retryStatusCodes: [ 429, 404 ] } } }, function(err, cloudant) {
   if (err) {
     return console.log("Failed to initialize Cloudant: " + err.message);
   }});
