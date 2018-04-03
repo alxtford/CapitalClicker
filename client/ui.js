@@ -132,7 +132,7 @@ function OnmenuexitbuttonClickUp(){
   }
   menubutton.visible = true;
   menubuttonText.visible = true;
-  menuexitbutton.visible = false
+  menuexitbutton.visible = false;
 
   for(var i = 1; i < userDataLocal.upgradeList.length + 1; i++)
   {
@@ -172,7 +172,7 @@ function onMenuOptionsUp(){
 
   //console.log(buttonNum);
 
-  currencyLocal = currencyTotal - menuData.data[buttonNum].currentPrice
+  currencyLocal = currencyTotal - menuData.data[buttonNum].currentPrice;
   if(currencyLocal > 0)
   {
     userDataLocal.upgradeList[buttonNum].timesClicked ++;

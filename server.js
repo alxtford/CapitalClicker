@@ -18,13 +18,13 @@ var cloudantUser = "511ca238-fccd-486b-b4a8-3441a50531bc-bluemix"; // CLOUDANT
 var cloudantPassword = "84da1dc77eccb3f811f8218aad8178d1ba45fa462ab8751a49ba85b35efe1927";
 
 // CRYPTO / BITCOINAVERAGE API
-var public_key = "YzNiYzA2MTgzYTc4NDNkZGExNTAyZWFhZGJlZGE4YWQ";
-var secret_key = "ZGRiNWMxZDRmMDhmNDY4NTk3OWMwOWM5ZTJiZDY0ZTNlYTQzNDg3MTBmMGE0NGMxOWNjNTJiMGM3M2MwOGViOQ";
+var publicKey = "YzNiYzA2MTgzYTc4NDNkZGExNTAyZWFhZGJlZGE4YWQ";
+var secretKey = "ZGRiNWMxZDRmMDhmNDY4NTk3OWMwOWM5ZTJiZDY0ZTNlYTQzNDg3MTBmMGE0NGMxOWNjNTJiMGM3M2MwOGViOQ";
 var timestamp = Math.floor(Date.now() / 1000);
-var payload = timestamp + "." + public_key;
-var hash = crypto.HmacSHA256(payload, secret_key);
-var hex_hash = crypto.enc.Hex.stringify(hash);
-var signature = payload + "." + hex_hash;
+var payload = timestamp + "." + publicKey;
+var hash = crypto.HmacSHA256(payload, secretKey);
+var hexHash = crypto.enc.Hex.stringify(hash);
+var signature = payload + "." + hexHash;
 var tickerBTCUSDUrl = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD";
 var bitcoinDataBody;
 
@@ -179,7 +179,7 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
 
     socket.on("likertResult", function likertResult(data){
       var time = new Date();
-      sdb.insert(data, data._id + time, function(err, body) {
+      sdb.insert(data, data._id + time, function(err) {
       if (err) {
         return console.log("Survey Insert ", err.message);
       }
@@ -206,24 +206,22 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
               else {
 
                 var date = new Date();
-                // var dateInt = parseInt(date.getDate() + "" + (date.getMonth()+1) + "" + date.getFullYear());
                 update = body;
-                //console.log(body);
+
                 update.dateCreated= date;
                 update.dateLastLogin= date;
                 update.coinflip = coinFlip();
                 console.log("NEW COINFLIP: " + update.coinflip);
                 update.totalLoginIn ++;
 
-                db.insert(update, function(err, body) {
+                db.insert(update, function(err) {
                   if (err) {
                     console.log("Error inserting data\n" + err);
                     return 500;
                   }
                   console.log("UPDATED BOTH TIMES");
-                  //console.log(body);
                   socket.emit("ready");
-                  //socket.emit("userData", body);
+
                   return 200;
                 });
               }
@@ -237,14 +235,13 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
           update = body;
           update.dateLastLogin= date;
           update.totalLoginIn ++;
-          db.insert(update, function(err, body, doc) {
+          db.insert(update, function(err, body) {
             if (err) {
               console.log("Error inserting data on Login\n" + err);
               return 500;
             }
             console.log("UPDATED LAST LOGIN TIME");
             console.log(body);
-            //socket.emit("userData", body);
             socket.emit("ready");
             return 200;
           });
@@ -252,7 +249,6 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
 
         }
       });
-      //doc.dateLastLogin
     });
 
     // Listen for user data update
@@ -261,13 +257,11 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
       db.find({selector:{_id:  name}}, function(err, result){
         // console.log("PRINTING BODY FROM DOC:\n" + body);
         var dataUpdate = result.docs[0];
-        //console.log("DATA UPDATE:\n" + JSON.stringify(dataUpdate));
-        //console.log("SERVER HAS RECEIVED, PARSED:\n" + JSON.stringify(serverReceive));
+
         if(dataUpdate != serverReceive)
         {
           dataUpdate = serverReceive;
           dataUpdate._rev = result.docs[0]._rev;
-          //console.log("SERVER HAS RECEIVED:\n" + JSON.stringify(dataUpdate));
 
           db.insert(dataUpdate, function(err, body, doc) {
             if (err) {
@@ -275,8 +269,7 @@ var cloudant = Cloudant({account:cloudantUser, password:cloudantPassword, maxAtt
               console.log(doc + "\n" + JSON.stringify(dataUpdate));
               return 500;
             }
-            // console.log("UPDATED SAVED USER DATA");
-            // console.log("SAVED BODY:\n" + body);
+
             return 200;
 
           });

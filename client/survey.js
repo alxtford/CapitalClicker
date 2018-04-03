@@ -7,6 +7,8 @@ var toggleSelect = [];
 var toggleGroup;
 var toggleOffset = 40;
 
+var likertStyle = {font: "18px VT323", fill: "#fff", tabs: 20, align: "center"};
+
 function createLikert(){
   uiLayer.add(toggleGroup);
 
@@ -16,7 +18,7 @@ function createLikert(){
   likertBackground.animations.play("flash", 10, true);
 
   likertQuestion = clientGame.add.text(270, 728, "How satisfied are you with the game experience?\n(1 = Not at all, 5 = Very)",likertStyle);
-  likertQuestion.lineSpacing = -8
+  likertQuestion.lineSpacing = -8;
 
   for (var i = 0; i < 5; i++)
   {
@@ -44,7 +46,7 @@ function onLikertToggleDown(){
 
   var dateNow = new Date();
 
-  var likertData = {_id: userName, likertOption: buttonNum, timeSubmitted: dateNow.toDateString()}
+  likertData = {_id: userName, likertOption: buttonNum, timeSubmitted: dateNow.toDateString()};
 
   socket.emit("likertResult", likertData);
   likertHide();
@@ -83,8 +85,10 @@ function likertHide(){
   }
 }
 function resetToggle (buttonNum){
-  if(toggle[buttonNum].animations.frame == 1)
+  if(toggle[buttonNum].animations.frame == 1){
     toggle[buttonNum].animations.frame = 0;
-  else
+  }
+  else{
   toggle[buttonNum].animations.frame = 1;
+  }
 }

@@ -4,7 +4,7 @@ var moonSprite;
 
 function moonCreate(x, y, alpha)
 {
-  moonSprite = spacelayer.create(x,y, "sunMoon")
+  moonSprite = spacelayer.create(x,y, "sunMoon");
   moonSprite.frame = 1;
   moonSprite.width = 100;
   moonSprite.height = 100;
@@ -13,7 +13,7 @@ function moonCreate(x, y, alpha)
 
 function sunCreate(x, y, alpha)
 {
-  sunSprite = spacelayer.create(x,y, "sunMoon")
+  sunSprite = spacelayer.create(x,y, "sunMoon");
   sunSprite.frame = 0;
   sunSprite.width = 100;
   sunSprite.height = 100;

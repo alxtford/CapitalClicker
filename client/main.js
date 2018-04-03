@@ -1,16 +1,13 @@
 var socket; // define a global variable called socket
 socket = io.connect(); // send a connection request to the server
 
-var canvas_width = 800;
-var canvas_height = 600;
+var canvasWidth = 800;
+var canvasHeight = 600;
 
 //make a phaser game
-clientGame = new Phaser.Game(canvas_width,canvas_height, Phaser.AUTO, "gameDiv", {init: init, preload: preload, create:create, update: update});
+clientGame = new Phaser.Game(canvasWidth,canvasHeight, Phaser.AUTO, "gameDiv", {init: init, preload: preload, create:create, update: update});
 
 var localTime;
-
-var daySpeed = 2000;
-
 
 var currencyTotal = 0;
 //var currencyLocal;
@@ -18,7 +15,6 @@ var currencyTotal = 0;
 var timeNow;
 
 var userName;
-var userNameText;
 var tick = Date.now();
 var userDataLocal;
 

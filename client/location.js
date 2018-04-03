@@ -14,7 +14,7 @@ function geoFindMe() {
     latitude  = position.coords.latitude;
     longitude = position.coords.longitude;
 
-    console.log("Latitude is " + latitude + '° <br>Longitude is ' + longitude + '°');
+    console.log("Latitude is " + latitude + "° <br>Longitude is " + longitude + "°");
 
     socket.emit("shopsFind", latitude, longitude);
     console.log(position.coords);

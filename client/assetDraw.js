@@ -4,10 +4,10 @@ var store;
 
 var style = {font: "28px VT323", fill: "#fff", tabs: 150};
 var notificationStyle = {font: "64px VT323", fill: "#fff", tabs: 150};
-var likertStyle = {font: "18px VT323", fill: "#fff", tabs: 20, align: "center"};
 
+var userNameText;
 var startText;
-var submit
+var submit;
 var currencyTotalText;
 
 var crtFilter;
@@ -116,11 +116,11 @@ function updateText(){
 
 function crtDraw(){
   crtFilter = new Phaser.Filter(clientGame, null, CRTFragmentSrc);
-  crtFilter.setResolution(canvas_width, canvas_height);
+  crtFilter.setResolution(canvasWidth, canvasHeight);
 
   crtScreen = clientGame.add.sprite();
-  crtScreen.width = canvas_width;
-  crtScreen.height = canvas_height;
+  crtScreen.width = canvasWidth;
+  crtScreen.height = canvasHeight;
   crtScreen.filters = [ crtFilter ];
   //console.log(crtScreen.filters);
 }

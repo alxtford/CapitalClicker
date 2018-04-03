@@ -1,38 +1,3 @@
-// 
-// // AUTO CLICKER DEFS
-//
-// var hirelingPrice = 10;
-// var hirelingMultiplier = 1.1;
-// var hirelingBought = 0;
-//
-// var employeePrice = 100;
-// var employeeMultiplier = 1.5;
-// var employeeBought = 0;
-//
-// var traderPrice = 1000;
-// var traderMultiplier = 2;
-// var traderBought = 0;
-//
-//
-// // MULTIPLIER DEFS
-//
-// var waresPrice = 10;
-// var waresMultiplier = 1.1;
-// var waresBought = 0;
-//
-// var commoditiesPrice = 100;
-// var commoditiesMultiplier = 1.5;
-// var commoditiesBought = 0;
-//
-// var itemsPrice = 1000;
-// var itemsMultiplier = 2;
-// var itemsBought = 0;
-
-
-// COMMON DEFS PRICE INCREASE
-
-var priceIncrease = 1.5;
-
 var menuData = {
   "data": [
     {
