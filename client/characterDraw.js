@@ -51,6 +51,7 @@ function createChicken(){
     chicken.animations.stop();
     chicken.animations.play("explode", 15, false, true);
 
+    explodeEffect.play();
 
     chicken= null;
     tween.stop();

@@ -127,18 +127,21 @@ function create () {
 
     modifierTotal = Math.round(modifierTotal);
     console.log("Starting Modifier: " + modifierTotal);
-
     console.log("Starting currency total: " + currencyTotal);
 
+    // Draw the Store
     storeDraw(frameGet());
+    // Create the Employees
     employeeNum();
 
+    // If the user is part of the Data group of the study
     if(userDataLocal.coinflip === 1){
       studyCreate();
     }
 
+    // Allow User Input, starting the game
     startFlag = true;
-    //userDataLocal = userData;
+
     console.log("Listening for User Data");
   });
 
@@ -182,6 +185,7 @@ function create () {
 function studyCreate(){
   btcText = clientGame.add.text(20,50, "BTC day change: 0%", style);
   btcText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
+  uiLayer.add(btcText);
 
   createLikert();
   clientGame.time.events.add(Phaser.Timer.MINUTE * 1.5, likertShow, this);

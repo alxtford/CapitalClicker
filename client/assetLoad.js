@@ -13,6 +13,7 @@ var invalidEffect;
 var menuCloseEffect;
 var menuOpenEffect;
 var selectEffect;
+var explodeEffect;
 
 function assetLoad(){
 
@@ -42,6 +43,7 @@ function assetLoad(){
   clientGame.load.audio("menuClose", "assets/audio/menuclose.wav");
   clientGame.load.audio("menuOpen", "assets/audio/menuopen.wav");
   clientGame.load.audio("select", "assets/audio/select.wav");
+  clientGame.load.audio("explode", "assets/audio/chickenExplode.wav");
 
   // TYPEFACE
   clientGame.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
@@ -63,4 +65,8 @@ function audioAssign(){
 
   selectEffect = clientGame.add.audio("select");
   selectEffect.allowMultiple = true;
+
+  explodeEffect = clientGame.add.audio("explode");
+  explodeEffect.allowMultiple = false;
+
 }

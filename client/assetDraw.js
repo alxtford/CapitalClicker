@@ -47,6 +47,8 @@ function fade(){
   fadeScreen.drawRect(0,0, 800, 600 );
   fadeScreen.endFill();
 
+  fadeLayer.add(fadeScreen);
+
 }
 
 
@@ -54,12 +56,14 @@ function createText(){
   console.log("Text Created");
   currencyTotalText = clientGame.add.text(20,25, userName + "'s Clicks: 0", style);
   currencyTotalText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
+  uiLayer.add(currencyTotalText);
 }
 
 function createStartText(){
   console.log("Start Text Created");
   startText = clientGame.add.text(225, 200, "ENTER USERNAME", notificationStyle);
   startText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
+  fadeLayer.add(startText);
 
   userNameText = clientGame.add.inputField(clientGame.width / 2 - 100, 300, {
                 font: "28px VT323",
@@ -101,7 +105,7 @@ function destroyStartText() {
     submit.destroy();
     userNameText.destroy();
     startText.setText("CLICK");
-    startText.x = 250;
+    startText.x = 300;
     saveName(userName);
     fadeScreen.inputEnabled = true;
     }
