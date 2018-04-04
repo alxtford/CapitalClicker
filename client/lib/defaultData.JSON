@@ -6,6 +6,7 @@
   "totalLoginIn": 0,
   "currency": 0,
   "totalClicks": 0,
+  "autoPerSec": 0,
   "totalBought": 0,
   "coinflip": 0,
   "surveysCompleted": 0,
