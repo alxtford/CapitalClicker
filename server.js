@@ -28,7 +28,7 @@ if(process && process.env && process.env.VCAP_SERVICES) {
   BTCSecret = process.env.BTCSecret;
 
   googleKey = process.env.googleKey;
-  darkSkyKey = process.env.darkSkyKeyy;
+  darkSkyKey = process.env.darkSkyKey;
 
   var vcapServices = JSON.parse(process.env.VCAP_SERVICES);
   for (var svcName in vcapServices) {
