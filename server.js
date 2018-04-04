@@ -11,7 +11,6 @@ var BTCSecretDirty = "ZGRiNWMxZDRmMDhmNDY4NTk3OWMwOWM5ZTJiZDY0ZTNlYTQzNDg3MTBmMG
 var googleKeyDirty = "AIzaSyDY7XntI3yeexRyoS-_kUAfl3yIfGxIZFE";
 var darkSkyKeyDirty = "3260f4cbe8c6ad8402020d91728cda57";
 
-
 console.log('VCAP SERVICES: ' + JSON.stringify(process.env.VCAP_SERVICES));
 var cloudantUsername;
 var cloudantPassword;
@@ -102,7 +101,23 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
   var sdb = cloudant.db.use("survey_data");
 
   var update;
+  var ldbArray = []; // Leaderboard array
 
+
+  function leaderboardPopulate(){
+    db.view("Docs", "view-users", {limit: 10}, function(err, body){
+      if(!err){
+        console.log(body);
+        body.rows.forEach(function(doc){
+          console.log(doc.key[0]);
+        });
+      }
+      else{
+        console.log(err);
+      }
+    });
+
+  }
   //send a index.html file when a get request is fired to the given
   //route, which is ‘/’ in this case
   // app.get("/",function(req, res) {
@@ -233,6 +248,7 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
 
     // Listen for userName
     socket.on("saveName", function saveName(name){
+      leaderboardPopulate();
 
       db.get(name, { include_docs: true }, function(err, body){
         if (err && err.statusCode == 404)
