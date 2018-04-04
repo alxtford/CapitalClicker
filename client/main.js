@@ -11,6 +11,7 @@ var localTime;
 
 var currencyTotal = 0;
 var autoClick = 0;
+var autoPerSec = 0;
 
 var timeNow;
 var visibility;
@@ -110,19 +111,13 @@ function create () {
     currencyTotal = btcPlusMinus(parseInt(userDataLocal.currency));
     menuOptionsCreate();
 
+    autoPerSec = userDataLocal.autoPerSec;
+
     for(var i = 0; i < userDataLocal.upgradeList.length; i++)
     {
       menuData.data[i].bought = userDataLocal.upgradeList[i].timesClicked;
       updatePrice(i);
 
-    }
-    for(var i = 3; i < 6; i++)
-    {
-      modifierTotal += (menuData.data[i].bought * menuData.data[i].multiplier);
-    }
-    for(var i = 0; i < 3; i++)
-    {
-      autoClick += (menuData.data[i].bought * menuData.data[i].multiplier);
     }
 
     modifierTotal = Math.round(modifierTotal);
@@ -174,7 +169,18 @@ function create () {
 
 
   setInterval(function() {
-    currencyTotal += Math.round(autoClick*(modifierTotal * btcPlusMinus((1+ btcDayPercentChange))));
+    for(var i = 3; i < 6; i++)
+    {
+      modifierTotal += (menuData.data[i].bought * menuData.data[i].multiplier);
+    }
+    for(var i = 0; i < 3; i++)
+    {
+      autoClick += (menuData.data[i].bought * menuData.data[i].multiplier);
+    }
+
+    autoPerSec = Math.round(autoClick*(modifierTotal * btcPlusMinus((1+ btcDayPercentChange))))
+
+    currencyTotal += autoPerSec;
   }, 1000);
 
 
