@@ -179,6 +179,7 @@ function create () {
     }
 
     autoPerSec = Math.round(autoClick*(modifierTotal * btcPlusMinus((1+ btcDayPercentChange))))
+    userDataLocal.autoPerSec = autoPerSec;
 
     currencyTotal += autoPerSec;
   }, 1000);
