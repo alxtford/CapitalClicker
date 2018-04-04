@@ -31,7 +31,6 @@ function clickListener(sprite){
   clickmarker.y = clientGame.input.activePointer.y - 32;
   clickmarker.animations.play("click", 20, false, true);
   clickEffect.play();
-  console.log("CLICK");
 }
 
 }

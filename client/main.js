@@ -175,7 +175,6 @@ function create () {
 
   setInterval(function() {
     currencyTotal += Math.round(autoClick*(modifierTotal * btcPlusMinus((1+ btcDayPercentChange))));
-    console.log("AUTOCLICK");
   }, 1000);
 
 
@@ -249,7 +248,6 @@ function btcPlusMinus(btc){
   if (btc < 0)
   {
     btc *= -1;
-    console.log("negative value found");
   }
   return btc;
 }

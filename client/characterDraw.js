@@ -49,7 +49,7 @@ function createChicken(){
 
   chicken.events.onInputDown.add(function(){
     chicken.animations.stop();
-    chicken.animations.play("explode", 15, false, true);
+    chicken.animations.play("explode", 20, false, true);
 
     explodeEffect.play();
 
