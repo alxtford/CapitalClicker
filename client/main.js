@@ -186,6 +186,9 @@ function create () {
     }
   }, 1000);
 
+  createLikert();
+  clientGame.time.events.add(Phaser.Timer.MINUTE * 1.5, likertShow, this);
+
 
 }
 
@@ -195,8 +198,6 @@ function studyCreate(){
   btcText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
   uiLayer.add(btcText);
 
-  createLikert();
-  clientGame.time.events.add(Phaser.Timer.MINUTE * 1.5, likertShow, this);
   geoFindMe();
 
   studyFlag = true;
