@@ -8,6 +8,9 @@ var menubackHelp;
 var menuHelpButton;
 var menuHelpExitbutton;
 
+var menuHelpText;
+var menuHelpTextTween;
+
 var menuTween = [];
 var menuButtonTween;
 
@@ -53,6 +56,8 @@ function menuAssetsCreate(){
   menubackHelp.frame = 2;
   menubackHelp.scale.setTo(8);
 
+  helpTextCreate();
+
   menuback = uiLayer.create(-400, 20, "menuback");
   menuback.scale.setTo(8);
 
@@ -88,6 +93,61 @@ function menuOptionsCreate(){
   }
   listButtonListener();
   uiLayer.bringToTop(toggleGroup);
+  menubuttonsCreate();
+}
+
+function menubuttonsCreate(){
+  menuexitbutton = uiLayer.create(270, 36, "menuexitbutton");
+  menuexitbutton.scale.setTo(8);
+  menuexitbutton.animations.add("Click");
+  menuexitbutton.inputEnabled = true;
+  menuexitbutton.input.useHandCursor = true;
+  menuexitbutton.visible = false;
+
+  menuHelpButton = uiLayer.create(238, 36, "menuHelpButton");
+  menuHelpButton.scale.setTo(2);
+  menuHelpButton.animations.add("Click");
+  menuHelpButton.inputEnabled = true;
+  menuHelpButton.input.useHandCursor = true;
+  menuHelpButton.visible = false;
+
+  helpMenuExitButtonCreate();
+
+  exitButtonListener();
+  helpButtonListener();
+}
+
+function menuOptionsDraw(){
+
+  for(var i = 0; i < userDataLocal.upgradeList.length; i++)
+  {
+    itemTween[i] =  clientGame.add.tween(menuItems[i]).to({x:50}, 1000,Phaser.Easing.Bounce.Out, false);
+    itemTween[i].start();
+    menuItemsPriceTween[i] =  clientGame.add.tween(menuItemsPrice[i]).to({x:220}, 1000,Phaser.Easing.Bounce.Out, false);
+    menuItemsPriceTween[i].start();
+    menuButtonTween =  clientGame.add.tween(menuItemsButtons[i]).to({x:10}, 1000,Phaser.Easing.Bounce.Out, false);
+    menuButtonTween.start();
+  }
+
+  //userDataLocal.upgradeList.length()
+}
+
+function helpTextCreate(){
+  menuHelpText = clientGame.add.text(-400, 40, "EACH UPGRADE OPTION\nHAS THE FOLLOWING:\n\nUpgrade Name \t |Price\nAmount | Type\t |Current Effect", menuStyle);
+  menuHelpText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
+  uiLayer.add(menuHelpText);
+}
+
+function helpMenuExitButtonCreate(){
+  menuHelpExitbutton = uiLayer.create(580, 36, "menuexitbutton");
+  menuHelpExitbutton.scale.setTo(8);
+  menuHelpExitbutton.animations.add("Click");
+  menuHelpExitbutton.inputEnabled = true;
+  menuHelpExitbutton.input.useHandCursor = true;
+
+  menuHelpExitbutton.visible = false;
+
+  helpExitButtonListener();
 }
 
 function menubuttonClickDown(){
@@ -100,7 +160,14 @@ function menubuttonClickUp(){
   console.log("MOUSE UP ON MENU BUTTON");
   menuTween = clientGame.add.tween(menuback);
   menuTween.to({x:-10}, 1000,Phaser.Easing.Bounce.Out, false);
-  menuTween.onComplete.add(menubuttonsCreate, this);
+  menuTween.onComplete.add(function(){
+    menuexitbutton.visible = true;
+    menuHelpButton.visible = true;
+
+    menuexitbutton.frame = 0;
+    menuHelpButton.frame = 0;
+
+  }, this);
   menuTween.start();
 
   menuHelpTween = clientGame.add.tween(menubackHelp);
@@ -120,33 +187,6 @@ function menubuttonClickUp(){
   menuOpenEffect.play();
 }
 
-function menubuttonsCreate(){
-  menuexitbutton = uiLayer.create(270, 36, "menuexitbutton");
-  menuexitbutton.scale.setTo(8);
-  menuexitbutton.animations.add("Click");
-  menuexitbutton.inputEnabled = true;
-  menuexitbutton.input.useHandCursor = true;
-
-  menuHelpButton = uiLayer.create(238, 36, "menuHelpButton");
-  menuHelpButton.scale.setTo(2);
-  menuHelpButton.animations.add("Click");
-  menuHelpButton.inputEnabled = true;
-  menuHelpButton.input.useHandCursor = true;
-
-  exitButtonListener();
-  helpButtonListener();
-}
-
-function helpMenuExitButtonCreate(){
-  menuHelpExitbutton = uiLayer.create(480, 36, "menuexitbutton");
-  menuHelpExitbutton.scale.setTo(8);
-  menuHelpExitbutton.animations.add("Click");
-  menuHelpExitbutton.inputEnabled = true;
-  menuHelpExitbutton.input.useHandCursor = true;
-
-  helpExitButtonListener();
-}
-
 function OnmenuexitbuttonClickDown(){
   menuexitbutton.animations.play("Click", 30, false);
 }
@@ -155,6 +195,8 @@ function OnmenuexitbuttonClickUp(){
   console.log("MOUSE UP non-menu Item");
   menuTween = clientGame.add.tween(menuback).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
   menuHelpTween = clientGame.add.tween(menubackHelp).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
+  menuHelpTextTween = clientGame.add.tween(menuHelpText).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
+
   currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
   btcTextTween = clientGame.add.tween(btcText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
 
@@ -187,31 +229,21 @@ function OnmenuHelpExitbuttonClickDown(){
 
 function OnmenuHelpExitbuttonClickUp(){
   console.log("MOUSE UP non-menu Item");
-  menuTween = clientGame.add.tween(menuback).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
   menuHelpTween = clientGame.add.tween(menubackHelp).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
-  currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
-  btcTextTween = clientGame.add.tween(btcText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
+  menuHelpTextTween = clientGame.add.tween(menuHelpText).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
 
+  currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:320}, 1000,Phaser.Easing.Bounce.Out, false);
+  btcTextTween = clientGame.add.tween(btcText).to({x:320}, 1000,Phaser.Easing.Bounce.Out, false);
+
+  menuHelpTween.start();
   currencyTotalTextTween.start();
 
   if(studyFlag){
     btcTextTween.start();
   }
-  menubutton.visible = true;
-  menubuttonText.visible = true;
-  menuexitbutton.visible = false;
-  menuHelpExitbutton.visible = false;
-  menuHelpButton.visible = false;
 
-  for(var i = 1; i < userDataLocal.upgradeList.length + 1; i++)
-  {
-    itemTween[i-1] =  clientGame.add.tween(menuItems[i - 1]).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, false);
-    itemTween[i-1].start();
-    menuItemsPriceTween[i-1] =  clientGame.add.tween(menuItemsPrice[i - 1]).to({x:-100}, 1000,Phaser.Easing.Bounce.Out, false);
-    menuItemsPriceTween[i-1].start();
-    menuButtonTween=  clientGame.add.tween(menuItemsButtons[i - 1]).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, false);
-    menuButtonTween.start();
-  }
+  menuHelpExitbutton.visible = false;
+
   menuCloseEffect.play();
 }
 
@@ -221,10 +253,14 @@ function OnmenuhelpbuttonClickDown(){
 
 function OnmenuhelpbuttonClickUp(){
   console.log("MOUSE UP non-menu Item");
-  menuHelpTween = clientGame.add.tween(menubackHelp).to({x:200}, 1000,Phaser.Easing.Bounce.Out, true);
-  menuHelpTween.onComplete.add(helpMenuExitButtonCreate, this);
+  menuHelpTween = clientGame.add.tween(menubackHelp).to({x:300}, 1000,Phaser.Easing.Bounce.Out, true);
+  menuHelpTween.onComplete.add(function(){
+    menuHelpExitbutton.visible = true;
+  }, this);
   menuHelpTween.start();
-  currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:530}, 1000,Phaser.Easing.Bounce.Out, false);
+  menuHelpTextTween = clientGame.add.tween(menuHelpText).to({x:340}, 1000,Phaser.Easing.Bounce.Out, true);
+
+  currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:620}, 1000,Phaser.Easing.Bounce.Out, false);
   btcTextTween = clientGame.add.tween(btcText).to({x:300}, 1000,Phaser.Easing.Bounce.Out, false);
 
   currencyTotalTextTween.start();
@@ -232,24 +268,10 @@ function OnmenuhelpbuttonClickUp(){
   if(studyFlag){
     btcTextTween.start();
   }
-  menuHelpButton.visible = false;
 
+  menuHelpButton.frame = 0;
+  menuHelpExitbutton.frame = 0;
   menuCloseEffect.play();
-}
-
-function menuOptionsDraw(){
-
-  for(var i = 0; i < userDataLocal.upgradeList.length; i++)
-  {
-    itemTween[i] =  clientGame.add.tween(menuItems[i]).to({x:50}, 1000,Phaser.Easing.Bounce.Out, false);
-    itemTween[i].start();
-    menuItemsPriceTween[i] =  clientGame.add.tween(menuItemsPrice[i]).to({x:220}, 1000,Phaser.Easing.Bounce.Out, false);
-    menuItemsPriceTween[i].start();
-    menuButtonTween =  clientGame.add.tween(menuItemsButtons[i]).to({x:10}, 1000,Phaser.Easing.Bounce.Out, false);
-    menuButtonTween.start();
-  }
-
-  //userDataLocal.upgradeList.length()
 }
 
 function onMenuOptionsDown(sprite){
