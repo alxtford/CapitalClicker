@@ -140,7 +140,7 @@ function destroyStartText() {
     adviceText.destroy();
     startText.setText("CLICK");
     startText.x = 315;
-    startText.y = 280;
+    startText.y = 200;
 
     saveName(userName);
     fadeScreen.inputEnabled = true;
