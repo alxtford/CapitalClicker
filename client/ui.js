@@ -166,6 +166,8 @@ function OnmenuexitbuttonClickUp(){
   menubutton.visible = true;
   menubuttonText.visible = true;
   menuexitbutton.visible = false;
+  menuHelpButton.visible = false;
+  menuHelpExitbutton.visible = false;
 
   for(var i = 1; i < userDataLocal.upgradeList.length + 1; i++)
   {
@@ -198,7 +200,8 @@ function OnmenuHelpExitbuttonClickUp(){
   menubutton.visible = true;
   menubuttonText.visible = true;
   menuexitbutton.visible = false;
-  menuHelpExitbutton.visible = false
+  menuHelpExitbutton.visible = false;
+  menuHelpButton.visible = false;
 
   for(var i = 1; i < userDataLocal.upgradeList.length + 1; i++)
   {
