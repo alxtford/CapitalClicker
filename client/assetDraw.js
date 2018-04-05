@@ -3,10 +3,16 @@ var ground;
 var store;
 
 var style = {font: "28px VT323", fill: "#fff", tabs: 150};
+var noteStyle = {font: "28px VT323", fill: "#fff", align: "center", wordWrap: true, wordWrapWidth: 600};
+
 var notificationStyle = {font: "64px VT323", fill: "#fff", tabs: 150};
+
+var disclaimerText;
+var continueButton;
 
 var userNameText;
 var startText;
+var adviceText;
 var submit;
 var currencyTotalText;
 
@@ -59,13 +65,33 @@ function createText(){
   uiLayer.add(currencyTotalText);
 }
 
+function createDisclaimerText(){
+  console.log("Disclaimer Text Created!");
+  disclaimerText = clientGame.add.text(100, 70, "BY CLICKING YOU CONTINUE, YOU AGREE FOR YOUR GAMEPLAY AND SURVEY DATA TO BE COLLECTED AND STORED IN ACCORDANCE WITH DATA PROTECTION ACT 1998.\n\nTHIS DATA WILL BE USED PURELY FOR RESEARCH PURPOSES. QUESTIONS ABOUT THE STUDY MAY BE DIRECTED TO:\n14524308@students.lincoln.ac.uk.\n\nIF YOU WISH FOR YOUR SUBMISSIONS TO BE REMOVED OR RETRIEVED, PRESENT THE USERNAME YOU USE TO:\n14524308@students.lincoln.ac.uk. ", noteStyle);
+  disclaimerText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
+  fadeLayer.add(disclaimerText);
+
+  continueButton = clientGame.add.text(300, 460, "Continue", {
+    font: "64px VT323",
+    fill: "#212121",
+    backgroundColor: "#FFFFFF",
+  });
+  continueButton.inputEnabled = true;
+  continueButton.input.useHandCursor = true;
+  continueButton.events.onInputDown.add(destroyDisclaimerText, this);
+}
+
 function createStartText(){
   console.log("Start Text Created");
-  startText = clientGame.add.text(225, 200, "ENTER USERNAME", notificationStyle);
+  startText = clientGame.add.text(210, 80, "ENTER USERNAME", notificationStyle);
   startText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
   fadeLayer.add(startText);
 
-  userNameText = clientGame.add.inputField(clientGame.width / 2 - 100, 300, {
+  adviceText = clientGame.add.text(110, 380, "//NOTE:\nUSE A UNIQUE, MEMORABLE USERNAME. THIS WILL BE YOUR LOGIN SHOULD YOU WISH TO RETURN TO A PREVIOUS SAVE, AND WILL BE REQUIRED BY THE RESEARCHER SHOULD YOU WISH TO WITHDRAW FROM THE STUDY.", noteStyle);
+  startText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
+  fadeLayer.add(startText);
+
+  userNameText = clientGame.add.inputField(280, 200, {
                 font: "28px VT323",
                 fill: "#212121",
                 fillAlpha: 1,
@@ -80,35 +106,46 @@ function createStartText(){
                 placeHolder: "",
                 textAlign: "center",
                 zoom: false
-            });
-            userNameText.setText("");
-            userNameText.blockInput = false;
-            userNameText.startFocus();
+              });
+   userNameText.setText("");
+   userNameText.blockInput = false;
+   userNameText.startFocus();
 
 
-            submit = clientGame.add.text(clientGame.width / 2 - 65, 380, "Submit", {
-              font: "64px VT323",
-              fill: "#212121",
-              backgroundColor: "#FFFFFF",
-            });
-            submit.inputEnabled = true;
-            submit.input.useHandCursor = true;
-            submit.events.onInputDown.add(destroyStartText, this);
+   submit = clientGame.add.text(310, 280, "Submit", {
+     font: "64px VT323",
+     fill: "#212121",
+     backgroundColor: "#FFFFFF",
+   });
+   submit.inputEnabled = true;
+   submit.input.useHandCursor = true;
+   submit.events.onInputDown.add(destroyStartText, this);
 
-            // fadeLayer.add(submit);
-            // fadeLayer.add(userNameText);
-            // fadeLayer.add(startText);
+              // fadeLayer.add(submit);
+              // fadeLayer.add(userNameText);
+              // fadeLayer.add(startText);
+}
+
+function destroyDisclaimerText(){
+  continueButton.destroy();
+  disclaimerText.destroy();
+  createStartText();
 }
 
 function destroyStartText() {
+  if(userNameText.value){
     userName = userNameText.value;
     submit.destroy();
     userNameText.destroy();
+    adviceText.destroy();
     startText.setText("CLICK");
-    startText.x = 300;
+    startText.x = 315;
+    startText.y = 280;
+
     saveName(userName);
     fadeScreen.inputEnabled = true;
     }
+  }
 
 function updateText(){
   //console.log("Text Updated")
