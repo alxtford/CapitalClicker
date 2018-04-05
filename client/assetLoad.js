@@ -33,6 +33,7 @@ function assetLoad(){
   clientGame.load.spritesheet("menubutton", "assets/menubutton.png", 15, 5);
   clientGame.load.spritesheet("menuback", "assets/menuback.png", 40, 70);
   clientGame.load.spritesheet("menuexitbutton", "assets/menuexitbutton.png", 3, 3);
+  clientGame.load.spritesheet("menuHelpButton", "assets/help.png", 12, 12);
   clientGame.load.image("menuItemButton","assets/button.png", 35, 5);
   clientGame.load.spritesheet("likertBackground", "assets/likertBackground.png", 100, 15);
   clientGame.load.spritesheet("likertToggle", "assets/toggle.png", 8, 8);

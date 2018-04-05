@@ -3,6 +3,11 @@ var menuexitbutton;
 var menubuttonText;
 var menubuttonClickAnim;
 var menuback;
+
+var menubackHelp;
+var menuHelpButton;
+var menuHelpExitbutton;
+
 var menuTween = [];
 var menuButtonTween;
 
@@ -23,6 +28,7 @@ var menuItemsGroup;
 var menuItemOffset = 48;
 
 var menuTween;
+var menuHelpTween;
 var currencyTotalTextTween;
 var btcTextTween;
 
@@ -43,13 +49,16 @@ function menuAssetsCreate(){
   menubuttonText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
   uiLayer.add(menubuttonText);
 
+  menubackHelp= uiLayer.create(-400, 20, "menuback");
+  menubackHelp.frame = 2;
+  menubackHelp.scale.setTo(8);
+
   menuback = uiLayer.create(-400, 20, "menuback");
   menuback.scale.setTo(8);
 
 }
 
-function menuOptionsCreate()
-{
+function menuOptionsCreate(){
   uiLayer.add(menuItemsGroup);
   console.log("CREATING MENU OPTIONS");
   for(var i = 1; i < userDataLocal.upgradeList.length + 1; i++)
@@ -91,8 +100,13 @@ function menubuttonClickUp(){
   console.log("MOUSE UP ON MENU BUTTON");
   menuTween = clientGame.add.tween(menuback);
   menuTween.to({x:-10}, 1000,Phaser.Easing.Bounce.Out, false);
-  menuTween.onComplete.add(menuexitbuttonCreate, this);
+  menuTween.onComplete.add(menubuttonsCreate, this);
   menuTween.start();
+
+  menuHelpTween = clientGame.add.tween(menubackHelp);
+  menuHelpTween.to({x:-10}, 1000,Phaser.Easing.Bounce.Out, false);
+  menuHelpTween.start();
+
   menubutton.visible = false;
   menubuttonText.visible = false;
 
@@ -101,34 +115,53 @@ function menubuttonClickUp(){
   menuOptionsDraw();
   currencyTotalTextTween.start();
   if(studyFlag){
-  btcTextTween.start();
+    btcTextTween.start();
   }
   menuOpenEffect.play();
 }
 
-function menuexitbuttonCreate(){
+function menubuttonsCreate(){
   menuexitbutton = uiLayer.create(270, 36, "menuexitbutton");
   menuexitbutton.scale.setTo(8);
   menuexitbutton.animations.add("Click");
   menuexitbutton.inputEnabled = true;
   menuexitbutton.input.useHandCursor = true;
+
+  menuHelpButton = uiLayer.create(238, 36, "menuHelpButton");
+  menuHelpButton.scale.setTo(2);
+  menuHelpButton.animations.add("Click");
+  menuHelpButton.inputEnabled = true;
+  menuHelpButton.input.useHandCursor = true;
+
   exitButtonListener();
+  helpButtonListener();
+}
+
+function helpMenuExitButtonCreate(){
+  menuHelpExitbutton = uiLayer.create(480, 36, "menuexitbutton");
+  menuHelpExitbutton.scale.setTo(8);
+  menuHelpExitbutton.animations.add("Click");
+  menuHelpExitbutton.inputEnabled = true;
+  menuHelpExitbutton.input.useHandCursor = true;
+
+  helpExitButtonListener();
 }
 
 function OnmenuexitbuttonClickDown(){
-  menuexitbutton.animations.play("click", 30, false);
+  menuexitbutton.animations.play("Click", 30, false);
 }
 
 function OnmenuexitbuttonClickUp(){
   console.log("MOUSE UP non-menu Item");
   menuTween = clientGame.add.tween(menuback).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
+  menuHelpTween = clientGame.add.tween(menubackHelp).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
   currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
   btcTextTween = clientGame.add.tween(btcText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
 
   currencyTotalTextTween.start();
 
   if(studyFlag){
-  btcTextTween.start();
+    btcTextTween.start();
   }
   menubutton.visible = true;
   menubuttonText.visible = true;
@@ -143,6 +176,61 @@ function OnmenuexitbuttonClickUp(){
     menuButtonTween=  clientGame.add.tween(menuItemsButtons[i - 1]).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, false);
     menuButtonTween.start();
   }
+  menuCloseEffect.play();
+}
+
+function OnmenuHelpExitbuttonClickDown(){
+  menuHelpExitbutton.animations.play("Click", 30, false);
+}
+
+function OnmenuHelpExitbuttonClickUp(){
+  console.log("MOUSE UP non-menu Item");
+  menuTween = clientGame.add.tween(menuback).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
+  menuHelpTween = clientGame.add.tween(menubackHelp).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, true);
+  currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
+  btcTextTween = clientGame.add.tween(btcText).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
+
+  currencyTotalTextTween.start();
+
+  if(studyFlag){
+    btcTextTween.start();
+  }
+  menubutton.visible = true;
+  menubuttonText.visible = true;
+  menuexitbutton.visible = false;
+  menuHelpExitbutton.visible = false
+
+  for(var i = 1; i < userDataLocal.upgradeList.length + 1; i++)
+  {
+    itemTween[i-1] =  clientGame.add.tween(menuItems[i - 1]).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, false);
+    itemTween[i-1].start();
+    menuItemsPriceTween[i-1] =  clientGame.add.tween(menuItemsPrice[i - 1]).to({x:-100}, 1000,Phaser.Easing.Bounce.Out, false);
+    menuItemsPriceTween[i-1].start();
+    menuButtonTween=  clientGame.add.tween(menuItemsButtons[i - 1]).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, false);
+    menuButtonTween.start();
+  }
+  menuCloseEffect.play();
+}
+
+function OnmenuhelpbuttonClickDown(){
+  menuHelpButton.animations.play("Click", 30, false);
+}
+
+function OnmenuhelpbuttonClickUp(){
+  console.log("MOUSE UP non-menu Item");
+  menuHelpTween = clientGame.add.tween(menubackHelp).to({x:200}, 1000,Phaser.Easing.Bounce.Out, true);
+  menuHelpTween.onComplete.add(helpMenuExitButtonCreate, this);
+  menuHelpTween.start();
+  currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:530}, 1000,Phaser.Easing.Bounce.Out, false);
+  btcTextTween = clientGame.add.tween(btcText).to({x:300}, 1000,Phaser.Easing.Bounce.Out, false);
+
+  currencyTotalTextTween.start();
+
+  if(studyFlag){
+    btcTextTween.start();
+  }
+  menuHelpButton.visible = false;
+
   menuCloseEffect.play();
 }
 
@@ -209,7 +297,7 @@ function onMenuOptionsUp(){
 }
 
 function updatePrice(i){
-  menuData.data[i].currentPrice = (menuData.data[i].basePrice * (menuData.data[i].bought +1)) * 1.5 + menuData.data[i].currentPrice;
+  menuData.data[i].currentPrice = (menuData.data[i].basePrice * (menuData.data[i].bought +1)) * 10 + (menuData.data[i].currentPrice * 1.5);
 
   modifierEffect = menuData.data[i].multiplier * userDataLocal.upgradeList[i].timesClicked;
 
@@ -217,14 +305,50 @@ function updatePrice(i){
 }
 
 function intStringFormatter(num) {
+  if (num >= 1000000000000000000000000000000000000000000000){
+    return (num / 1000000000000000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "Qu";
+  }
+  if (num >= 1000000000000000000000000000000000000000000){
+    return (num / 1000000000000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "Tr";
+  }
+  if (num >= 1000000000000000000000000000000000000000){
+    return (num / 1000000000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "Du";
+  }
+  if (num >= 1000000000000000000000000000000000000){
+    return (num / 1000000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "U";
+  }
+  if (num >= 1000000000000000000000000000000000){
+    return (num / 1000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "D";
+  }
+  if (num >= 1000000000000000000000000000000){
+    return (num / 1000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "N";
+  }
+  if (num >= 1000000000000000000000000000){
+    return (num / 1000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "O";
+  }
+  if (num >= 1000000000000000000000000){
+    return (num / 1000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "S";
+  }
+  if (num >= 1000000000000000000000){
+    return (num / 1000000000000000000000).toFixed(1).replace(/\.0$/, "") + "s";
+  }
+  if (num >= 1000000000000000000){
+    return (num / 1000000000000000000).toFixed(1).replace(/\.0$/, "") + "Q";
+  }
+  if (num >= 1000000000000000){
+    return (num / 1000000000000000).toFixed(1).replace(/\.0$/, "") + "q";
+  }
+  if (num >= 1000000000000){
+    return (num / 1000000000000).toFixed(1).replace(/\.0$/, "") + "T";
+  }
   if (num >= 1000000000) {
-        return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "B";
-     }
-     if (num >= 1000000) {
-        return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
-     }
-     if (num >= 1000) {
-        return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
-     }
-     return num;
+    return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "B";
+  }
+  if (num >= 1000000) {
+    return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+  }
+  if (num >= 1000) {
+    return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+  }
+  return num;
 }

@@ -169,19 +169,21 @@ function create () {
 
 
   setInterval(function() {
-    for(var i = 3; i < 6; i++)
-    {
-      modifierTotal += (menuData.data[i].bought * menuData.data[i].multiplier);
-    }
-    for(var i = 0; i < 3; i++)
-    {
-      autoClick += (menuData.data[i].bought * menuData.data[i].multiplier);
-    }
+    if(startFlag){
+      for(var i = 3; i < 6; i++)
+      {
+        modifierTotal += (menuData.data[i].bought * menuData.data[i].multiplier);
+      }
+      for(var i = 0; i < 3; i++)
+      {
+        autoClick += (menuData.data[i].bought * menuData.data[i].multiplier);
+      }
 
-    autoPerSec = Math.round(autoClick*(modifierTotal * btcPlusMinus((1+ btcDayPercentChange))))
-    userDataLocal.autoPerSec = autoPerSec;
+      autoPerSec = Math.round(autoClick*(modifierTotal * btcPlusMinus((1+ btcDayPercentChange))))
+      userDataLocal.autoPerSec = autoPerSec;
 
-    currencyTotal += autoPerSec;
+      currencyTotal += autoPerSec;
+    }
   }, 1000);
 
 
@@ -235,17 +237,17 @@ function employeeNum(){
     for(var j = 0; j < Math.floor(userDataLocal.upgradeList[i].timesClicked /10); j++){
       switch(i){
         case 0:
-          createHireling();
-          break;
+        createHireling();
+        break;
         case 1:
-          createEmployee();
-          break;
+        createEmployee();
+        break;
         case 2:
-          createTrader();
-          break;
+        createTrader();
+        break;
         default:
-          console.log("INVALID ITERATOR");
-          break;
+        console.log("INVALID ITERATOR");
+        break;
       }
     }
   }
@@ -290,5 +292,5 @@ function onsocketConnected () {
   }
 }
 function coinFlip() {
-    return Math.floor(Math.random() * 2);
+  return Math.floor(Math.random() * 2);
 }

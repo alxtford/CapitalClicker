@@ -45,6 +45,17 @@ function inputListenerStart(){
 
 }
 
+function helpButtonListener(){
+  //Listener for menu exit button
+  menuHelpButton.events.onInputDown.add(OnmenuhelpbuttonClickDown,this);
+  menuHelpButton.events.onInputUp.add(OnmenuhelpbuttonClickUp,this);
+}
+
+function helpExitButtonListener(){
+  menuHelpExitbutton.events.onInputDown.add(OnmenuHelpExitbuttonClickDown,this);
+  menuHelpExitbutton.events.onInputUp.add(OnmenuHelpExitbuttonClickUp,this);
+}
+
 function exitButtonListener(){
   //Listener for menu exit button
   menuexitbutton.events.onInputDown.add(OnmenuexitbuttonClickDown,this);

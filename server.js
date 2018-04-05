@@ -289,8 +289,10 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
           });
 
         }
-        else {
+        else if(err){
           console.log(err);
+        }
+        else {
           var date = new Date();
           update = body;
           update.dateLastLogin= date;
@@ -315,6 +317,9 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
     socket.on("userUpdate", function userUpdate(userData, name){
       var serverReceive = JSON.parse(userData);
       db.find({selector:{_id:  name}}, function(err, result){
+        if(err){
+          console.log(err);
+        }
         // console.log("PRINTING BODY FROM DOC:\n" + body);
         var dataUpdate = result.docs[0];
 
