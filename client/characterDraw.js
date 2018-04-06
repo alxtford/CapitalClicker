@@ -24,6 +24,8 @@ function createChicken(){
       chicken.destroy();
       chicken= null;
 
+      currencyTotal += autoPerSec*2;
+
     }, this);
   }
   else{

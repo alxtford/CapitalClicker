@@ -337,6 +337,8 @@ function updatePrice(i){
 }
 
 function intStringFormatter(num) {
+
+  num = Math.round(num * 10)/10;
   if (num >= 1000000000000000000000000000000000000000000000){
     return (num / 1000000000000000000000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "Qu";
   }
