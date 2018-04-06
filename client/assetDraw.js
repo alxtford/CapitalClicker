@@ -5,7 +5,7 @@ var store;
 var style = {font: "28px VT323", fill: "#fff", tabs: 150};
 var noteStyle = {font: "28px VT323", fill: "#fff", align: "center", wordWrap: true, wordWrapWidth: 600};
 
-var notificationStyle = {font: "64px VT323", fill: "#fff", tabs: 150};
+var notificationStyle = {font: "64px VT323", fill: "#fff", tabs: 150, align: "center", wordWrap: true, wordWrapWidth: 600};
 
 var disclaimerText;
 var continueButton;
@@ -23,6 +23,8 @@ var crtScreen;
 var fadeScreen;
 
 var btcText;
+
+var chickenAlert;
 
 function bgDraw() {
 bgSprite = backgroundLayer.create(0,0, "background");
@@ -56,7 +58,12 @@ function fade(){
   fadeScreen.endFill();
 
   fadeLayer.add(fadeScreen);
+}
 
+function chickenWrite(){
+  chickenText = clientGame.add.text(210,80, "CLU*#ING HELL!\n+" + intStringFormatter(chickenBonus), notificationStyle);
+  chickenText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
+  var chickenTextTween = clientGame.add.tween(chickenText).to({alpha:0}, 2000,Phaser.Easing.Linear.None, true);
 }
 
 

@@ -8,6 +8,7 @@ var trader1;
 var trader2;
 
 var chicken;
+var chickenBonus;
 var chest;
 
 var tween;
@@ -49,15 +50,17 @@ function createChicken(){
     chicken.input.priorityID = 2;
     chicken.useHandCursor = true;
 
-    currencyTotal += (menuData.data[6].multiplier + userDataLocal.upgradeList[6].timesClicked) * menuData.data[6].currentPrice;
-
     chicken.events.onInputDown.add(function(){
       chicken.animations.stop();
       chicken.animations.play("explode", 20, false, true);
       chicken.inputEnabled = false;
       explodeEffect.play();
-      currencyTotal += (100 * (userDataLocal.totalBought*2)) + currencyTotal/2;
+
+      chickenBonus = (menuData.data[6].multiplier + userDataLocal.upgradeList[6].timesClicked) * menuData.data[6].currentPrice;
+      currencyTotal += chickenBonus;
       chicken= null;
+
+      chickenWrite();
       //chicken.destroy();
 
       tween.stop();
