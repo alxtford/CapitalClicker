@@ -2,12 +2,57 @@ var likertBackground;
 var likertBGFlash;
 var likertQuestion;
 var likertData;
+
+var commentBackground;
+var commentBGFlash;
+var commentQuestion;
+var commentQuestionText = ["What are your opinions on the gameplay experience?",
+                           "What keeps you coming back?",
+                           "Are there any strategies you have employed when playing the game?",
+                           "Have you used any tools to place yourself at an advantage over other players?",
+                           "Have you tried to \"break\" the game?",
+                           "Does the use of external data impact your strategy for the game?",
+                           "Do you find your opinion of the game changing depending on the local data used?"];
+var commentQuestionTextRange;
+var commentResponse;
+var commentSubmit;
+var commentData;
+
 var toggle = [];
 var toggleSelect = [];
 var toggleGroup;
 var toggleOffset = 40;
 
 var likertStyle = {font: "18px VT323", fill: "#fff", tabs: 20, align: "center"};
+
+function createComment(){
+  uiLayer.add(toggleGroup);
+
+  commentBackground = toggleGroup.create(450, 100, "likertBackground");
+  commentBackground.scale.setTo(4.5);
+  commentBGFlash = commentBackground.animations.add("flash");
+  commentBackground.animations.play("flash", 10, true);
+
+  commentQuestion = clientGame.add.text(270, 728, commentQuestionText[0], likertStyle);
+  commentQuestion.lineSpacing = -8;
+
+  commentResponse = clientGame.add.inputField(280, 120, {
+                font: "28px VT323",
+                fill: "#212121",
+                fillAlpha: 1,
+                width: 200,
+                padding: 6,
+                borderWidth: 0,
+                borderColor: "#000",
+                borderRadius: 6,
+                placeHolder: "",
+                textAlign: "left",
+                zoom: false
+              });
+   commentResponse.setText("");
+   commentResponse.blockInput = false;
+
+}
 
 function createLikert(){
   uiLayer.add(toggleGroup);

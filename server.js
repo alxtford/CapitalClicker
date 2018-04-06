@@ -246,6 +246,17 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
       });
     });
 
+    socket.on("commentResult", function commentResult(data){
+      var time = new Date();
+      sdb.insert(data, data._id + " COMMENT " + time, function(err) {
+        if (err) {
+          return console.log("Survey Comment Insert ", err.message);
+        }
+        console.log("Comment result inserted.");
+      });
+    });
+
+
     // Listen for userName
     socket.on("saveName", function saveName(name){
       leaderboardPopulate();

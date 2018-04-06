@@ -322,7 +322,13 @@ function onMenuOptionsUp(){
 }
 
 function updatePrice(i){
-  menuData.data[i].currentPrice = (menuData.data[i].basePrice * (menuData.data[i].bought +1)) * 10 + (menuData.data[i].currentPrice * 1.5);
+//  if(menuData.data[i].currentPrice == 0)
+  //{
+    menuData.data[i].currentPrice = (menuData.data[i].basePrice * (menuData.data[i].bought +1));
+    menuData.data[i].currentPrice += menuData.data[i].currentPrice * menuData.data[i].bought;
+    console.log(menuData.data[i].currentPrice);
+
+  //}
 
   modifierEffect = menuData.data[i].multiplier * userDataLocal.upgradeList[i].timesClicked;
 
@@ -331,49 +337,49 @@ function updatePrice(i){
 
 function intStringFormatter(num) {
   if (num >= 1000000000000000000000000000000000000000000000){
-    return (num / 1000000000000000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "Qu";
+    return (num / 1000000000000000000000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "Qu";
   }
   if (num >= 1000000000000000000000000000000000000000000){
-    return (num / 1000000000000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "Tr";
+    return (num / 1000000000000000000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "Tr";
   }
   if (num >= 1000000000000000000000000000000000000000){
-    return (num / 1000000000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "Du";
+    return (num / 1000000000000000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "Du";
   }
   if (num >= 1000000000000000000000000000000000000){
-    return (num / 1000000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "U";
+    return (num / 1000000000000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "U";
   }
   if (num >= 1000000000000000000000000000000000){
-    return (num / 1000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "D";
+    return (num / 1000000000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "D";
   }
   if (num >= 1000000000000000000000000000000){
-    return (num / 1000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "N";
+    return (num / 1000000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "N";
   }
   if (num >= 1000000000000000000000000000){
-    return (num / 1000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "O";
+    return (num / 1000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "O";
   }
   if (num >= 1000000000000000000000000){
-    return (num / 1000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "S";
+    return (num / 1000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "S";
   }
   if (num >= 1000000000000000000000){
-    return (num / 1000000000000000000000).toFixed(1).replace(/\.0$/, "") + "s";
+    return (num / 1000000000000000000000).toFixed(2).replace(/\.0$/, "") + "s";
   }
   if (num >= 1000000000000000000){
-    return (num / 1000000000000000000).toFixed(1).replace(/\.0$/, "") + "Q";
+    return (num / 1000000000000000000).toFixed(2).replace(/\.0$/, "") + "Q";
   }
   if (num >= 1000000000000000){
-    return (num / 1000000000000000).toFixed(1).replace(/\.0$/, "") + "q";
+    return (num / 1000000000000000).toFixed(2).replace(/\.0$/, "") + "q";
   }
   if (num >= 1000000000000){
-    return (num / 1000000000000).toFixed(1).replace(/\.0$/, "") + "T";
+    return (num / 1000000000000).toFixed(2).replace(/\.0$/, "") + "T";
   }
   if (num >= 1000000000) {
-    return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "B";
+    return (num / 1000000000).toFixed(2).replace(/\.0$/, "") + "B";
   }
   if (num >= 1000000) {
-    return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+    return (num / 1000000).toFixed(2).replace(/\.0$/, "") + "M";
   }
   if (num >= 1000) {
-    return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+    return (num / 1000).toFixed().replace(/\.0$/, "") + "K";
   }
   return num;
 }

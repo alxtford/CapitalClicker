@@ -170,6 +170,10 @@ function create () {
 
   setInterval(function() {
     if(startFlag){
+      // FIXED BY ROBSON NEWTON, 2018. HIS RECORD 'autoPerSec' OF 43312356670044 WILL NOT GO FORGOTTEN
+      modifierTotal = 0;
+      autoClick = 0;
+
       for(var i = 3; i < 6; i++)
       {
         modifierTotal += (menuData.data[i].bought * menuData.data[i].multiplier);
@@ -178,8 +182,8 @@ function create () {
       {
         autoClick += (menuData.data[i].bought * menuData.data[i].multiplier);
       }
-
-      autoPerSec = Math.round(autoClick*(modifierTotal * btcPlusMinus((1+ btcDayPercentChange))))
+      autoPerSec = Math.round(autoClick*(modifierTotal * btcPlusMinus((1+ btcDayPercentChange))));
+      console.log("AUTOPERSEC: " + autoPerSec);
       userDataLocal.autoPerSec = autoPerSec;
 
       currencyTotal += autoPerSec;
@@ -187,6 +191,7 @@ function create () {
   }, 1000);
 
   createLikert();
+  createComment();
   clientGame.time.events.add(Phaser.Timer.MINUTE * 1.5, likertShow, this);
 
 
