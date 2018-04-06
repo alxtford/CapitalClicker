@@ -56,7 +56,7 @@ function createChicken(){
       chicken.animations.play("explode", 20, false, true);
       chicken.inputEnabled = false;
       explodeEffect.play();
-      currencyTotal += 100 * (userDataLocal.totalBought*2);
+      currencyTotal += (100 * (userDataLocal.totalBought*2)) + currencyTotal/2;
       chicken= null;
       //chicken.destroy();
 
