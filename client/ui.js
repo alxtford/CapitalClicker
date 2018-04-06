@@ -39,6 +39,7 @@ function menuAssetsCreate(){
   menuItemsGroup = clientGame.add.group();
 
   toggleGroup = clientGame.add.group();
+  commentGroup = clientGame.add.group();
 
   menubutton = uiLayer.create(10, 80, "menubutton");
   menubutton.scale.setTo(8);

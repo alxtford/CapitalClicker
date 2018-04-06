@@ -14,7 +14,7 @@ function clickListener(sprite){
   if(startFlag)
   {
     createChicken();
-    console.log(modifierTotal);
+
   currencyTotal += Math.round(1 * (modifierTotal * btcPlusMinus(1+btcDayPercentChange)));
 
   userDataLocal.totalClicks ++;
@@ -71,4 +71,9 @@ function listButtonListener(){
 
 function likertToggleListener(){
   toggleGroup.onChildInputDown.add(onLikertToggleDown,this);
+}
+
+function commentSubmitListener(){
+  commentSubmit.events.onInputDown.add(onCommentSubmitDown,this);
+  commentSubmit.events.onInputUp.add(onCommentSubmitUp,this);
 }
