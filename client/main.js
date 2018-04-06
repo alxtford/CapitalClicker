@@ -137,6 +137,9 @@ function create () {
     // Allow User Input, starting the game
     startFlag = true;
 
+    createChicken();
+
+
     console.log("Listening for User Data");
   });
 
@@ -192,8 +195,6 @@ function create () {
 
   createLikert();
   createComment();
-
-
 }
 
 //Function only fired if coinflip of 1

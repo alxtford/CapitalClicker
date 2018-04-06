@@ -13,55 +13,59 @@ var chest;
 var tween;
 
 function createChicken(){
+
+  var rand = Math.round(Math.random() * (60000 - (menuData.data[6].multiplier * menuData.data[6].bought))) + 1000; // generate new time (between 1min and 1s)
+  setTimeout(createChicken, rand);
+
   if(!chicken){
-  if(coinFlip() < 1){
-    chicken = characterLayer.create(830,460, "characters");
-    chicken.anchor.setTo(0.5);
-    chicken.scale.setTo(-5,5);
+    if(coinFlip() < 1){
+      chicken = characterLayer.create(830,460, "characters");
+      chicken.anchor.setTo(0.5);
+      chicken.scale.setTo(-5,5);
 
-    tween = clientGame.add.tween(chicken).to({ x: -30 }, 2000, Phaser.Easing.Linear.None, false);
-    tween.onComplete.add(function (){
-      chicken.destroy();
+      tween = clientGame.add.tween(chicken).to({ x: -30 }, 2000, Phaser.Easing.Linear.None, false);
+      tween.onComplete.add(function (){
+        //chicken.destroy();
+        chicken= null;
+
+      }, this);
+    }
+    else{
+      chicken = characterLayer.create(-30,460, "characters");
+      chicken.anchor.setTo(0.5);
+      chicken.scale.setTo(5,5);
+
+      tween = clientGame.add.tween(chicken).to({ x: 830 }, 2000, Phaser.Easing.Linear.None, false);
+      tween.onComplete.add(function (){
+        //chicken.destroy();
+        chicken= null;
+      }, this);
+    }
+
+    chicken.animations.add("walk", [72,73,74,75], 15, true);
+    chicken.animations.add("explode", [78,79,80,81,82,83], 15, false);
+
+    chicken.inputEnabled = true;
+    chicken.input.priorityID = 2;
+    chicken.useHandCursor = true;
+
+    currencyTotal += (menuData.data[6].multiplier + userDataLocal.upgradeList[6].timesClicked) * menuData.data[6].currentPrice;
+
+    chicken.events.onInputDown.add(function(){
+      chicken.animations.stop();
+      chicken.animations.play("explode", 20, false, true);
+      chicken.inputEnabled = false;
+      explodeEffect.play();
+      currencyTotal += 100 * (userDataLocal.totalBought*2);
       chicken= null;
+      //chicken.destroy();
 
-      currencyTotal += autoPerSec*2;
-
+      tween.stop();
     }, this);
+
+    tween.start();
+    chicken.animations.play("walk");
   }
-  else{
-  chicken = characterLayer.create(-30,460, "characters");
-  chicken.anchor.setTo(0.5);
-  chicken.scale.setTo(5,5);
-
-  tween = clientGame.add.tween(chicken).to({ x: 830 }, 2000, Phaser.Easing.Linear.None, false);
-  tween.onComplete.add(function (){
-    chicken.destroy();
-    chicken= null;
-  }, this);
-  }
-
-  chicken.animations.add("walk", [72,73,74,75], 15, true);
-  chicken.animations.add("explode", [78,79,80,81,82,83], 15, false);
-
-  chicken.inputEnabled = true;
-  chicken.input.priorityID = 2;
-  chicken.useHandCursor = true;
-
-  currencyTotal += (menuData.data[6].multiplier + userDataLocal.upgradeList[6].timesClicked) * menuData.data[6].currentPrice;
-
-  chicken.events.onInputDown.add(function(){
-    chicken.animations.stop();
-    chicken.animations.play("explode", 20, false, true);
-
-    explodeEffect.play();
-
-    chicken= null;
-    tween.stop();
-  }, this);
-
-  tween.start();
-  chicken.animations.play("walk");
-}
 }
 
 function createChest(){
@@ -71,7 +75,7 @@ function createChest(){
 }
 
 function randPos() {
-    return Math.floor(Math.random() * (clientGame.width - 100));
+  return Math.floor(Math.random() * (clientGame.width - 100));
 }
 
 function createTrader(){

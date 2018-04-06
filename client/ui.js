@@ -122,9 +122,9 @@ function menuOptionsDraw(){
 
   for(var i = 0; i < userDataLocal.upgradeList.length; i++)
   {
-    itemTween[i] =  clientGame.add.tween(menuItems[i]).to({x:50}, 1000,Phaser.Easing.Bounce.Out, false);
+    itemTween[i] =  clientGame.add.tween(menuItems[i]).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
     itemTween[i].start();
-    menuItemsPriceTween[i] =  clientGame.add.tween(menuItemsPrice[i]).to({x:220}, 1000,Phaser.Easing.Bounce.Out, false);
+    menuItemsPriceTween[i] =  clientGame.add.tween(menuItemsPrice[i]).to({x:180}, 1000,Phaser.Easing.Bounce.Out, false);
     menuItemsPriceTween[i].start();
     menuButtonTween =  clientGame.add.tween(menuItemsButtons[i]).to({x:10}, 1000,Phaser.Easing.Bounce.Out, false);
     menuButtonTween.start();
@@ -333,7 +333,7 @@ function updatePrice(i){
 
   modifierEffect = menuData.data[i].multiplier * userDataLocal.upgradeList[i].timesClicked;
 
-  menuItemsPrice[i].setText("§" + intStringFormatter(menuData.data[i].currentPrice) + "\n" + intStringFormatter(Math.round(modifierEffect * 10)/10) + "/s");
+  menuItemsPrice[i].setText("§" + intStringFormatter(menuData.data[i].currentPrice) + "\n" + intStringFormatter(Math.round(modifierEffect * 10)/10) + menuData.data[i].units);
 }
 
 function intStringFormatter(num) {
@@ -382,7 +382,7 @@ function intStringFormatter(num) {
     return (num / 1000000).toFixed(2).replace(/\.0$/, "") + "M";
   }
   if (num >= 1000) {
-    return (num / 1000).toFixed().replace(/\.0$/, "") + "K";
+    return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
   }
   return num;
 }

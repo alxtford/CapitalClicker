@@ -10,6 +10,8 @@ var notificationStyle = {font: "64px VT323", fill: "#fff", tabs: 150};
 var disclaimerText;
 var continueButton;
 
+var chickenText;
+
 var userNameText;
 var startText;
 var adviceText;
