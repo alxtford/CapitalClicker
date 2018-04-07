@@ -87,7 +87,7 @@ function menuOptionsCreate(){
     menuData.data[i -1].currentPrice = ((menuData.data[i-1].basePrice * menuData.data[i-1].bought) * 1.5) *2;
     modifierEffect = menuData.data[i-1].multiplier * userDataLocal.upgradeList[i - 1].timesClicked;
 
-    menuItemsPrice[i - 1] = clientGame.add.text(-100, 37 + (menuItemOffset * i), menuData.data[i-1].currentPrice + "\n" + modifierEffect + "/s", menuStyle);
+    menuItemsPrice[i - 1] = clientGame.add.text(-250, 37 + (menuItemOffset * i), menuData.data[i-1].currentPrice + "\n" + modifierEffect + "/s", menuStyle);
     menuItemsPrice[i - 1].setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
     menuItemsPrice[i - 1].lineSpacing = -8;
     uiLayer.add(menuItemsPrice[i - 1]);
@@ -124,7 +124,7 @@ function menuOptionsDraw(){
   {
     itemTween[i] =  clientGame.add.tween(menuItems[i]).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
     itemTween[i].start();
-    menuItemsPriceTween[i] =  clientGame.add.tween(menuItemsPrice[i]).to({x:180}, 1000,Phaser.Easing.Bounce.Out, false);
+    menuItemsPriceTween[i] =  clientGame.add.tween(menuItemsPrice[i]).to({x:170}, 1000,Phaser.Easing.Bounce.Out, false);
     menuItemsPriceTween[i].start();
     menuButtonTween =  clientGame.add.tween(menuItemsButtons[i]).to({x:10}, 1000,Phaser.Easing.Bounce.Out, false);
     menuButtonTween.start();
@@ -216,7 +216,7 @@ function OnmenuexitbuttonClickUp(){
   {
     itemTween[i-1] =  clientGame.add.tween(menuItems[i - 1]).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, false);
     itemTween[i-1].start();
-    menuItemsPriceTween[i-1] =  clientGame.add.tween(menuItemsPrice[i - 1]).to({x:-100}, 1000,Phaser.Easing.Bounce.Out, false);
+    menuItemsPriceTween[i-1] =  clientGame.add.tween(menuItemsPrice[i - 1]).to({x:-250}, 1000,Phaser.Easing.Bounce.Out, false);
     menuItemsPriceTween[i-1].start();
     menuButtonTween=  clientGame.add.tween(menuItemsButtons[i - 1]).to({x:-400}, 1000,Phaser.Easing.Bounce.Out, false);
     menuButtonTween.start();
@@ -340,46 +340,46 @@ function intStringFormatter(num) {
 
   num = Math.round(num * 10)/10;
   if (num >= 1000000000000000000000000000000000000000000000){
-    return (num / 1000000000000000000000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "Qu";
+    return (num / 1000000000000000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "Qu";
   }
   if (num >= 1000000000000000000000000000000000000000000){
-    return (num / 1000000000000000000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "Tr";
+    return (num / 1000000000000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "Tr";
   }
   if (num >= 1000000000000000000000000000000000000000){
-    return (num / 1000000000000000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "Du";
+    return (num / 1000000000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "Du";
   }
   if (num >= 1000000000000000000000000000000000000){
-    return (num / 1000000000000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "U";
+    return (num / 1000000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "U";
   }
   if (num >= 1000000000000000000000000000000000){
-    return (num / 1000000000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "D";
+    return (num / 1000000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "D";
   }
   if (num >= 1000000000000000000000000000000){
-    return (num / 1000000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "N";
+    return (num / 1000000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "N";
   }
   if (num >= 1000000000000000000000000000){
-    return (num / 1000000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "O";
+    return (num / 1000000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "O";
   }
   if (num >= 1000000000000000000000000){
-    return (num / 1000000000000000000000000).toFixed(2).replace(/\.0$/, "") + "S";
+    return (num / 1000000000000000000000000).toFixed(1).replace(/\.0$/, "") + "S";
   }
   if (num >= 1000000000000000000000){
-    return (num / 1000000000000000000000).toFixed(2).replace(/\.0$/, "") + "s";
+    return (num / 1000000000000000000000).toFixed(1).replace(/\.0$/, "") + "s";
   }
   if (num >= 1000000000000000000){
-    return (num / 1000000000000000000).toFixed(2).replace(/\.0$/, "") + "Q";
+    return (num / 1000000000000000000).toFixed(1).replace(/\.0$/, "") + "Q";
   }
   if (num >= 1000000000000000){
-    return (num / 1000000000000000).toFixed(2).replace(/\.0$/, "") + "q";
+    return (num / 1000000000000000).toFixed(1).replace(/\.0$/, "") + "q";
   }
   if (num >= 1000000000000){
-    return (num / 1000000000000).toFixed(2).replace(/\.0$/, "") + "T";
+    return (num / 1000000000000).toFixed(1).replace(/\.0$/, "") + "T";
   }
   if (num >= 1000000000) {
-    return (num / 1000000000).toFixed(2).replace(/\.0$/, "") + "B";
+    return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "B";
   }
   if (num >= 1000000) {
-    return (num / 1000000).toFixed(2).replace(/\.0$/, "") + "M";
+    return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
   }
   if (num >= 1000) {
     return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
