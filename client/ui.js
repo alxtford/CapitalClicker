@@ -327,7 +327,7 @@ function updatePrice(i){
   //{
     menuData.data[i].currentPrice = (menuData.data[i].basePrice * (menuData.data[i].bought +1));
     menuData.data[i].currentPrice += menuData.data[i].currentPrice * menuData.data[i].bought;
-    console.log(menuData.data[i].currentPrice);
+    //console.log(menuData.data[i].currentPrice);
 
   //}
 

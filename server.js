@@ -209,6 +209,8 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
     console.log("EMIT RECEIVED");
   }
 
+
+
   // binds the serv object we created to socket.io
   var io = require("socket.io")(serv);
 
@@ -218,6 +220,25 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
 
     //output a unique socket.id
     console.log(socket.id);
+
+    function bonusUpdate(dateNow, lastLogin){
+
+      var elapsed = Date.parse(dateNow) - Date.parse(lastLogin);
+      console.log("ELAPSED SINCE LAST LOG IN: " + elapsed);
+
+      if(elapsed > 10000){
+      //if(elapsed > 86400000){
+        socket.emit("dayBonus");
+        console.log("DAY BONUS");
+        return true;
+      }
+      else if(elapsed > 3600000){
+        socket.emit("hourBonus");
+        console.log("HOUR BONUS");
+        return true;
+      }
+      return false;
+    }
 
     // Test Socket Emits
     socket.on("testEmit", testEmit);
@@ -231,6 +252,7 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
         if (err){
           console.log(err);
         }
+
         socket.emit("weatherSet", data);
       });
 
@@ -300,13 +322,15 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
           });
 
         }
-        else if(err){
-          console.log(err);
-        }
+
         else {
           var date = new Date();
           update = body;
-          update.dateLastLogin= date;
+
+          console.log("SAVE NAME LAST LOGIN: " + update.dateLastLogin)
+
+          // bonusUpdate(date, update.dateLastLogin);
+          // update.dateLastLogin= date;
           update.totalLoginIn ++;
           db.insert(update, function(err, body) {
             if (err) {
@@ -314,11 +338,10 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
               return 500;
             }
             console.log("UPDATED LAST LOGIN TIME");
-            console.log(body);
             socket.emit("ready");
             return 200;
           });
-
+          console.log(err);
 
         }
       });
@@ -326,8 +349,17 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
 
     // Listen for user data update
     socket.on("userUpdate", function userUpdate(userData, name){
+      var date = new Date();
       var serverReceive = JSON.parse(userData);
-      db.find({selector:{_id:  name}}, function(err, result){
+
+      console.log("DATE LAST LOGIN: " + serverReceive.dateLastLogin);
+      if(bonusUpdate(date.toISOString(), serverReceive.dateLastLogin)){
+        console.log("BONUS TRIGGERED");
+
+        serverReceive.dateLastLogin = date.toISOString();
+      }
+
+      db.find({selector:{_id: name}}, function(err, result){
         if(err){
           console.log(err);
         }
@@ -345,7 +377,7 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
               console.log(doc + "\n" + JSON.stringify(dataUpdate));
               return 500;
             }
-
+            socket.emit("userDataRefresh", JSON.stringify(dataUpdate));
             return 200;
 
           });

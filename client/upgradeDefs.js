@@ -59,7 +59,7 @@ var menuData = {
     {
       "basePrice": 1000,
       "currentPrice": 1000,
-      "multiplier": 20,
+      "multiplier": 10,
       "bought": 0,
       "units": "%"
     },
