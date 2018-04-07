@@ -33,6 +33,7 @@
     "grunt": "^1.0.0",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-obfuscator": "^4.0.0",
+    "nearby-big-cities": "^1.0.0",
     "npm": "^5.8.0",
     "request": "^2.85.0",
     "serve-favicon": "^2.5.0",
