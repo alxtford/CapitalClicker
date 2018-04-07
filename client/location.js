@@ -16,7 +16,7 @@ function geoFindMe() {
 
     console.log("Latitude is " + latitude + "° <br>Longitude is " + longitude + "°");
 
-    socket.emit("weatherGet", latitude, longitude);
+    socket.emit("locDataGet", latitude, longitude);
     console.log(position.coords);
   }
 

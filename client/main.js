@@ -102,6 +102,11 @@ function create () {
     addRain();
   });
 
+  socket.on("nearbyCities", function(cities, distances){
+    console.log(cities);
+    console.log(distances);
+  });
+
   socket.on("userData", function(userData){
     userDataLocal = clientGame.cache.getJSON("userData");
     //console.log("BEFORE SERVER WRITE:\n" + userDataLocal);

@@ -64,6 +64,9 @@ var request = require("request");
 
 var darkSky = require("forecast.io");
 
+var nearbyCities = require("nearby-big-cities");
+var geoLib = require("geolib");
+
 // CRYPTO / BITCOINAVERAGE API
 var timestamp = Math.floor(Date.now() / 1000);
 var payload = timestamp + "." + BTCPublic;
@@ -80,13 +83,11 @@ var options = {
 },
 darksky = new darkSky(options);
 
+// GEOLIB
+var distances = [];
+
 // For Server events at set intervals
 var lastProcessedHour = -1;
-
-// GOOGLE MAPS
-var googleMapsClient = require("@google/maps").createClient({
-  key:googleKey
-});
 
 // Initialize the library with my account.
 var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, maxAttempt: 5, plugins: { retry: { retryErrors: true, retryStatusCodes: [ 429, 404 ] } } }, function(err, cloudant) {
@@ -177,7 +178,7 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
   }
 
   function coinFlip() {
-    return Math.floor(Math.random() * 2);
+    return Math.floor(Math.random()*2);
   }
 
   // Request bitcoin data on server start
@@ -243,7 +244,7 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
     // Test Socket Emits
     socket.on("testEmit", testEmit);
 
-    socket.on("weatherGet", function weatherGet(lat, long){
+    socket.on("locDataGet", function locDataGet(lat, long){
       console.log("LOCATION DATA: " + lat + "\n" + long);
 
       var dsParams = {exclude: "minutely,hourly,daily,flags,alerts"}
@@ -255,6 +256,15 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
 
         socket.emit("weatherSet", data);
       });
+
+      var query = {latitude: lat, longitude: long};
+
+      var cities = nearbyCities(query, 2);
+      distances[0] = geoLib.getDistance(query, cities[0], 100, 1);
+      distances[1] = geoLib.getDistance(query, cities[1], 100, 1);
+      distances[2] = geoLib.getDistance(cities[0], cities[1], 100, 1);
+
+      socket.emit("nearbyCities", cities, distances);
 
     });
 
