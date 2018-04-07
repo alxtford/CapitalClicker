@@ -226,8 +226,8 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
       var elapsed = Date.parse(dateNow) - Date.parse(lastLogin);
       console.log("ELAPSED SINCE LAST LOG IN: " + elapsed);
 
-      if(elapsed > 10000){
-      //if(elapsed > 86400000){
+      //if(elapsed > 10000){
+      if(elapsed > 86400000){
         socket.emit("dayBonus");
         console.log("DAY BONUS");
         return true;
@@ -352,7 +352,6 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
       var date = new Date();
       var serverReceive = JSON.parse(userData);
 
-      console.log("DATE LAST LOGIN: " + serverReceive.dateLastLogin);
       if(bonusUpdate(date.toISOString(), serverReceive.dateLastLogin)){
         console.log("BONUS TRIGGERED");
 

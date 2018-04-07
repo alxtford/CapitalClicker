@@ -157,23 +157,23 @@ function create () {
 
   socket.on("hourBonus", function(){
     console.log("Hour Bonus!");
-    var hourlyBonus = (1*userDataLocal.upgradeList[8].totalBought * userDataLocal.upgradeList[8].multiplier *  userDataLocal.totalClicks *  userDataLocal.totalBought)/ 1000;
+    var hourlyBonus = 1 +(userDataLocal.upgradeList[8].timesClicked * menuData.data[8].multiplier *  userDataLocal.totalClicks *  userDataLocal.totalBought)/ 1000;
     currencyTotal +=  Math.round((1+hourlyBonus) * 10)/10;
     console.log("HOURLY BONUS: " + hourlyBonus);
 
-    chickenText = clientGame.add.text(210,80, "HOURLY BONUS!\n+" + intStringFormatter(hourlyBonus), notificationStyle);
+    chickenText = clientGame.add.text(220,80, "HOURLY BONUS!\n+" + intStringFormatter(hourlyBonus), notificationStyle);
     chickenText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
     var chickenTextTween = clientGame.add.tween(chickenText).to({alpha:0}, 5000,Phaser.Easing.Linear.None, true);
   });
 
   socket.on("dayBonus", function(){
     console.log("Day Bonus!");
-    var dailyBonus = 1 +(userDataLocal.upgradeList[9].totalBought * userDataLocal.upgradeList[9].multiplier *  userDataLocal.totalClicks *  userDataLocal.totalBought)/ 1000;
+    var dailyBonus = 1 +(userDataLocal.upgradeList[9].timesClicked * menuData.data[9].multiplier *  userDataLocal.totalClicks *  userDataLocal.totalBought)/ 1000;
     currencyTotal += Math.round((1+dailyBonus) * 10)/10;
 
     console.log("DAILY BONUS: " + dailyBonus);
 
-    chickenText = clientGame.add.text(210,80, "Daily BONUS!\n+" + intStringFormatter(dailyBonus), notificationStyle);
+    chickenText = clientGame.add.text(220,80, "Daily BONUS!\n+" + intStringFormatter(dailyBonus), notificationStyle);
     chickenText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
     var chickenTextTween = clientGame.add.tween(chickenText).to({alpha:0}, 5000,Phaser.Easing.Linear.None, true);
   });
