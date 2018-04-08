@@ -21,11 +21,13 @@ function addFog(){
 
 function addRain(){
   rainParticle = clientGame.add.bitmapData(15, 50)
+  //rainLayer.add(rainParticle);
   rainParticle.ctx.rect(0, 0, 15, 50);
   rainParticle.ctx.fillStyle = '#9cc9de';
   rainParticle.ctx.fill();
 
   rainEmitter = clientGame.add.emitter(400, -200, 400);
+  rainLayer.add(rainEmitter);
 
     rainEmitter.width = 800;
     rainEmitter.angle = 10;

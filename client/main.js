@@ -46,6 +46,7 @@ function init(){
   storeLayer = clientGame.add.group();
   characterLayer = clientGame.add.group();
   groundLayer = clientGame.add.group();
+  rainLayer = clientGame.add.group();
   uiLayer = clientGame.add.group();
   fadeLayer = clientGame.add.group();
   shaderLayer = clientGame.add.group();
