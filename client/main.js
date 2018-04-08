@@ -131,6 +131,7 @@ function create () {
 
     // Draw the Store
     storeDraw(frameGet());
+    signDraw();
     // Create the Employees
     employeeNum();
 

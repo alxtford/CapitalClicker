@@ -1,6 +1,7 @@
 var ground;
 
 var store;
+var signs = [];
 
 var style = {font: "28px VT323", fill: "#fff", tabs: 150};
 var noteStyle = {font: "28px VT323", fill: "#fff", align: "center", wordWrap: true, wordWrapWidth: 600};
@@ -44,6 +45,14 @@ function storeDraw(frameNum) {
   store = storeLayer.create(50,60, "stores");
   store.scale.setTo(10);
   store.frame = frameNum;
+}
+
+function signDraw(){
+  signs[0] = storeLayer.create(150,340, "sign");
+  signs[0].scale.setTo(-6, 6);
+
+  signs[1] = storeLayer.create(650,340, "sign");
+  signs[1].scale.setTo(6);
 }
 
 function storeUpdate(frameNum) {
