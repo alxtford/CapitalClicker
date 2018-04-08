@@ -69,6 +69,10 @@ function testDataRetrieve(){
   startFlag = true;
 }
 
+function distanceFormatter(num){
+  return (num / 1000).toFixed(1).replace(/\.0$/, "") + "Km";
+}
+
 function create () {
   console.log("client started");
 
@@ -105,6 +109,22 @@ function create () {
   socket.on("nearbyCities", function(cities, distances){
     console.log(cities);
     console.log(distances);
+
+    if(userDataLocal.coinflip === 1){
+      var name;
+      for(var i = 0; i < cities.length; i++)
+      {
+        if(cities[i].name.length > 8)
+        {
+          name = cities[i].name.substring(0,7) + "': "
+        }
+        else{
+          name = cities[i].name + ": ";
+        }
+        signTexts[i].setText(name + distanceFormatter(distances[i]));
+      }
+    }
+
   });
 
   socket.on("userData", function(userData){
