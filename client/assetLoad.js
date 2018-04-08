@@ -25,8 +25,9 @@ function assetLoad(){
   // CHARACTERS
   clientGame.load.spritesheet("characters", "assets/employees.png", 16, 32, 84);
 
-  // STORES
+  // STORES/PROPS
   clientGame.load.spritesheet("stores", "assets/stores.png", 68, 48);
+  clientGame.load.image("sign", "assets/sign.png", 24, 32);
 
   // UI ASSETS
   clientGame.load.spritesheet("clickmarker", "assets/clickmarker.png", 16, 16);
