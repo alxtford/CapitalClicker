@@ -4,6 +4,8 @@ var menubuttonText;
 var menubuttonClickAnim;
 var menuback;
 
+var toggleGroup;
+
 var menubackHelp;
 var menuHelpButton;
 var menuHelpExitbutton;
@@ -11,7 +13,6 @@ var menuHelpExitbutton;
 var menuHelpText;
 var menuHelpTextTween;
 
-var menuTween = [];
 var menuButtonTween;
 
 var itemTween = [];
@@ -34,6 +35,12 @@ var menuTween;
 var menuHelpTween;
 var currencyTotalTextTween;
 var btcTextTween;
+
+function helpTextCreate(){
+  menuHelpText = clientGame.add.text(-400, 40, "EACH UPGRADE OPTION\nHAS THE FOLLOWING:\n\nUpgrade Name \t |Price\nAmount | Type\t |Current Effect", menuStyle);
+  menuHelpText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
+  uiLayer.add(menuHelpText);
+}
 
 function menuAssetsCreate(){
   menuItemsGroup = clientGame.add.group();
@@ -62,6 +69,39 @@ function menuAssetsCreate(){
   menuback = uiLayer.create(-400, 20, "menuback");
   menuback.scale.setTo(8);
 
+}
+
+function helpMenuExitButtonCreate(){
+  menuHelpExitbutton = uiLayer.create(580, 36, "menuexitbutton");
+  menuHelpExitbutton.scale.setTo(8);
+  menuHelpExitbutton.animations.add("Click");
+  menuHelpExitbutton.inputEnabled = true;
+  menuHelpExitbutton.input.useHandCursor = true;
+
+  menuHelpExitbutton.visible = false;
+
+  helpExitButtonListener();
+}
+
+function menubuttonsCreate(){
+  menuexitbutton = uiLayer.create(270, 36, "menuexitbutton");
+  menuexitbutton.scale.setTo(8);
+  menuexitbutton.animations.add("Click");
+  menuexitbutton.inputEnabled = true;
+  menuexitbutton.input.useHandCursor = true;
+  menuexitbutton.visible = false;
+
+  menuHelpButton = uiLayer.create(238, 36, "menuHelpButton");
+  menuHelpButton.scale.setTo(2);
+  menuHelpButton.animations.add("Click");
+  menuHelpButton.inputEnabled = true;
+  menuHelpButton.input.useHandCursor = true;
+  menuHelpButton.visible = false;
+
+  helpMenuExitButtonCreate();
+
+  exitButtonListener();
+  helpButtonListener();
 }
 
 function menuOptionsCreate(){
@@ -97,27 +137,6 @@ function menuOptionsCreate(){
   menubuttonsCreate();
 }
 
-function menubuttonsCreate(){
-  menuexitbutton = uiLayer.create(270, 36, "menuexitbutton");
-  menuexitbutton.scale.setTo(8);
-  menuexitbutton.animations.add("Click");
-  menuexitbutton.inputEnabled = true;
-  menuexitbutton.input.useHandCursor = true;
-  menuexitbutton.visible = false;
-
-  menuHelpButton = uiLayer.create(238, 36, "menuHelpButton");
-  menuHelpButton.scale.setTo(2);
-  menuHelpButton.animations.add("Click");
-  menuHelpButton.inputEnabled = true;
-  menuHelpButton.input.useHandCursor = true;
-  menuHelpButton.visible = false;
-
-  helpMenuExitButtonCreate();
-
-  exitButtonListener();
-  helpButtonListener();
-}
-
 function menuOptionsDraw(){
 
   for(var i = 0; i < userDataLocal.upgradeList.length; i++)
@@ -133,23 +152,6 @@ function menuOptionsDraw(){
   //userDataLocal.upgradeList.length()
 }
 
-function helpTextCreate(){
-  menuHelpText = clientGame.add.text(-400, 40, "EACH UPGRADE OPTION\nHAS THE FOLLOWING:\n\nUpgrade Name \t |Price\nAmount | Type\t |Current Effect", menuStyle);
-  menuHelpText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
-  uiLayer.add(menuHelpText);
-}
-
-function helpMenuExitButtonCreate(){
-  menuHelpExitbutton = uiLayer.create(580, 36, "menuexitbutton");
-  menuHelpExitbutton.scale.setTo(8);
-  menuHelpExitbutton.animations.add("Click");
-  menuHelpExitbutton.inputEnabled = true;
-  menuHelpExitbutton.input.useHandCursor = true;
-
-  menuHelpExitbutton.visible = false;
-
-  helpExitButtonListener();
-}
 
 function menubuttonClickDown(){
   console.log("MOUSE DOWN ON MENU BUTTON");

@@ -29,6 +29,61 @@ var likertStyle = {font: "18px VT323", fill: "#fff", tabs: 20, align: "center"};
 var commentStyle = {font: "20px VT323", fill: "#fff", tabs: 20, align: "center", wordWrap: true, wordWrapWidth:270};
 
 
+
+
+function commentHide(){
+  var commentBackgroundTween = clientGame.add.tween(commentBackground).to({x:980}, 1000,Phaser.Easing.Bounce.Out, false);
+  commentBackgroundTween.start();
+
+  var commentQuestionTween = clientGame.add.tween(commentQuestion).to({x:1090}, 1000,Phaser.Easing.Bounce.Out, false);
+  commentQuestionTween.start();
+
+  var commentResponseTween = clientGame.add.tween(commentResponse).to({x:1080}, 1000,Phaser.Easing.Bounce.Out, false);
+  commentResponseTween.start();
+
+  var commentSubmitTween = clientGame.add.tween(commentSubmit).to({x:1350}, 1000,Phaser.Easing.Bounce.Out, false);
+  commentSubmitTween.start();
+
+  commentResponse.setText("");
+}
+
+function commentShow(){
+  commentQuestionNum = Math.floor(Math.random(0) * commentQuestionTextRange);
+  commentQuestion.setText(commentQuestionText[commentQuestionNum]);
+
+  var commentBackgroundTween = clientGame.add.tween(commentBackground).to({x:380}, 1000,Phaser.Easing.Bounce.Out, false);
+  commentBackgroundTween.start();
+
+  var commentQuestionTween = clientGame.add.tween(commentQuestion).to({x:490}, 1000,Phaser.Easing.Bounce.Out, false);
+  commentQuestionTween.start();
+
+  var commentResponseTween = clientGame.add.tween(commentResponse).to({x:480}, 1000,Phaser.Easing.Bounce.Out, false);
+  commentResponseTween.start();
+
+  var commentSubmitTween = clientGame.add.tween(commentSubmit).to({x:750}, 1000,Phaser.Easing.Bounce.Out, false);
+  commentSubmitTween.start();
+}
+
+function onCommentSubmitDown(){
+  commentSubmit.animations.play("Click", 0, false);
+}
+
+function onCommentSubmitUp(){
+  commentSubmit.frame = 0;
+
+  if(commentResponse.value !== ""){
+    var dateNow = new Date();
+
+    commentData = {_id: userName, question: commentQuestionText[commentQuestionNum], response: commentResponse.value, timeSubmitted: dateNow.toDateString()};
+
+    socket.emit("commentResult", commentData);
+
+    userDataLocal.surveysCompleted++;
+    commentHide();
+
+  }
+}
+
 function createComment(){
   uiLayer.add(commentGroup);
 
@@ -73,108 +128,6 @@ function createComment(){
   clientGame.time.events.add(Phaser.Timer.MINUTE *4, commentShow, this);
 }
 
-function onCommentSubmitDown(){
-  commentSubmit.animations.play("Click", 0, false);
-}
-
-function onCommentSubmitUp(){
-  commentSubmit.frame = 0;
-
-  if(commentResponse.value !== ""){
-    var dateNow = new Date();
-
-    commentData = {_id: userName, question: commentQuestionText[commentQuestionNum], response: commentResponse.value, timeSubmitted: dateNow.toDateString()};
-
-    socket.emit("commentResult", commentData);
-
-    userDataLocal.surveysCompleted++;
-    commentHide();
-
-  }
-}
-
-function commentHide(){
-  var commentBackgroundTween = clientGame.add.tween(commentBackground).to({x:980}, 1000,Phaser.Easing.Bounce.Out, false);
-  commentBackgroundTween.start();
-
-  var commentQuestionTween = clientGame.add.tween(commentQuestion).to({x:1090}, 1000,Phaser.Easing.Bounce.Out, false);
-  commentQuestionTween.start();
-
-  var commentResponseTween = clientGame.add.tween(commentResponse).to({x:1080}, 1000,Phaser.Easing.Bounce.Out, false);
-  commentResponseTween.start();
-
-  var commentSubmitTween = clientGame.add.tween(commentSubmit).to({x:1350}, 1000,Phaser.Easing.Bounce.Out, false);
-  commentSubmitTween.start();
-
-  commentResponse.setText("");
-}
-
-function commentShow(){
-  commentQuestionNum = Math.floor(Math.random(0) * commentQuestionTextRange);
-  commentQuestion.setText(commentQuestionText[commentQuestionNum]);
-
-  var commentBackgroundTween = clientGame.add.tween(commentBackground).to({x:380}, 1000,Phaser.Easing.Bounce.Out, false);
-  commentBackgroundTween.start();
-
-  var commentQuestionTween = clientGame.add.tween(commentQuestion).to({x:490}, 1000,Phaser.Easing.Bounce.Out, false);
-  commentQuestionTween.start();
-
-  var commentResponseTween = clientGame.add.tween(commentResponse).to({x:480}, 1000,Phaser.Easing.Bounce.Out, false);
-  commentResponseTween.start();
-
-  var commentSubmitTween = clientGame.add.tween(commentSubmit).to({x:750}, 1000,Phaser.Easing.Bounce.Out, false);
-  commentSubmitTween.start();
-
-}
-
-function createLikert(){
-  uiLayer.add(toggleGroup);
-
-  likertBackground = toggleGroup.create(180, 725, "likertBackground");
-  likertBackground.scale.setTo(4.5);
-  likertBGFlash = likertBackground.animations.add("flash");
-  likertBackground.animations.play("flash", 10, true);
-
-  likertQuestion = clientGame.add.text(270, 728, "How satisfied are you with the game experience?\n(1 = Not at all, 5 = Very)",likertStyle);
-  likertQuestion.lineSpacing = -8;
-
-  for (var i = 0; i < 5; i++)
-  {
-    toggle[i] = toggleGroup.create(355 + (i * toggleOffset), 770, "likertToggle");
-    toggle[i].scale.setTo(2);
-    toggle[i].inputEnabled = true;
-    toggle[i].input.useHandCursor = true;
-
-    toggleSelect[i] = toggle[i].animations.add("select");
-  }
-
-  toggleGroup.add(likertQuestion);
-
-  likertToggleListener();
-
-  clientGame.time.events.add(Phaser.Timer.MINUTE * 2.5, likertShow, this);
-}
-
-function onLikertToggleDown(){
-  console.log(clientGame.input.activePointer.positionDown.x);
-  var normalisedX = (clientGame.input.activePointer.positionDown.x - 350.7)/(525.6 - 350.7);
-  var buttonNum = Math.floor(Math.floor(normalisedX * 10)/2);
-
-  toggle[buttonNum].animations.play("select", 0, false);
-
-  resetToggle(buttonNum);
-
-  var dateNow = new Date();
-
-  likertData = {_id: userName, likertOption: buttonNum, timeSubmitted: dateNow.toDateString()};
-
-  socket.emit("likertResult", likertData);
-  likertHide();
-
-  userDataLocal.surveysCompleted++;
-
-  resetToggle(buttonNum);
-}
 
 function likertShow(){
   var likertBackgroundTween = clientGame.add.tween(likertBackground).to({y:525}, 1000,Phaser.Easing.Bounce.Out, false);
@@ -202,6 +155,7 @@ function likertHide(){
     toggleTween.start();
   }
 }
+
 function resetToggle (buttonNum){
   if(toggle[buttonNum].animations.frame == 1){
     toggle[buttonNum].animations.frame = 0;
@@ -209,4 +163,54 @@ function resetToggle (buttonNum){
   else{
     toggle[buttonNum].animations.frame = 1;
   }
+}
+
+function onLikertToggleDown(){
+  console.log(clientGame.input.activePointer.positionDown.x);
+  var normalisedX = (clientGame.input.activePointer.positionDown.x - 350.7)/(525.6 - 350.7);
+  var buttonNum = Math.floor(Math.floor(normalisedX * 10)/2);
+
+  toggle[buttonNum].animations.play("select", 0, false);
+
+  resetToggle(buttonNum);
+
+  var dateNow = new Date();
+
+  likertData = {_id: userName, likertOption: buttonNum, timeSubmitted: dateNow.toDateString()};
+
+  socket.emit("likertResult", likertData);
+  likertHide();
+
+  userDataLocal.surveysCompleted++;
+
+  resetToggle(buttonNum);
+}
+
+
+function createLikert(){
+  uiLayer.add(toggleGroup);
+
+  likertBackground = toggleGroup.create(180, 725, "likertBackground");
+  likertBackground.scale.setTo(4.5);
+  likertBGFlash = likertBackground.animations.add("flash");
+  likertBackground.animations.play("flash", 10, true);
+
+  likertQuestion = clientGame.add.text(270, 728, "How satisfied are you with the game experience?\n(1 = Not at all, 5 = Very)",likertStyle);
+  likertQuestion.lineSpacing = -8;
+
+  for (var i = 0; i < 5; i++)
+  {
+    toggle[i] = toggleGroup.create(355 + (i * toggleOffset), 770, "likertToggle");
+    toggle[i].scale.setTo(2);
+    toggle[i].inputEnabled = true;
+    toggle[i].input.useHandCursor = true;
+
+    toggleSelect[i] = toggle[i].animations.add("select");
+  }
+
+  toggleGroup.add(likertQuestion);
+
+  likertToggleListener();
+
+  clientGame.time.events.add(Phaser.Timer.MINUTE * 2.5, likertShow, this);
 }

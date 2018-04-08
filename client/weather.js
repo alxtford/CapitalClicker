@@ -8,7 +8,7 @@ var rainEmitter;
 function addFog(){
   fog = clientGame.add.bitmapData(800, 600);
   fog.ctx.rect(0, 0, 800, 600);
-  fog.ctx.fillStyle = '#cbc9c8';
+  fog.ctx.fillStyle = "#cbc9c8";
   fog.ctx.fill();
 
   fogSprite = fogLayer.create(0, 0, fog);
@@ -20,10 +20,10 @@ function addFog(){
 }
 
 function addRain(){
-  rainParticle = clientGame.add.bitmapData(15, 50)
+  rainParticle = clientGame.add.bitmapData(15, 50);
   //rainLayer.add(rainParticle);
   rainParticle.ctx.rect(0, 0, 15, 50);
-  rainParticle.ctx.fillStyle = '#9cc9de';
+  rainParticle.ctx.fillStyle = "#9cc9de";
   rainParticle.ctx.fill();
 
   rainEmitter = clientGame.add.emitter(400, -200, 400);

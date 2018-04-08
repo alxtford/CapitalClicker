@@ -27,9 +27,9 @@ var crtFilter;
 var crtScreen;
 var fadeScreen;
 
-var btcText;
+var bgSprite;
 
-var chickenAlert;
+var btcText;
 
 function bgDraw() {
 bgSprite = backgroundLayer.create(0,0, "background");
@@ -92,6 +92,12 @@ function createText(){
   uiLayer.add(currencyTotalText);
 }
 
+function destroyDisclaimerText(){
+  continueButton.destroy();
+  disclaimerText.destroy();
+  createStartText();
+}
+
 function createDisclaimerText(){
   console.log("Disclaimer Text Created!");
   disclaimerText = clientGame.add.text(100, 70, "BY CLICKING YOU CONTINUE, YOU AGREE FOR YOUR GAMEPLAY AND SURVEY DATA TO BE COLLECTED AND STORED IN ACCORDANCE WITH DATA PROTECTION ACT 1998.\n\nTHIS DATA WILL BE USED PURELY FOR RESEARCH PURPOSES. QUESTIONS ABOUT THE STUDY MAY BE DIRECTED TO:\n14524308@students.lincoln.ac.uk.\n\nIF YOU WISH FOR YOUR SUBMISSIONS TO BE REMOVED OR RETRIEVED, PRESENT THE USERNAME YOU USE TO:\n14524308@students.lincoln.ac.uk. ", noteStyle);
@@ -107,6 +113,34 @@ function createDisclaimerText(){
   continueButton.input.useHandCursor = true;
   continueButton.events.onInputDown.add(destroyDisclaimerText, this);
 }
+
+function destroyStartText() {
+  if(userNameText.value){
+    userName = userNameText.value;
+    submit.destroy();
+    userNameText.destroy();
+    adviceText.destroy();
+    startText.setStyle(noteStyle, true);
+    startText.setText("");
+
+    saveName(userName);
+    fadeScreen.inputEnabled = true;
+
+    setTimeout(function(){
+
+    if(userDataLocal.coinflip !== 1)
+    {
+      startText.setText("//INFO:\nYou are now taking part in the study, " + userName + ".\n\nPlease note the game is still in development, so if an error occurs, refreshing the page should fix most issues.\n\n Click to continue, and Click for points!");
+    }
+    else{
+      startText.setText("//INFO:\nYou are now taking part in the study, " + userName + ".\n\nVarious aspects of the game are being changed depending on your local time, location, and the current price of Bitcoin. The mechanics of the game adjust to how these value change.\nPlease note the game is still in development, so if an error occurs, refreshing the page should fix most issues.\n\nClick to continue, and Click for coin!");
+    }
+    startText.x = 110;
+    startText.y = 100;
+  }, 500);
+
+    }
+  }
 
 function createStartText(){
   console.log("Start Text Created");
@@ -152,41 +186,6 @@ function createStartText(){
               // fadeLayer.add(userNameText);
               // fadeLayer.add(startText);
 }
-
-function destroyDisclaimerText(){
-  continueButton.destroy();
-  disclaimerText.destroy();
-  createStartText();
-}
-
-function destroyStartText() {
-  if(userNameText.value){
-    userName = userNameText.value;
-    submit.destroy();
-    userNameText.destroy();
-    adviceText.destroy();
-    startText.setStyle(noteStyle, true);
-
-    saveName(userName);
-    fadeScreen.inputEnabled = true;
-
-    setTimeout(function(){
-
-    if(userDataLocal.coinflip !== 1)
-    {
-      startText.setText("//INFO:\nYou are now taking part in the study, " + userName + ".\n\nPlease note the game is still in development, so if an error occurs, refreshing the page should fix most issues.\n\n Click to continue, and Click for points!");
-    }
-    else{
-      startText.setText("//INFO:\nYou are now taking part in the study, " + userName + ".\n\nVarious aspects of the game are being changed depending on your local time, location, and the current price of Bitcoin. The mechanics of the game adjust to how these value change.\nPlease note the game is still in development, so if an error occurs, refreshing the page should fix most issues.\n\nClick to continue, and Click for coin!");
-    }
-    startText.x = 110;
-    startText.y = 100;
-  }, 200)
-
-
-
-    }
-  }
 
 function updateText(){
   //console.log("Text Updated")

@@ -11,7 +11,7 @@ var BTCSecretDirty = "ZGRiNWMxZDRmMDhmNDY4NTk3OWMwOWM5ZTJiZDY0ZTNlYTQzNDg3MTBmMG
 var googleKeyDirty = "AIzaSyDY7XntI3yeexRyoS-_kUAfl3yIfGxIZFE";
 var darkSkyKeyDirty = "3260f4cbe8c6ad8402020d91728cda57";
 
-console.log('VCAP SERVICES: ' + JSON.stringify(process.env.VCAP_SERVICES));
+console.log("VCAP SERVICES: " + JSON.stringify(process.env.VCAP_SERVICES));
 var cloudantUsername;
 var cloudantPassword;
 
@@ -246,7 +246,7 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
     socket.on("locDataGet", function locDataGet(lat, long){
       console.log("LOCATION DATA: " + lat + "\n" + long);
 
-      var dsParams = {exclude: "minutely,hourly,daily,flags,alerts"}
+      var dsParams = {exclude: "minutely,hourly,daily,flags,alerts"};
 
       darksky.get(lat, long, dsParams, function (err, res, data) {
         if (err){
@@ -333,15 +333,14 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
         }
 
         else {
-          var date = new Date();
           update = body;
 
-          console.log("SAVE NAME LAST LOGIN: " + update.dateLastLogin)
+          console.log("SAVE NAME LAST LOGIN: " + update.dateLastLogin);
 
           // bonusUpdate(date, update.dateLastLogin);
           // update.dateLastLogin= date;
           update.totalLoginIn ++;
-          db.insert(update, function(err, body) {
+          db.insert(update, function(err) {
             if (err) {
               console.log("Error inserting data on Login\n" + err);
               return 500;

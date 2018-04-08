@@ -7,6 +7,17 @@ var canvasHeight = 600;
 //make a phaser game
 clientGame = new Phaser.Game(canvasWidth,canvasHeight, Phaser.AUTO, "gameDiv", {init: init, preload: preload, create:create, update: update});
 
+var spacelayer;
+var backgroundLayer;
+var fogLayer;
+var storeLayer;
+var characterLayer;
+var groundLayer;
+var rainLayer;
+var uiLayer;
+var fadeLayer;
+var shaderLayer;
+
 var localTime;
 
 var currencyTotal = 0;
@@ -27,6 +38,7 @@ var nameRegistered;
 
 var bitcoinData;
 var btcDayPercentChange = 0;
+var chickenTextTween;
 
 function init(){
   clientGame.plugins.add(PhaserInput.Plugin);
@@ -88,7 +100,7 @@ function create () {
     setTimeout(function(){
       console.log("Retrying Connection...");
       socket.open();
-    }, 5000)
+    }, 5000);
   });
 
   socket.on("reconnect", function(){
@@ -128,7 +140,7 @@ function create () {
       {
         if(cities[i].name.length > 8)
         {
-          name = cities[i].name.substring(0,7) + "': "
+          name = cities[i].name.substring(0,7) + "': ";
         }
         else{
           name = cities[i].name + ": ";
@@ -172,7 +184,9 @@ function create () {
       studyCreate();
       skySet(localHours);
     }
-    else(skySet(12))
+    else{
+      skySet(12);
+    }
 
     // Allow User Input, starting the game
     startFlag = true;
@@ -203,7 +217,7 @@ function create () {
 
     chickenText = clientGame.add.text(220,80, "HOURLY BONUS!\n+" + intStringFormatter(hourlyBonus), notificationStyle);
     chickenText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
-    var chickenTextTween = clientGame.add.tween(chickenText).to({alpha:0}, 5000,Phaser.Easing.Linear.None, true);
+    chickenTextTween = clientGame.add.tween(chickenText).to({alpha:0}, 5000,Phaser.Easing.Linear.None, true);
   });
 
   socket.on("dayBonus", function(){
