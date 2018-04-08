@@ -158,7 +158,9 @@ function create () {
     // If the user is part of the Data group of the study
     if(userDataLocal.coinflip === 1){
       studyCreate();
+      skySet(localHours);
     }
+    else(skySet(12))
 
     // Allow User Input, starting the game
     startFlag = true;
@@ -216,12 +218,10 @@ function create () {
   bgDraw();
   groundDraw();
   menuAssetsCreate();
-  skySet(localHours);
   createText();
   fade();
   //createStartText();
   crtDraw();
-
   inputListenerStart();
   testEmit();
   //testDataRetrieve();
