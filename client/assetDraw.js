@@ -165,12 +165,26 @@ function destroyStartText() {
     submit.destroy();
     userNameText.destroy();
     adviceText.destroy();
-    startText.setText("CLICK");
-    startText.x = 315;
-    startText.y = 200;
+    startText.setStyle(noteStyle, true);
 
     saveName(userName);
     fadeScreen.inputEnabled = true;
+
+    setTimeout(function(){
+
+    if(userDataLocal.coinflip !== 1)
+    {
+      startText.setText("//INFO:\nYou are now taking part in the study, " + userName + ".\n\nPlease note the game is still in development, so if an error occurs, refreshing the page should fix most issues.\n\n Click to continue, and Click for points!");
+    }
+    else{
+      startText.setText("//INFO:\nYou are now taking part in the study, " + userName + ".\n\nVarious aspects of the game are being changed depending on your local time, location, and the current price of Bitcoin. The mechanics of the game adjust to how these value change.\nPlease note the game is still in development, so if an error occurs, refreshing the page should fix most issues.\n\nClick to continue, and Click for coin!");
+    }
+    startText.x = 110;
+    startText.y = 100;
+  }, 200)
+
+
+
     }
   }
 
