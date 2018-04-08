@@ -262,7 +262,8 @@ function OnmenuhelpbuttonClickUp(){
   menuHelpTextTween = clientGame.add.tween(menuHelpText).to({x:340}, 1000,Phaser.Easing.Bounce.Out, true);
 
   currencyTotalTextTween = clientGame.add.tween(currencyTotalText).to({x:620}, 1000,Phaser.Easing.Bounce.Out, false);
-  btcTextTween = clientGame.add.tween(btcText).to({x:300}, 1000,Phaser.Easing.Bounce.Out, false);
+
+  btcTextTween = clientGame.add.tween(btcText).to({x:620}, 1000,Phaser.Easing.Bounce.Out, false);
 
   currencyTotalTextTween.start();
 

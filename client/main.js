@@ -185,7 +185,7 @@ function create () {
 
   socket.on("hourBonus", function(){
     console.log("Hour Bonus!");
-    var hourlyBonus = 1 +(userDataLocal.upgradeList[8].timesClicked * menuData.data[8].multiplier *  userDataLocal.totalClicks *  userDataLocal.totalBought)/ 1000;
+    var hourlyBonus = 1 +(userDataLocal.upgradeList[8].timesClicked * menuData.data[8].multiplier) +  (userDataLocal.totalClicks *  userDataLocal.totalBought);
     currencyTotal +=  Math.round((1+hourlyBonus) * 10)/10;
     console.log("HOURLY BONUS: " + hourlyBonus);
 
@@ -196,7 +196,8 @@ function create () {
 
   socket.on("dayBonus", function(){
     console.log("Day Bonus!");
-    var dailyBonus = 1 +(userDataLocal.upgradeList[9].timesClicked * menuData.data[9].multiplier *  userDataLocal.totalClicks *  userDataLocal.totalBought)/ 1000;
+    var dailyBonus = 1 +(userDataLocal.upgradeList[9].timesClicked * menuData.data[9].multiplier) + (userDataLocal.totalClicks *  userDataLocal.totalBought)* 1000;
+
     currencyTotal += Math.round((1+dailyBonus) * 10)/10;
 
     console.log("DAILY BONUS: " + dailyBonus);
