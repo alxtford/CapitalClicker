@@ -192,7 +192,7 @@ function updateText(){
   //console.log("Text Updated")
   currencyTotalText.setText(userName + "'s Wealth: §"+ intStringFormatter(currencyTotal));
   if(studyFlag){
-  btcText.setText("BTC day change: " + btcDayPercentChange + "%");
+  btcText.setText("Bitcoin Today's change: " + btcDayPercentChange + "%");
   }
 }
 
