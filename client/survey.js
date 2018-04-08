@@ -70,7 +70,7 @@ function createComment(){
   commentGroup.add(commentSubmit);
 
   commentSubmitListener();
-  clientGame.time.events.add(Phaser.Timer.MINUTE * 4, commentShow, this);
+  clientGame.time.events.add(Phaser.Timer.MINUTE /4, commentShow, this);
 }
 
 function onCommentSubmitDown(){
@@ -80,7 +80,7 @@ function onCommentSubmitDown(){
 function onCommentSubmitUp(){
   commentSubmit.frame = 0;
 
-  if(commentResponse != ""){
+  if(commentResponse.value !== ""){
     var dateNow = new Date();
 
     commentData = {_id: userName, question: commentQuestionText[commentQuestionNum], response: commentResponse.value, timeSubmitted: dateNow.toDateString()};
@@ -88,8 +88,9 @@ function onCommentSubmitUp(){
     socket.emit("commentResult", commentData);
 
     userDataLocal.surveysCompleted++;
+    commentHide();
+
   }
-  commentHide();
 }
 
 function commentHide(){

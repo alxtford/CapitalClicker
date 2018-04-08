@@ -56,7 +56,7 @@ function createChicken(){
       chicken.inputEnabled = false;
       explodeEffect.play();
 
-      chickenBonus = 1+(menuData.data[6].multiplier + userDataLocal.upgradeList[6].timesClicked) * (menuData.data[6].currentPrice /100000) ;
+      chickenBonus = 1+(menuData.data[6].multiplier + userDataLocal.upgradeList[6].timesClicked) * (menuData.data[6].currentPrice /100000) + userDataLocal.totalClicks;
       currencyTotal += chickenBonus;
       chicken= null;
 
