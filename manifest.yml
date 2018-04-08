@@ -4,4 +4,7 @@ applications:
   routes:
   - route: capitalclicker.com
   - route: capitalclicker.eu-gb.mybluemix.net
+  domains:
+    - capitalclicker.com
+    - eu-gb.mybluemix.net
   memory: 1024M
