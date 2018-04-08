@@ -83,9 +83,20 @@ function create () {
   //automatically emit a “connect” message when the client connects.When
   //the client connects, call onsocketConnected.
   socket.on("connect", onsocketConnected);
+  socket.on("disconnect", function(reason){
+    console.log("DISCONNECTED! Reason: " + reason);
+    setTimeout(function(){
+      console.log("Retrying Connection...");
+      socket.open();
+    }, 5000)
+  });
+
+  socket.on("reconnect", function(){
+    console.log("RECONNECTED");
+  });
 
   socket.on("connect_failed", function() {
-    document.write("Sorry, there seems to be an issue with the connection!");
+    console.log("Sorry, there seems to be an issue with the connection!");
   });
 
   socket.on("bitcoinData", function(data) {
@@ -351,8 +362,6 @@ function onsocketConnected () {
   if (nameRegistered == false)
   {
     saveName(name);
-
-
   }
 }
 function coinFlip() {

@@ -49,7 +49,6 @@ else {
   cloudantPassword = cloudantPasswordDirty;
 
 }
-console.log("CLOUDANT UN: " + cloudantUsername);
 
 //import express.js
 var express = require("express");
@@ -225,7 +224,7 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
     function bonusUpdate(dateNow, lastLogin){
 
       var elapsed = Date.parse(dateNow) - Date.parse(lastLogin);
-      console.log("ELAPSED SINCE LAST LOG IN: " + elapsed);
+      //console.log("ELAPSED SINCE LAST LOG IN: " + elapsed);
 
       //if(elapsed > 10000){
       if(elapsed > 86400000){

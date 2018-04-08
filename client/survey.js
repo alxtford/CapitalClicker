@@ -9,10 +9,10 @@ var commentQuestion;
 var commentQuestionText = ["What keeps you coming back?",
 "What are your opinions on the gameplay experience?",
 "Are there any strategies you have employed when playing the game?",
-"Have you used any tools to place yourself at an advantage over other players?",
+"Have you used any tools to give yourself an advantage over other players?",
 "Have you tried to \"break\" the game?",
-"Does the use of external data impact your strategy for the game?",
-"Do you find your opinion of the game changing depending on the data used?"];
+"Does the game's use of your data impact your strategy for the gameplay?",
+"Do you find your opinion of the game changing depending on your data used?"];
 var commentQuestionNum = 0;
 var commentQuestionTextRange = 5;
 var commentResponse;
@@ -70,7 +70,7 @@ function createComment(){
   commentGroup.add(commentSubmit);
 
   commentSubmitListener();
-  clientGame.time.events.add(Phaser.Timer.MINUTE /4, commentShow, this);
+  clientGame.time.events.add(Phaser.Timer.MINUTE *4, commentShow, this);
 }
 
 function onCommentSubmitDown(){
@@ -152,7 +152,7 @@ function createLikert(){
 
   likertToggleListener();
 
-  clientGame.time.events.add(Phaser.Timer.MINUTE * 3, likertShow, this);
+  clientGame.time.events.add(Phaser.Timer.MINUTE * 2.5, likertShow, this);
 }
 
 function onLikertToggleDown(){
