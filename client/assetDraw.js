@@ -8,7 +8,7 @@ var style = {font: "28px VT323", fill: "#fff", tabs: 150};
 var signStyle = {font: "20px VT323", fill: "#fff", tabs: 150};
 
 
-var noteStyle = {font: "28px VT323", fill: "#fff", align: "center", wordWrap: true, wordWrapWidth: 600};
+var noteStyle = {font: "27px VT323", fill: "#fff", align: "center", wordWrap: true, wordWrapWidth: 600};
 
 var notificationStyle = {font: "64px VT323", fill: "#fff", tabs: 150, align: "center", wordWrap: true, wordWrapWidth: 600};
 
