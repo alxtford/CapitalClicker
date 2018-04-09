@@ -50,11 +50,11 @@ var menuData = {
       "units": "%"
     },
     {
-      "basePrice": 1000,
-      "currentPrice": 1000,
-      "multiplier": 1.5,
+      "basePrice": 0,
+      "currentPrice": 0,
+      "multiplier": 0,
       "bought": 0,
-      "units": "x"
+      "units": "%"
     },
     {
       "basePrice": 1000,

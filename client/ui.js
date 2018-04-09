@@ -109,6 +109,8 @@ function menuOptionsCreate(){
   console.log("CREATING MENU OPTIONS");
   for(var i = 1; i < userDataLocal.upgradeList.length + 1; i++)
   {
+    if(i !== 8)
+    {
     menuItemsButtons[i-1] = menuItemsGroup.create(-400, 36.5 + (menuItemOffset * i), "menuItemButton");
     menuItemsButtons[i-1].scale.setTo(2);
 
@@ -130,6 +132,17 @@ function menuOptionsCreate(){
     menuItemsPrice[i - 1] = clientGame.add.text(-250, 37 + (menuItemOffset * i), menuData.data[i-1].currentPrice + "\n" + modifierEffect + "/s", menuStyle);
     menuItemsPrice[i - 1].setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
     menuItemsPrice[i - 1].lineSpacing = -8;
+    }
+    else{
+      menuItemsButtons[i-1] = menuItemsGroup.create(-400, 36.5 + (menuItemOffset * i), "menuItemButton");
+      menuItemsButtons[i-1].scale.setTo(2);
+
+      menuItemsButtons[i-1].inputEnabled = false;
+
+      menuItems[i - 1] = clientGame.add.text(-400, 37 + (menuItemOffset * i), "UPCOMING", menuStyle);
+      menuItemsPrice[i - 1] = clientGame.add.text(-250, 37 + (menuItemOffset * i), "CONTENT", menuStyle);
+    }
+
     uiLayer.add(menuItemsPrice[i - 1]);
   }
   listButtonListener();
@@ -141,6 +154,7 @@ function menuOptionsDraw(){
 
   for(var i = 0; i < userDataLocal.upgradeList.length; i++)
   {
+
     itemTween[i] =  clientGame.add.tween(menuItems[i]).to({x:20}, 1000,Phaser.Easing.Bounce.Out, false);
     itemTween[i].start();
     menuItemsPriceTween[i] =  clientGame.add.tween(menuItemsPrice[i]).to({x:170}, 1000,Phaser.Easing.Bounce.Out, false);
@@ -326,6 +340,8 @@ function onMenuOptionsUp(){
 }
 
 function updatePrice(i){
+  if(i !== 7)
+  {
 //  if(menuData.data[i].currentPrice == 0)
   //{
     menuData.data[i].currentPrice = (menuData.data[i].basePrice * (menuData.data[i].bought +1));
@@ -337,6 +353,7 @@ function updatePrice(i){
   modifierEffect = menuData.data[i].multiplier * userDataLocal.upgradeList[i].timesClicked;
 
   menuItemsPrice[i].setText("§" + intStringFormatter(menuData.data[i].currentPrice) + "\n" + intStringFormatter(Math.round(modifierEffect * 10)/10) + menuData.data[i].units);
+}
 }
 
 function intStringFormatter(num) {
