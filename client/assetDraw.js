@@ -16,6 +16,8 @@ var disclaimerText;
 var continueButton;
 
 var chickenText;
+var chickenTextArr = ["CLU*#ING HELL!\n+", "EGG-CELLENT!\n+", "FOWL-BULOUS!\n+", "YOU'RE THE NEST!\n+"];
+
 
 var userNameText;
 var startText;
@@ -79,7 +81,7 @@ function fade(){
 }
 
 function chickenWrite(){
-  chickenText = clientGame.add.text(210,80, "CLU*#ING HELL!\n+" + intStringFormatter(chickenBonus), notificationStyle);
+  chickenText = clientGame.add.text(210,80, chickenTextArr[Math.floor(Math.random() * chickenTextArr.length)] + intStringFormatter(chickenBonus), notificationStyle);
   chickenText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
   var chickenTextTween = clientGame.add.tween(chickenText).to({alpha:0}, 2000,Phaser.Easing.Linear.None, true);
 }
