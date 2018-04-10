@@ -1,4 +1,6 @@
 var modifierTotal = 1;
+var clickLimit = 16;
+var clickCount = 0;
 var click;
 var lastclick;
 var clickmarker;
@@ -13,25 +15,29 @@ function clickListener(sprite){
 
   if(startFlag)
   {
+    if(clickCount < clickLimit)
+    {
+      clickCount++;
+      currencyTotal += 1 + Math.round(1 * (modifierTotal * btcPlusMinus(1+btcDayPercentChange)));
 
-  currencyTotal += 1 + Math.round(1 * (modifierTotal * btcPlusMinus(1+btcDayPercentChange)));
+      userDataLocal.totalClicks ++;
+      // if(startFlag == true)
+      // {
+      //   userDataLocal.totalClicks ++;
+      // }
+      lastclick = sprite.name;
+      storeUpdate(frameGet());
 
-  userDataLocal.totalClicks ++;
-  // if(startFlag == true)
-  // {
-  //   userDataLocal.totalClicks ++;
-  // }
-  lastclick = sprite.name;
-  storeUpdate(frameGet());
-
-  clickmarker = uiLayer.create(0,0,"clickmarker");
-  clickmarker.scale.setTo(4);
-  click = clickmarker.animations.add("click");
-  clickmarker.x = clientGame.input.activePointer.x - 32;
-  clickmarker.y = clientGame.input.activePointer.y - 32;
-  clickmarker.animations.play("click", 20, false, true);
-  clickEffect.play();
-}
+      clickmarker = uiLayer.create(0,0,"clickmarker");
+      clickmarker.scale.setTo(4);
+      click = clickmarker.animations.add("click");
+      clickmarker.x = clientGame.input.activePointer.x - 32;
+      clickmarker.y = clientGame.input.activePointer.y - 32;
+      clickmarker.animations.play("click", 20, false, true);
+      clickEffect.play();
+    }
+    else{console.log("AUTOCLICK DETECTED");}
+  }
 
 }
 

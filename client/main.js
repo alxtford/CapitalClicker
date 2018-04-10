@@ -263,6 +263,7 @@ function create () {
       // FIXED BY ROBSON NEWTON, 2018. HIS RECORD 'autoPerSec' OF 43312356670044 WILL NOT GO FORGOTTEN
       modifierTotal = 0;
       autoClick = 0;
+      clickCount = 0;
 
       for(var i = 3; i < 6; i++)
       {
