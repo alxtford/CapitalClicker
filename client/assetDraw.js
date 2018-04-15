@@ -102,7 +102,7 @@ function destroyDisclaimerText(){
 
 function createDisclaimerText(){
   console.log("Disclaimer Text Created!");
-  disclaimerText = clientGame.add.text(100, 70, "BY CLICKING YOU CONTINUE, YOU AGREE FOR YOUR GAMEPLAY AND SURVEY DATA TO BE COLLECTED AND STORED IN ACCORDANCE WITH DATA PROTECTION ACT 1998.\n\nTHIS DATA WILL BE USED PURELY FOR RESEARCH PURPOSES. QUESTIONS ABOUT THE STUDY MAY BE DIRECTED TO:\n14524308@students.lincoln.ac.uk.\n\nIF YOU WISH FOR YOUR SUBMISSIONS TO BE REMOVED OR RETRIEVED, PRESENT THE USERNAME YOU USE TO:\n14524308@students.lincoln.ac.uk. ", noteStyle);
+  disclaimerText = clientGame.add.text(100, 70, "BY CLICKING YOU CONTINUE, YOU AGREE FOR YOUR GAMEPLAY AND SURVEY DATA TO BE COLLECTED AND STORED IN ACCORDANCE WITH DATA PROTECTION ACT 1998.\n\nTHE STUDY IS NOW OVER, BUT THIS DATA WILL BE USED PURELY FOR TESTING PURPOSES.\n\nIF YOU WISH FOR YOUR SUBMISSIONS TO BE REMOVED OR RETRIEVED, PRESENT THE USERNAME YOU USE TO:\n14524308@students.lincoln.ac.uk.", noteStyle);
   disclaimerText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
   fadeLayer.add(disclaimerText);
 
@@ -132,10 +132,10 @@ function destroyStartText() {
 
     if(userDataLocal.coinflip !== 1)
     {
-      startText.setText("//INFO:\nYou are now taking part in the study, " + userName + ".\n\nPlease note the game is still in development, so if an error occurs, refreshing the page should fix most issues.\n\n Click to continue, and Click for points!");
+      startText.setText("//INFO:\nPlease note the game is still in development, so if an error occurs, refreshing the page should fix most issues.\n\n Click to continue, and Click for points!");
     }
     else{
-      startText.setText("//INFO:\nYou are now taking part in the study, " + userName + ".\n\nVarious aspects of the game are being changed depending on your local time, location, and the current price of Bitcoin. The mechanics of the game adjust to how these value change.\nPlease note the game is still in development, so if an error occurs, refreshing the page should fix most issues.\n\nClick to continue, and Click for coin!");
+      startText.setText("//INFO:\nVarious aspects of the game are being changed depending on your local time, location, and the current price of Bitcoin. The mechanics of the game adjust to how these value change.\nPlease note the game is still in development, so if an error occurs, refreshing the page should fix most issues.\n\nClick to continue, and Click for coin!");
     }
     startText.x = 110;
     startText.y = 100;
@@ -150,7 +150,7 @@ function createStartText(){
   startText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
   fadeLayer.add(startText);
 
-  adviceText = clientGame.add.text(110, 380, "//NOTE:\nUSE A UNIQUE, MEMORABLE USERNAME. THIS WILL BE YOUR LOGIN SHOULD YOU WISH TO RETURN TO A PREVIOUS SAVE, AND WILL BE REQUIRED BY THE RESEARCHER SHOULD YOU WISH TO WITHDRAW FROM THE STUDY.", noteStyle);
+  adviceText = clientGame.add.text(110, 380, "//NOTE:\nUSE A UNIQUE, MEMORABLE USERNAME. THIS WILL BE YOUR LOGIN SHOULD YOU WISH TO RETURN TO A PREVIOUS SAVE, AND WILL BE REQUIRED BY THE RESEARCHER SHOULD YOU WISH TO WITHDRAW FROM TESTING.", noteStyle);
   startText.setShadow(3, 3, "rgba(0,0,0,0.5)", 5);
   fadeLayer.add(startText);
 

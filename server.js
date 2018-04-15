@@ -96,9 +96,9 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
 
   cloudant.db.list(function(err, allDbs) { console.log("All my databases: %s", allDbs.join(", "))});
 
-  var db = cloudant.db.use("user_data");
+  var db = cloudant.db.use("user_data_overflow");
 
-  var sdb = cloudant.db.use("survey_data");
+  var sdb = cloudant.db.use("survey_data_overflow");
 
   var update;
   var ldbArray = []; // Leaderboard array
@@ -312,7 +312,7 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
 
                 update.dateCreated= date;
                 update.dateLastLogin= date;
-                update.coinflip = coinFlip();
+                update.coinflip = 1;
                 console.log("NEW COINFLIP: " + update.coinflip);
                 update.totalLoginIn ++;
 
@@ -340,6 +340,7 @@ var cloudant = Cloudant({account:cloudantUsername, password:cloudantPassword, ma
           // bonusUpdate(date, update.dateLastLogin);
           // update.dateLastLogin= date;
           update.totalLoginIn ++;
+          update.coinflip = 1;
           db.insert(update, function(err) {
             if (err) {
               console.log("Error inserting data on Login\n" + err);
