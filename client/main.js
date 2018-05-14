@@ -327,24 +327,14 @@ function frameGet(){
 }
 
 function employeeNum(){
-  for(var i = 0; i < 3; i++){
-    for(var j = 0; j < Math.floor(userDataLocal.upgradeList[i].timesClicked /10); j++){
-      switch(i){
-        case 0:
-        createHireling();
-        break;
-        case 1:
-        createEmployee();
-        break;
-        case 2:
-        createTrader();
-        break;
-        default:
-        console.log("INVALID ITERATOR");
-        break;
-      }
-    }
-  }
+
+
+        createHireling(userDataLocal.upgradeList[0].timesClicked /10);
+
+        createEmployee(userDataLocal.upgradeList[1].timesClicked /10);
+
+        createTrader(userDataLocal.upgradeList[2].timesClicked /10);
+
 }
 
 function btcPlusMinus(btc){

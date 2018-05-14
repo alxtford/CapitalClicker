@@ -1,17 +1,19 @@
-var hireling1;
-var hireling2;
-
-var employee1;
-var employee2;
-
-var trader1;
-var trader2;
+// var hireling1;
+// var hireling2;
+//
+// var employee1;
+// var employee2;
+//
+// var trader1;
+// var trader2;
 
 var chicken;
 var chickenBonus;
 var chest;
 
-var tween;
+var traderTween = [];
+var employeeTween = [];
+var hirelingTween = [];
 
 function createChicken(){
 
@@ -81,9 +83,13 @@ function randPos() {
   return Math.floor(Math.random() * (clientGame.width - 100));
 }
 
-function createTrader(){
-  console.log("CREATING TRADER");
+function createTrader(totalTrader){
+  for(var i = 0; i< totalTrader; i++)
+  {
+    console.log("CREATING " + totalTrader + " TRADERS");
+
   if(coinFlip() < 1){
+    var trader1;
     if(coinFlip() < 1){
       trader1 = characterLayer.create(-30,410, "characters");
       trader1.anchor.setTo(0.5);
@@ -97,14 +103,15 @@ function createTrader(){
     trader1.animations.add("walk", [0,1,2,3,4,5], 10, true);
     trader1.animations.add("idle", [6,7,8,9,10,11], 2, true);
 
-    tween = clientGame.add.tween(trader1).to({ x: randPos() }, 5000, Phaser.Easing.Linear.None, false);
-    tween.onComplete.add(function (){
+    traderTween[i] = clientGame.add.tween(trader1).to({ x: randPos() }, 5000, Phaser.Easing.Linear.None, false);
+    traderTween[i].onComplete.add(function (){
       trader1.animations.play("idle");
     }, this);
-    tween.start();
+    traderTween[i].start();
     trader1.animations.play("walk");
   }
   else{
+    var trader2;
     if(coinFlip() < 1){
       trader2 = characterLayer.create(-30,410, "characters");
       trader2.anchor.setTo(0.5);
@@ -118,18 +125,23 @@ function createTrader(){
     trader2.animations.add("walk", [12,13,14,15,16,17], 10, true);
     trader2.animations.add("idle", [18,19,20,21,22,23], 2, true);
 
-    tween = clientGame.add.tween(trader2).to({ x: randPos() }, 5000, Phaser.Easing.Linear.None, false);
-    tween.onComplete.add(function (){
+    traderTween[i] = clientGame.add.tween(trader2).to({ x: randPos() }, 5000, Phaser.Easing.Linear.None, false);
+    traderTween[i].onComplete.add(function (){
       trader2.animations.play("idle");
     }, this);
-    tween.start();
+    traderTween[i].start();
     trader2.animations.play("walk");
   }
 }
+}
 
-function createHireling(){
+function createHireling(totalHireling){
+  for(var i = 0; i<totalHireling; i++)
+  {
   console.log("CREATING HIRELING");
   if(coinFlip() < 1){
+    var hireling1;
+
     if(coinFlip() < 1){
       hireling1 = characterLayer.create(-30,410, "characters");
       hireling1.anchor.setTo(0.5);
@@ -144,14 +156,16 @@ function createHireling(){
     hireling1.animations.add("walk", [24,25,26,27,28,29], 10, true);
     hireling1.animations.add("idle", [30,31,32,33,34,35], 2, true);
 
-    tween = clientGame.add.tween(hireling1).to({ x: randPos() }, 5000, Phaser.Easing.Linear.None, false);
-    tween.onComplete.add(function (){
+    hirelingTween[i] = clientGame.add.tween(hireling1).to({ x: randPos() }, 5000, Phaser.Easing.Linear.None, false);
+    hirelingTween[i].onComplete.add(function (){
       hireling1.animations.play("idle");
     }, this);
-    tween.start();
+    hirelingTween[i].start();
     hireling1.animations.play("walk");
   }
   else{
+    var hireling2;
+
     if(coinFlip() < 1){
       hireling2 = characterLayer.create(-30,410, "characters");
       hireling2.anchor.setTo(0.5);
@@ -165,18 +179,22 @@ function createHireling(){
     hireling2.animations.add("walk", [36,37,38,39,40,41], 10, true);
     hireling2.animations.add("idle", [42,43,44,45,46,47], 2, true);
 
-    tween = clientGame.add.tween(hireling2).to({ x: randPos() }, 5000, Phaser.Easing.Linear.None, false);
-    tween.onComplete.add(function (){
+    hirelingTween[i] = clientGame.add.tween(hireling2).to({ x: randPos() }, 5000, Phaser.Easing.Linear.None, false);
+    hirelingTween[i].onComplete.add(function (){
       hireling2.animations.play("idle");
     }, this);
-    tween.start();
+    hirelingTween[i].start();
     hireling2.animations.play("walk");
   }
 }
+}
 
-function createEmployee(){
+function createEmployee(totalEmployee){
+  for(var i = 0; i<totalEmployee; i++)
+  {
   console.log("CREATING EMPLOYEE");
   if(coinFlip() < 1){
+    var employee1;
     if(coinFlip() < 1){
       employee1 = characterLayer.create(-30,410, "characters");
       employee1.anchor.setTo(0.5);
@@ -190,14 +208,16 @@ function createEmployee(){
     employee1.animations.add("walk", [48,49,50,51,52,53], 10, true);
     employee1.animations.add("idle", [54,55,56,57,58,59], 2, true);
 
-    tween = clientGame.add.tween(employee1).to({ x: randPos() }, 5000, Phaser.Easing.Linear.None, false);
-    tween.onComplete.add(function (){
+    employeeTween[i] = clientGame.add.tween(employee1).to({ x: randPos() }, 5000, Phaser.Easing.Linear.None, false);
+    employeeTween[i].onComplete.add(function (){
       employee1.animations.play("idle");
     }, this);
-    tween.start();
+    employeeTween[i].start();
     employee1.animations.play("walk");
   }
   else{
+    var employee2;
+
     if(coinFlip() < 1){
       employee2 = characterLayer.create(-30,410, "characters");
       employee2.anchor.setTo(0.5);
@@ -211,11 +231,12 @@ function createEmployee(){
     employee2.animations.add("walk", [60,61,62,63,64,65], 10, true);
     employee2.animations.add("idle", [66,67,68,69,70,71], 2, true);
 
-    tween = clientGame.add.tween(employee2).to({ x: randPos() }, 5000, Phaser.Easing.Linear.None, false);
-    tween.onComplete.add(function (){
+    employeeTween[i] = clientGame.add.tween(employee2).to({ x: randPos() }, 5000, Phaser.Easing.Linear.None, false);
+    employeeTween[i].onComplete.add(function (){
       employee2.animations.play("idle");
     }, this);
-    tween.start();
+    employeeTween[i].start();
     employee2.animations.play("walk");
   }
+}
 }
