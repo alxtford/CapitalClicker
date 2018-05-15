@@ -1,10 +1,10 @@
-// var hireling1;
+var hireling =[];
 // var hireling2;
 //
-// var employee1;
+var employee = [];
 // var employee2;
 //
-// var trader1;
+var trader = [];
 // var trader2;
 
 var chicken;
@@ -109,6 +109,8 @@ function createTrader(totalTrader){
     }, this);
     traderTween[i].start();
     trader1.animations.play("walk");
+    trader.push(trader1);
+
   }
   else{
     var trader2;
@@ -131,6 +133,8 @@ function createTrader(totalTrader){
     }, this);
     traderTween[i].start();
     trader2.animations.play("walk");
+    trader.push(trader2);
+
   }
 }
 }
