@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.12.0
+version: v1.13.1
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -49,3 +49,18 @@ patch:
         patched: '2018-06-28T08:08:43.788Z'
     - npm-check-updates > npmi > npm > request > tunnel-agent:
         patched: '2018-06-28T08:08:43.788Z'
+  'npm:debug:20170905':
+    - npm-check-updates > npm > node-gyp > path-array > array-index > debug:
+        patched: '2018-12-08T06:44:19.705Z'
+    - npm-check-updates > npmi > npm > node-gyp > path-array > array-index > debug:
+        patched: '2018-12-08T06:44:19.705Z'
+  'npm:lodash:20180130':
+    - npm > cli-table2 > lodash:
+        patched: '2018-12-08T06:44:19.705Z'
+    - npm > npm-audit-report > cli-table2 > lodash:
+        patched: '2018-12-08T06:44:19.705Z'
+  'npm:ms:20170412':
+    - npm-check-updates > npm > node-gyp > path-array > array-index > debug > ms:
+        patched: '2018-12-08T06:44:19.705Z'
+    - npm-check-updates > npmi > npm > node-gyp > path-array > array-index > debug > ms:
+        patched: '2018-12-08T06:44:19.705Z'
