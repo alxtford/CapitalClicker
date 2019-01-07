@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/alxtford/CapitalClicker#readme",
   "dependencies": {
-    "@google/maps": "^0.4.6",
+    "@google/maps": "^0.5.0",
     "cloudant": "^1.10.0",
     "crypto-js": "^3.1.9-1",
     "express": "^4.16.3",
