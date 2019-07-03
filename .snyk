@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.3
+version: v1.13.5
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -124,3 +124,6 @@ patch:
         patched: '2018-12-08T06:44:19.705Z'
     - npm-check-updates > npmi > npm > node-gyp > path-array > array-index > debug > ms:
         patched: '2018-12-08T06:44:19.705Z'
+  SNYK-JS-LODASH-450202:
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2019-07-03T21:45:32.123Z'
