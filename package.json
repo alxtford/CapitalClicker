@@ -39,7 +39,7 @@
     "npm-check-updates": "^2.15.0",
     "request": "^2.87.0",
     "serve-favicon": "^2.5.0",
-    "snyk": "^1.124.1",
+    "snyk": "^1.290.1",
     "socket.io": "^2.2.0"
   },
   "snyk": true
