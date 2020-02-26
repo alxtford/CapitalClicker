@@ -36,7 +36,7 @@
     "geolib": "^2.0.24",
     "nearby-big-cities": "^1.0.0",
     "npm": "^6.6.0",
-    "npm-check-updates": "^2.15.0",
+    "npm-check-updates": "^4.0.2",
     "request": "^2.87.0",
     "serve-favicon": "^2.5.0",
     "snyk": "^1.124.1",
